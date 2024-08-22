@@ -1,0 +1,38 @@
+export function PoliticaPrivacidad() {
+  return (
+    <div className="min-h-screen pt-20 pb-10 bg-slate-950">
+        <div className="container flex flex-col gap-8 p-4 mx-auto text-sm text-justify text-white font-montserrat">
+            <h1 className="mt-8 text-4xl text-center text-gray-100 uppercase font-montserrat">Politica de Privacidad</h1>
+            <p className="mt-8">Esta Política de Privacidad describe cómo GameListWeb (web creada por Daniel González González) recopila, utiliza y protege la información personal que usted proporciona cuando utiliza nuestro sitio web.</p>
+            <section>
+                <header className="mb-2 font-bold">1. Información que Recopilamos:</header>
+                <p>Cuando se registra en nuestro sitio web, recopilamos su dirección de correo electrónico. Estos datos son necesarios para proporcionarle una experiencia personalizada en nuestro sitio.</p>
+            </section>
+            <section>
+                <header className="mb-2 font-bold">2. Uso de la Información:</header>
+                <p>Utilizamos la información proporcionada exclusivamente para el correcto funcionamiento de nuestro sitio web. No compartimos esta información con terceros ni la utilizamos con fines de marketing.</p>
+            </section>
+            <section>
+                <header className="mb-2 font-bold">3. Seguridad de los Datos:</header>
+                <p>Implementamos medidas de seguridad adecuadas para proteger sus datos personales y garantizar que estén seguros.</p>
+            </section>
+            <section>
+                <header className="mb-2 font-bold">4. Cookies y Tecnologías de Rastreo:</header>
+                <p>En nuestro sitio web es posible que te utilicen cookies o tecnologías similares para mejorar la experiencia del usuario.</p>
+            </section>
+            <section>
+                <header className="mb-2 font-bold">5. Derechos de los Sujetos de Datos:</header>
+                <p>Usted tiene derecho a acceder, rectificar o eliminar sus datos personales. Para ejercer estos derechos o para cualquier pregunta relacionada con sus datos, contáctenos a través de dgongon.cec@gmail.com.</p>
+            </section>
+            <section>
+                <header className="mb-2 font-bold">6. Cambios en esta Política:</header>
+                <p>Esta Política de Privacidad puede actualizarse ocasionalmente para reflejar cambios en nuestras prácticas de recopilación y uso de datos. Le notificaremos sobre cambios significativos a través de nuestro sitio web o por correo electrónico.</p>
+            </section> 
+            <section>
+                <header className="mb-2 font-bold">7. Cumplimiento de la Legislación Española y Europea:</header>
+                <p>{'Los puntos anteriores se establecen con el objetivo de cumplir con todas las leyes y regulaciones de protección de datos en la Unión Europea y España, incluido el Reglamento General de Protección de Datos (RGPD) y la Ley Orgánica de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD). Puede consultar dichas leyes para obtener más información.'}</p>
+            </section>            
+        </div>
+    </div>
+  )
+}

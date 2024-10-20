@@ -1,43 +1,24 @@
 import React from 'react'
+import { scrollToTop } from '../../../no-components/constants';
 
-export default function ImagesHeadAddToGameList({gamesBDByPlatform}) {
+export default function ImagesHeadAddToGameList({ gamesBDByPlatform }) {
+  // Limitar la cantidad de juegos a mostrar a un máximo de 4
+  const displayedGames = gamesBDByPlatform.slice(0, 4);
+
   return (
-    <div className="flex">
-      {/* Imagen 1 - mostrando la mitad central */}
-      <div className="w-1/4 h-32 overflow-hidden rounded-l-lg sm:h-60">
-        <img 
-          className="object-cover w-[200%] h-full object-center" 
-          src={gamesBDByPlatform[Math.floor(Math.random() * gamesBDByPlatform.length)]?.url[0] ?? gamesBDByPlatform[Math.floor(Math.random() * gamesBDByPlatform.length)]?.imageUrl} 
-          alt="No hay imagen" 
-        />
-      </div>
-
-      {/* Imagen 2 - mostrando la mitad central */}
-      <div className="w-1/4 h-32 overflow-hidden sm:h-60">
-        <img 
-          className="object-cover w-[200%] h-full object-center" 
-          src={gamesBDByPlatform[Math.floor(Math.random() * gamesBDByPlatform.length)]?.url[0] ?? gamesBDByPlatform[Math.floor(Math.random() * gamesBDByPlatform.length)]?.imageUrl} 
-          alt="No hay imagen" 
-        />
-      </div>
-
-      {/* Imagen 3 - mostrando la mitad central */}
-      <div className="w-1/4 h-32 overflow-hidden sm:h-60">
-        <img 
-          className="object-cover w-[200%] h-full object-center" 
-          src={gamesBDByPlatform[Math.floor(Math.random() * gamesBDByPlatform.length)]?.url[0] ?? gamesBDByPlatform[Math.floor(Math.random() * gamesBDByPlatform.length)]?.imageUrl} 
-          alt="No hay imagen" 
-        />
-      </div>
-
-      {/* Imagen 4 - mostrando la mitad central */}
-      <div className="w-1/4 h-32 overflow-hidden rounded-r-lg sm:h-60">
-        <img 
-          className="object-cover w-[200%] h-full object-center" 
-          src={gamesBDByPlatform[Math.floor(Math.random() * gamesBDByPlatform.length)]?.url[0] ?? gamesBDByPlatform[Math.floor(Math.random() * gamesBDByPlatform.length)]?.imageUrl} 
-          alt="No hay imagen" 
-        />
-      </div>
-    </div>
+    <button onClick={scrollToTop} className="flex w-full overflow-hidden transition duration-500 hover:opacity-75">
+      {displayedGames.map((game, index) => (
+        <div
+          key={index}
+          className={`flex-1 h-32 overflow-hidden ${index === 0 ? 'rounded-l-lg' : ''} ${index === displayedGames.length - 1 ? 'rounded-r-lg' : ''} lg:h-60`}
+        >
+          <img
+            className="object-cover object-center w-full h-full"
+            src={game?.url?.[0] ?? game?.imageUrl ?? 'URL_DE_IMAGEN_PREDIMINADA'}
+            alt="No hay imagen"
+          />
+        </div>
+      ))}
+    </button>
   );
-};
+}

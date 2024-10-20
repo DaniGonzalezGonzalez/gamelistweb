@@ -55,7 +55,9 @@ export function AddContent() {
                 </div> */}
                 <div className="flex flex-col gap-2">
                   <label htmlFor="plataforma" className="block font-medium text-white font-montserrat">Plataforma</label>
-                  <PlatformSelect/>
+                  {/* <PlatformSelect/> */}
+                  <input className="p-2 border rounded resize-none" name="plataforma" id="plataforma" placeholder="Añadir plataformas"></input>
+
                   {/* <select className="p-2 border rounded" name="plataforma" id="plataforma">
                     <option value="PS3">PS3</option>
                     <option value="PS4">PS4</option>

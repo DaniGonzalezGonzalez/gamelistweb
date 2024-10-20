@@ -1,43 +1,43 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useMemo, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { UserContext } from "../../../context/UserContext"
-import { useEditGameToList } from "../../../hooks/useEditGameToList"
-import { cleanTitle, GET_COLOR_CLASS, scrollToTop, totalTiempoMainStory } from "../../helpers/no-components/constants"
-import { DeleteIcon } from "../../../assets/Icons/DeleteIcon"
-import { EditIcon } from "../../../assets/Icons/EditIcon"
+import { getDocumentsWithFilter } from "../../../api/supabase/cloud-supabase"
+import { useHandlePlatformMenus, useHandles } from "../../../hooks/useHandles"
+import { cleanTitle, GET_COLOR_CLASS, GET_STATE_BACKGROUND, scrollToTop, totalTiempoMainStory } from "../../helpers/no-components/constants"
 import { ScrollToTopButton } from "../../helpers/components/Menus&IndexHelpers/ScrollToTopButton"
-import { getDocuments } from "../../../api/supabase/cloud-supabase"
-import { fetchPlatformImages } from "../../../hooks/useFetchsPlatforms"
-import { useHandles } from "../../../hooks/useHandles"
-
+import { GET_STATE_ICON, useDebounce } from "../../helpers/no-components/constantsComponents"
+import { ChooseAddGamesMenuFlotante } from "../../helpers/components/Utils/ChooseAddGamesMenuFlotante"
 
 export function EditGametoList() {
   const [dataBD, setDataBD] = useState([])
   const [contenido, setContenido] = useState({})
   const [error, setError] = useState(null)
-  const [option, setOption] = useState('Juegos')
   const [fechaActualizacion, setFechaActualizacion] = useState("")
-  const [editingItem, setEditingItem] = useState(null)
-  const [isSaving, setIsSaving] = useState(false)
-  const [selectedImage, setSelectedImage] = useState(null);
-
+  const [selectedImage, setSelectedImage] = useState(null)
+  const [shouldFetchData, setShouldFetchData] = useState(false)
+  const [noGamesLoaded, setNoGamesLoaded] = useState(false)
   const [sortBy, setSortBy] = useState('titulo')
   const [sortDirection, setSortDirection] = useState('asc')
   const [searchTerm, setSearchTerm] = useState('')
-  const [itemsToShow, setItemsToShow] = useState(10);
-  const navigate = useNavigate() // Usa useNavigate
+  const [itemsToShow, setItemsToShow] = useState(10)
+
+  const navigate = useNavigate()
   const { user } = useContext(UserContext)
-  const { handleSubmit, tituloRef, handleDelete, isLoading } = useEditGameToList(contenido.idDoc, option, 'completa')
-  const { handleGuardarContenido, handleEditarContenido } = useHandles(handleSubmit, setContenido, setFechaActualizacion, setEditingItem, setItemsToShow, itemsToShow, contenido)
-
-  const [platformImages, setPlatformImages] = useState({});
+  const { chooseAddGamesMenuOpen, handleAddGameMenu } = useHandlePlatformMenus()
+  const debouncedSearchTerm = useDebounce(searchTerm, 300)
   
-  const [shouldFetchData, setShouldFetchData] = useState(false); // Nuevo estado para controlar la recarga
-
   const fetchData = async () => {
     try {
-      const datos = await getDocuments(option)
+      const filters = [
+        { field: 'infouser', value: user.email },
+      ];
+      const datos = await getDocumentsWithFilter('Juegos', filters)
       setDataBD(datos)
+      if (datos.length === 0) {
+        setNoGamesLoaded(true)
+      } else {
+        setNoGamesLoaded(false)
+      }
     } catch (error) {
       setError("Error al cargar los datos")
     }
@@ -46,14 +46,11 @@ export function EditGametoList() {
   const handleShowMore = () => {
     setItemsToShow(prevItemsToShow => prevItemsToShow + 8) // Añadir 2 elementos adicionales cada vez que se presiona
   }
+
   const handleShowLess = () => {
     if (itemsToShow > 8) {
       setItemsToShow(prevItemsToShow => Math.max(prevItemsToShow - 8, 8)) // Quitar 8 elementos adicionales o dejar al menos 1
     }  
-  }
-
-  const handleRecargar = () => {
-    setShouldFetchData(true); // Cambiar el estado para indicar que se necesita recargar
   }
 
   const handleChange = (e) => {
@@ -61,83 +58,93 @@ export function EditGametoList() {
     setContenido({
         ...contenido,
         [name]: value
-    });
+    })
     // Si el nombre del campo es "estado", actualiza la fecha de actualización
     if (name === 'estado' || name ==='notaJuego') {
         // Obtener la fecha y hora actuales
-        const currentDateTime = new Date();
-        // Formatear la fecha a un string legible
-        const formattedDateTime = currentDateTime.toISOString();
+        const currentDateTime = new Date()
+        const formattedDateTime = currentDateTime.toISOString()
 
-        // Establecer la fecha de actualización en el estado
-        setFechaActualizacion(formattedDateTime);
+        setFechaActualizacion(formattedDateTime)
     }
-}
+  }
 
   useEffect(() => {   
     fetchData()
     const handleDataChanged = () => {
       fetchData()
     }      
-    document.addEventListener('data-changed', handleDataChanged);
+    document.addEventListener('data-changed', handleDataChanged)
     return () => {
-      document.removeEventListener('data-changed', handleDataChanged);
+      document.removeEventListener('data-changed', handleDataChanged)
     }
-  }, []);
+  }, [])
 
-  const sortedData = dataBD.sort((a, b) => {
-    if (sortBy === 'fechaActualizacion') {
-      return sortDirection === 'asc' ? b.fechaActualizacion.localeCompare(a.fechaActualizacion) : a.fechaActualizacion.localeCompare(b.fechaActualizacion);
-    } else if (sortBy === 'plataforma') {
-      return sortDirection === 'asc' ? a.plataforma.localeCompare(b.plataforma) : b.plataforma.localeCompare(a.plataforma);
-    } else if (sortBy === 'notaJuego') {
-      return sortDirection === 'asc' ? parseFloat(a.notaJuego) - parseFloat(b.notaJuego) : parseFloat(b.notaJuego) - parseFloat(a.notaJuego);
-    } else {
-      return sortDirection === 'asc' ? a[sortBy].localeCompare(b[sortBy]) : b[sortBy].localeCompare(a[sortBy]);
-    }
-  })
-  .filter(item => 
-    (item.estado === 'Jugando' || item.estado === 'Proximo' || item.estado === 'Recién terminado' || item.estado === 'En lista' || item.estado === 'Terminado' || item.estado === 'Completando' || item.estado === 'Lista de deseos' || item.estado === 'Rejugar' || item.estado === 'Pausado' || item.estado === 'Abandonado') && item.infouser === user.email
-  )
-  .filter((item, index) => index < itemsToShow) // Controlar cuántos elementos mostrar
-  .filter((item) => item.titulo.toLowerCase().includes(searchTerm.toLowerCase()))
-
+  const preSortedData = useMemo(() => {
+    return dataBD
+      .sort((a, b) => {
+        if (sortBy === 'fechaActualizacion') {
+          return sortDirection === 'asc'
+            ? b.fechaActualizacion.localeCompare(a.fechaActualizacion)
+            : a.fechaActualizacion.localeCompare(b.fechaActualizacion);
+        } else if (sortBy === 'plataforma') {
+          return sortDirection === 'asc'
+            ? a.plataforma.localeCompare(b.plataforma)
+            : b.plataforma.localeCompare(a.plataforma);
+        } else if (sortBy === 'notaJuego') {
+          return sortDirection === 'asc'
+            ? parseFloat(a.notaJuego) - parseFloat(b.notaJuego)
+            : parseFloat(b.notaJuego) - parseFloat(a.notaJuego);
+        } else {
+          return sortDirection === 'asc'
+            ? a[sortBy].localeCompare(b[sortBy])
+            : b[sortBy].localeCompare(a[sortBy]);
+        }
+      })
+      .filter(
+        (item) =>
+          (item.estado === 'Jugando' ||
+            item.estado === 'Proximo' ||
+            item.estado === 'Recién terminado' ||
+            item.estado === 'En lista' ||
+            item.estado === 'Terminado' ||
+            item.estado === 'Completando' ||
+            item.estado === 'Lista de deseos' ||
+            item.estado === 'Otra vez' ||
+            item.estado === 'Pausado' ||
+            item.estado === 'Abandonado') &&
+          item.infouser === user.email
+      );
+  }, [dataBD, sortBy, sortDirection, user.email]);
+  
+  const sortedData = useMemo(() => {
+    return preSortedData
+      .filter((item, index) => index < itemsToShow) // Controlar cuántos elementos mostrar
+      .filter((item) => item.titulo.toLowerCase().includes(searchTerm.toLowerCase()));
+  }, [preSortedData, itemsToShow, searchTerm])
 
   const handleTitleClick = (gameId) => {
     scrollToTop()
     navigate(`/game/${'Juegos'}/${gameId}`)
   }
 
-      // Manejar el cambio en los select y deshabilitar el botón
-      const handleChangeWithTimeOut = (e) => {
-        handleChange(e)
-        setIsSaving(true)
-        setTimeout(() => {
-          setIsSaving(false)
-        }, 2000) // 2 segundos de espera
-      };
-        // useEffect para cargar la imagen solo una vez al montar el componente
+ 
   useEffect(() => {
-    if (dataBD.length > 0) {
-      const randomIndex = Math.floor(Math.random() * dataBD.length);
-      const randomImage = dataBD[randomIndex]?.imageUrl ?? dataBD[randomIndex]?.url[0];
-      setSelectedImage(randomImage);
-    }
-  }, [dataBD]);
+      if (preSortedData.length > 0) {
+        const randomIndex = Math.floor(Math.random() * preSortedData.length);
+        const randomImage = preSortedData[randomIndex]?.imageUrl ?? preSortedData[randomIndex]?.url[0];
+        setSelectedImage(randomImage);
+      }     
+  }, [preSortedData]);
+
 
   useEffect(() => {
     if (shouldFetchData) {
       fetchData();
-      setShouldFetchData(false); // Resetear estado para evitar recarga infinita
+      setShouldFetchData(false) // Resetear estado para evitar recarga infinita
     }
-  }, [shouldFetchData]);
+  }, [shouldFetchData])
   
-
-  useEffect(() => {
-    if (sortedData.length > 0) {
-      fetchPlatformImages(sortedData, setPlatformImages);
-    }
-  }, [sortedData]);
 
 
   return (
@@ -145,44 +152,36 @@ export function EditGametoList() {
     { user.id && 
       <div>
         {error && (<div className="items-center justify-center h-screen"><span className="text-xl text-gray-900 font-montserrat">{error.message}</span></div>)}
-        {/* <div className="min-h-screen p-4 pt-20 pb-10 bg-gray-900"> */}
-          {/* Prueba con imagen de fondo local */}
-          <div className="min-h-screen p-4 pt-20 pb-10" style={{ backgroundImage: `url("/Imagen-fondo-colecciones.jpg")`, backgroundSize: 'cover', backgroundPosition: 'center'}} >
-          <div className="flex flex-col justify-center w-full text-center bg-transparent pt-14 sm:pt-28">
+        <div className="min-h-screen pb-10 bg-gray-950">
+          <div className={`flex flex-col justify-center w-full p-4 text-center animate-bg-animation pt-28 sm:pt-10 lg:pt-32`}>
               <div className="relative flex justify-center mb-5">
                 <div className="w-80 sm:w-96">
-                  <div className="relative border-2 border-gray-300 rounded-lg w-80 sm:w-96">
-                    {/* <img className="object-cover w-full h-32 rounded-lg sm:h-60" src={dataBD[Math.floor(Math.random()*(dataBD.length))]?.imageUrl?? dataBD[Math.floor(Math.random()*(dataBD.length))]?.url[0] } alt="No hay imagen" /> */}
-                    <img className="object-cover w-full h-32 rounded-lg sm:h-60" src={selectedImage} alt='Cargando...' />
-                    <div className="absolute inset-0 bg-black rounded-lg opacity-60"></div>
+                  <div className="relative w-80 sm:w-96">
+                    <img className="object-cover w-full h-32 border-2 rounded-lg animate-border-animation sm:h-28 lg:h-60"  src={selectedImage} alt='Cargando...' />
+                    <div className="absolute inset-0 bg-black border-2 border-opacity-100 rounded-lg opacity-60"></div>
                      <h2 className="absolute inset-0 flex items-center justify-center p-3 text-lg font-semibold text-center text-white uppercase sm:text-3xl">
-                      Todos tus juegos
+                      Todos mis juegos
                     </h2> 
                     <div className="absolute inset-0 flex items-end justify-start p-3 font-semibold text-center text-white">
                       <div className="flex justify-start w-full gap-2 font-thin text-white sm:w-80">
-                          <div className="flex items-center justify-center gap-1 pr-2 text-xs border-r"><span className="font-bold">{dataBD.length}</span> <div className="uppercase">JUEGOS</div></div>
-                          <div className="flex items-center justify-center gap-1 text-xs"><span className="font-bold">{totalTiempoMainStory(dataBD)}</span> <div className="uppercase">Horas</div></div>                        
+                          <div className="flex items-center justify-center gap-1 pr-2 text-xs border-r"><span className="font-bold">{preSortedData.length}</span> <div className="uppercase">JUEGOS</div></div>
+                          <div className="flex items-center justify-center gap-1 text-xs"><span className="font-bold">{totalTiempoMainStory(preSortedData)}</span> <div className="uppercase">Horas</div></div>                        
                         </div>
-                      {/* <div className="text-xs sm:text-base">{platform}</div> */}
                     </div>
                   </div>
                 </div>
               </div>          
           </div>
 
-          <div className="w-full">
-            {/* <select hidden name="tipoContenido" id="tipo-contenido"  className="p-2 border rounded" onChange={handleOption}>
-              <option value="Juegos">Juegos de mi lista</option>
-            </select> */}
-            {/* <h2 className="p-3 my-4 text-4xl text-gray-100 uppercase">Todos los juegos</h2> */}
-            <div className="flex justify-around h-6 sm:justify-between my-14 sm:ml-10"><input type="text" placeholder="Buscar por título" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-24 p-1 text-xs text-white placeholder-white bg-gray-700 border-2 rounded appearance-none sm:40 sm:p-2 sm:w-52 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"/>
-              <div className="grid items-center gap-4 text-xs">
-                <select className="bg-gray-300 rounded w-14 sm:w-28" value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+          <div className="container px-4 pb-8 mx-auto">
+            <div className="flex justify-between h-6 mx-3 lg:mx-6 my-14"><input type="text" placeholder="Buscar por título" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-32 p-1 py-4 pl-2 text-xs text-white placeholder-white bg-gray-700 border-2 appearance-none rounded-xl sm:40 sm:p-4 sm:w-52 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"/>
+              <div className="flex flex-col items-end gap-4 text-xs">
+                <select className="w-32 bg-gray-300 rounded sm:w-32" value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
                   <option value="titulo">Título</option>
                   <option value="estado">Estado</option>
                   <option value="plataforma">Plataforma</option>
-                  <option value="fechaActualizacion">Fecha de actualización</option>
-                  <option value="notaJuego">Nota</option>
+                  {/* <option value="fechaActualizacion">Fecha de edición</option> */}
+                  {/* <option value="notaJuego">Nota</option> */}
                 </select>
                 <div className="flex flex-col gap-1">
                   <div className="text-white">
@@ -196,91 +195,10 @@ export function EditGametoList() {
               </div>
             </div>
             
-            <div className="grid grid-cols-2 gap-6 px-5 py-5 mx-auto xs:px-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+            <div className="grid grid-cols-2 gap-6 px-3 py-5 mx-auto lg:px-5 xs:px-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
               {sortedData.map((item, index) => (
                 <div key={index} className="flex justify-center rounded">
-                  {
-                    (editingItem === item && (item?.infouser === user.email)) ?
-                    <form className="w-full" onSubmit={handleGuardarContenido}>
-                      <div>
-                        <div>
-                          <label className="hidden pb-1 font-medium text-white font-montserrat" htmlFor="titulo">Titulo</label>
-                          <input ref={tituloRef} className="hidden w-full p-2 text-sm rounded" type="text" name="titulo" id="titulo" placeholder="Título" value={contenido.titulo} readOnly/>
-                        </div>
-                      </div>
-                      <div className="flex justify-center w-full gap-10 mb-10 text-lg font-bold text-gray-800 rounded">
-                        <div className="h-full w-80 sm:w-56 xl:w-48 2xl:w-60">
-                          <div className="relative flex items-center justify-center gap-3 shadow-md sm:flex hover:rounded-lg">
-                              <img className="object-cover w-full transition duration-500 ease-in-out border-2 border-transparent rounded-lg h-36 xl:h-48 2xl:h-52 hover:border-2 hover:rounded-lg hover:border-gray-300" src={item?.imageUrl} alt="No hay imagen"></img>
-                              <img className="absolute object-contain w-8 h-8 p-1 bg-gray-200 rounded-lg shadow right-2 bottom-2 shadow-black" src={platformImages[item.plataforma]} alt="No hay imagen" title={`Plataforma: ${item?.plataforma || 'Sin plataforma especificada'}`}></img>
-                          </div>
-                          <div className="relative z-10 w-full">
-                                  <div className="flex justify-between gap-8 pt-3 pb-1 text-justify">
-                                    <p className="text-xs text-white text-start">{cleanTitle(item?.titulo)}</p>
-                                  </div>
-                                  <div className="pb-3">
-                                    <p className="text-xs text-white uppercase descripcion text-start">{item?.descripcion}</p>
-                                  </div>
-                                <div className="flex flex-col justify-between w-full gap-2">
-                                  <div className='flex flex-col gap-2'>
-                                    <label htmlFor="estado" className="block text-xs text-white font-montserrat">Estado del juego</label>
-                                    <select className="w-full px-2 py-1 text-xs border rounded" name="estado" id="estado" value={contenido.estado} onChange={handleChangeWithTimeOut}>
-                                          <option value='Jugando'>Jugando</option>
-                                          {/* <option value='Proximo'>Próximo</option> */}
-                                          <option value='En lista'>En lista</option>
-                                          {/* <option value='Recién terminado'>Recién terminado</option> */}
-                                          <option value='Terminado'>Terminados</option>
-                                          <option value='Completando'>Completando</option>  
-                                          <option value='Lista de deseos'>Lista de deseos</option>
-                                          <option value='Rejugar'>Rejugar</option>  
-                                          <option value='Pausado'>Pausado</option>  
-                                          <option value='Abandonado'>Abandonado</option>  
-                                    </select>
-                                  </div>
-                                  <div className="flex items-end justify-between gap-3">
-                                    <div className='flex flex-col gap-1'>
-                                      <label htmlFor="notaJuego" className="block mt-2 text-xs text-white">Nota</label>
-                                      <select className="w-full px-2 py-1 text-xs bg-gray-300 rounded" name="notaJuego" id="notaJuego" value={contenido.notaJuego} onChange={handleChangeWithTimeOut}>
-                                            {/* <option className="text-sm text-gray-900 bg-gray-100" value=''>-</option> */}
-                                            {/* <option className="text-sm text-white bg-red-900" value='0'>0</option> */}
-                                            <option className="text-sm text-white bg-red-900" value='1'>1</option>
-                                            <option className="text-sm text-white bg-red-900" value='2'>2</option>  
-                                            <option className="text-sm text-white bg-red-900" value='3'>3</option>  
-                                            <option className="text-sm text-white bg-red-900" value='4'>4</option>    
-                                            <option className="text-sm text-white bg-orange-700" value='5'>5</option>
-                                            <option className="text-sm text-white bg-orange-500" value='5.5'>5.5</option>  
-                                            <option className="text-sm text-gray-900 bg-yellow-400" value='6'>6</option>  
-                                            <option  className="text-sm text-gray-900 bg-yellow-200" value='6.5'>6.5</option>  
-                                            <option  className="text-sm text-gray-900 bg-green-200" value='7'>7</option>
-                                            <option className="text-sm text-gray-900 bg-green-300" value='7.5'>7.5</option>  
-                                            <option className="text-sm text-gray-900 bg-green-400" value='8'>8</option>  
-                                            <option className="text-sm text-gray-900 bg-green-500" value='8.5'>8.5</option> 
-                                            <option className="text-sm text-white bg-green-700" value='9'>9</option>
-                                            <option className="text-sm text-white bg-green-800" value='9.5'>9.5</option>  
-                                            <option className="text-sm text-white bg-green-900" value='10'>10</option>  
-                                      </select>
-                                    </div>     
-                                    <div className='flex items-end justify-center w-1/3 gap-3 pt-1'>
-                                    <button onClick={handleRecargar} disabled={isLoading || isSaving} className={`px-2 py-1 text-xs text-center text-white rounded-sm ${isLoading ? 'bg-gray-400' : (isSaving ? 'bg-gray-700' : 'bg-green-700')} ${!isLoading && !isSaving ? 'hover:bg-green-600' : ''}`}>{isLoading || isSaving ? <div className="spinner-icon"></div> : 'Guardar'}
-                                      </button>
-                                    </div>
-                                  </div>
-                                </div>
-                          </div>
-                          {/* Campo oculto para enviar la fecha de actualización */}
-                          <input type="hidden" name="fechaActualizacion" value={fechaActualizacion} />
-                              
-                          {error && (<div className="max-w-3/4"><strong className="block w-full p-2 text-center bg-red-500 rounded">{error?.message}</strong></div>
-                          )}
-                        </div>
-                      </div>
-                    </form> 
-                    
-                    
-                    :
-
-
-                    
+                  {        
                     <div className="w-full">
                       {(item?.infouser === user.email) && 
                       <div>
@@ -288,8 +206,8 @@ export function EditGametoList() {
                           <div className="h-full w-80 sm:w-56 xl:w-48 2xl:w-60">
                               {/* Imagen del juego y plataforma */}
                               <button onClick={() => handleTitleClick(item.id)} className="relative flex items-center justify-center w-full gap-3 shadow-md sm:flex hover:rounded-lg">
-                                  <img className="object-cover w-full transition duration-500 ease-in-out border-2 border-transparent rounded-lg h-36 xl:h-48 2xl:h-52 hover:border-2 hover:rounded-lg hover:border-gray-300" src={item?.imageUrl} alt="No hay imagen"></img>
-                                  <img className="absolute object-contain w-8 h-8 p-1 bg-gray-200 rounded-lg shadow right-2 bottom-2 shadow-black" src={platformImages[item.plataforma]} alt="No hay imagen" title={`Plataforma: ${item?.plataforma || 'Sin plataforma especificada'}`}></img>
+                                  <img className="object-cover w-full h-40 transition duration-500 ease-in-out border-2 border-transparent rounded-lg xl:h-48 2xl:h-52 hover:border-2 hover:rounded-lg hover:border-gradient" src={item.imageUrl ?? item.url[0]} alt="No hay imagen"></img>
+                                  <img className="absolute object-contain w-8 h-8 p-1 bg-gray-200 rounded-lg shadow right-2 bottom-2 shadow-black" src={`/platformImages/${item.plataforma.replace(/\s+/g, '-').trim()}-Logo.webp`} alt="No hay imagen" title={`Plataforma: ${item?.plataforma || 'Sin plataforma especificada'}`}></img>
                               </button>
                               <div className="w-full">
                                 {/* Información del título del juego */}
@@ -304,43 +222,74 @@ export function EditGametoList() {
 
                                 <div className="flex flex-col justify-between w-full gap-2">
                                   {/* Información del estado del juego */}
-                                  <div className="flex items-center justify-between gap-2">
-                                    <p className="text-xs text-gray-100 text-start">Estado: {item?.estado}</p>
-                                  </div>
+                                  <div className="flex items-center justify-between gap-2 pb-1">
+                                    <div  className={`text-xs rounded flex items-center gap-1 text-gray-100 text-start`}>
+                                      <div className={`${GET_STATE_BACKGROUND(item.estado)} p-0.5 rounded mr-1`}>{GET_STATE_ICON(item.estado, '4', '4')}</div><span className="text-[10px] lg:text-[11px] py-1 font-semibold">{item?.estado}</span></div>
 
-                                  {/* Botones de nota + editar + eliminar */}
-                                  <div className="flex items-center gap-3">
-                                    <div className="pr-2">
-                                      <p className={`text-xs text-gray-100 flex justify-center items-center rounded px-2 w-6 h-6 py-1 text-end ${GET_COLOR_CLASS(item?.notaJuego)}`}>{item?.notaJuego}</p>
+                                      <div className="pr-2">
+                                      {item?.notaJuego !== undefined && item?.notaJuego !== null && item.notaJuego !== '' && <p className={`text-xs text-gray-100 flex justify-center items-center rounded px-2 w-6 h-6 py-1 text-end ${GET_COLOR_CLASS(item?.notaJuego)}`}>{item?.notaJuego}</p>}
                                     </div>
-                                    <div className="flex items-center justify-center">
-                                      <button className="p-1 text-sm font-bold text-center text-white bg-green-500 rounded-lg hover:bg-green-600" onClick={() => handleEditarContenido(item)}><EditIcon/></button>
-                                    </div>
-                                    <div className='flex items-center justify-center gap-3 md:mt-0'>
-                                      <button onClick={() => handleDelete(item.id, item.titulo)} type="button" className={`text-white hover:text-white bg-gray-700 hover:bg-red-700 font-bold rounded-lg text-sm text-center p-1`}><DeleteIcon/></button>
-                                    </div>
-                                  </div>
-
+                                  </div>      
                                 </div>
                               </div>
+                            </div>
                           </div>
-                        </div>
-                      </div>}
-                    </div>
-                  }
+                        </div>}
+                      </div>
+                    }
+                  </div>
+                ))
+              }
+            </div>
+
+            {/* Mostrar mensaje cuando no se encuentren juegos filtrados */}
+            {debouncedSearchTerm.trim() !== "" && sortedData.length === 0 && (
+                <div className="flex flex-col items-center justify-center w-full pt-5">
+                  <img src="/Imagen-no-encontrado.webp" alt="No se encontraron juegos" className="w-20 h-20 mb-4"/>
+                  <p className="mt-4 text-sm font-semibold text-white lg:text-lg">¡No se encontraron juegos!</p>
                 </div>
-              ))}
-            </div>
+              )
+            }
+
+            { noGamesLoaded && 
+              <div className="flex flex-col items-center justify-center p-6 mt-20 mb-6 bg-gray-800 border-2 border-gray-600 border-dashed rounded-lg">
+                <img src="/Imagen-no-encontrado.webp" alt="No hay juegos" className="w-20 h-20 mb-4"/>
+                <h3 className="mb-4 text-lg font-semibold text-gray-300">
+                  ¡No tienes juegos en tus colecciones!
+                </h3>
+                <p className="mb-4 text-gray-400">Agrega tus juegos y empieza tu colección.</p>
+                <button
+                  onClick={handleAddGameMenu}
+                  className="flex items-center px-4 py-2 text-sm font-medium text-white transition duration-300 bg-purple-600 rounded-lg hover:bg-purple-700"
+                >
+                  Agregar Juegos
+                  <span className="ml-2">➕</span>
+                </button>
+              </div>            
+            }
+
+          {chooseAddGamesMenuOpen && <ChooseAddGamesMenuFlotante chooseAddGamesMenuOpen={chooseAddGamesMenuOpen} handleAddGameMenu={handleAddGameMenu}/>}
             
-            {/* Botones de Mostrar más y mostrar menos */}
-            <div className="flex justify-end gap-2">
-              <div className="flex justify-center">
-                <button onClick={handleShowMore} className="px-3 py-1 text-xs text-center text-white bg-gray-600 rounded hover:text-white hover:bg-blue-400">Mostrar más</button>
+          {/* Botones de Mostrar más y mostrar menos */}
+          { sortedData.length >= 1 && 
+          <div className="flex flex-col items-end justify-end gap-4">
+              <div className="flex gap-2">
+                <div className="flex justify-center">
+                  <button onClick={handleShowMore} className="px-3 py-1 text-xs text-center text-white bg-gray-600 rounded hover:text-white hover:bg-blue-400">Mostrar más</button>
+                </div>
+                <div className="flex justify-center">
+                  <button onClick={handleShowLess} className={`px-3 py-1 text-xs text-center text-white bg-gray-600 rounded ${sortedData.length > 8 && 'hover:text-white hover:bg-red-400'}`} disabled={itemsToShow === 8}>Mostrar menos</button>
+                </div>
               </div>
-              <div className="flex justify-center">
-                <button onClick={handleShowLess} className={`px-3 py-1 text-xs text-center text-white bg-gray-600 rounded ${sortedData.length > 8 && 'hover:text-white hover:bg-red-400'}`} disabled={itemsToShow === 8}>Mostrar menos</button>
+
+              <div className="flex justify-end">
+                <button onClick={() => itemsToShow >= preSortedData.length ? setItemsToShow(8) : setItemsToShow(preSortedData.length)}
+                  className={`px-3 py-1 text-xs text-center text-white bg-gray-600 rounded hover:text-white ${itemsToShow >= sortedData.length ? 'hover:bg-red-400' : 'hover:bg-green-400'}`}>
+                  {itemsToShow >= preSortedData.length ? 'No mostrar todos' : 'Mostrar todos'}
+                </button>
               </div>
             </div>
+            }
            
           </div>
         </div>

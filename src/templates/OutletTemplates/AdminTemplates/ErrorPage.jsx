@@ -1,10 +1,10 @@
-import { Link, useRouteError } from "react-router-dom";
-import { HomeIcon } from "../../../assets/Icons/HomeIcon";
+import { Link, useRouteError } from "react-router-dom"
+import { HomeIcon } from "../../../assets/Icons/HomeIcon"
 
 export function ErrorPage() {
-  const error = useRouteError();
+  const error = useRouteError()
   const { data, status } = error
-  console.error(error);
+  console.error(error)
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-300">

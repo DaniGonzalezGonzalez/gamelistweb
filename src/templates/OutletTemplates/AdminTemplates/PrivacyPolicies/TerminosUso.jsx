@@ -1,9 +1,17 @@
 import { Link } from "react-router-dom";
+import { HomeIcon } from "../../../../assets/Icons";
+import { useUser } from "../../../../hooks/useUser";
 
 export function TerminosUso() {
+  const { user } = useUser()
+
   return (
-    <div className="min-h-screen pt-20 pb-10 bg-slate-950">
-        <div className="container flex flex-col gap-8 p-4 mx-auto text-sm text-justify text-white font-montserrat">
+    <div className="min-h-screen px-4 pt-20 pb-10 sm:pt-28 sm:px-10 bg-slate-950">
+        {!user.id && 
+          <div className="flex items-center justify-center w-10 mb-3">
+            <Link to='/'><div className="p-1 transition duration-500 bg-gray-200 rounded-lg hover:bg-gray-600"><HomeIcon/></div></Link>
+         </div>}
+        <div className="flex flex-col gap-8 p-4 text-xs text-justify text-gray-100 bg-gray-700 sm:text-sm rounded-2xl font-montserrat">
             <h1 className="mt-8 text-4xl text-center text-gray-100 uppercase font-montserrat">Términos de Uso</h1>
             <p className="mt-8">Estos Términos de Uso rigen el uso de GameListWeb (web creada por Daniel González González) y establecen las reglas y condiciones para el uso de nuestro sitio web.</p>
             <section>

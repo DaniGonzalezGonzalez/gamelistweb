@@ -1,94 +1,137 @@
-import { AbandonadoIcon, CheckIcon, CompleteIcon, PauseIcon, PlayIcon, ProximosIcon, StartIcon, UpdateIcon } from "../../../../assets/Icons";
+import { AbandonadoIcon, CheckIcon, CompleteIcon, DeleteIcon, PauseIcon, PlayIcon, ProximosIcon, StartIcon, UpdateIcon } from "../../../../assets/Icons"
 
 export function FAQCategories() {
-  return (
-    <div className="flex flex-col p-5 rounded-lg lg:gap-16 lg:p-20 lg:text-base bg-slate-100">
-    <h2 className="mb-10 text-xl font-bold uppercase">Categorías o colecciones</h2>
-    <div className="flex flex-col items-start justify-center gap-6">
-        <div className="flex items-center gap-3">
-            <h3 className="text-sm italic font-bold uppercase lg:text-base">Jugando</h3>
-            <div className="inline-block p-1 text-sm font-bold text-white bg-blue-400 rounded-lg shadow text-start shadow-black"><PlayIcon  w="4" h="4"/></div>
+
+return (
+  <div className="rounded-lg shadow-lg p-7 bg-slate-100">
+    <h2 className="mb-10 text-xl font-bold text-gray-800 uppercase">Estados o colecciones</h2>
+
+    {/* Categoría: Jugando */}
+    <div className="flex flex-col items-center gap-8 lg:p-6 sm:items-start sm:flex-row">
+      <div className="flex flex-col items-center justify-center w-full p-4 transition duration-300 bg-white shadow-lg rounded-2xl hover:bg-blue-50">
+        <div className="p-2 text-white bg-blue-400 rounded-full">
+          <PlayIcon w="6" h="6" />
         </div>
-        <p className="w-full text-xs italic text-justify lg:text-base">
-          Primera categoría destacada en la página principal, donde se muestran las imágenes de los juegos en mayor tamaño que el resto de categorías. En portada se presentan como máximo dos juegos activos, el resto está disponible en &quot;Ver Todos&quot;. Está diseñada para indicar los <span className="font-bold">juegos que te estás pasando actualmente</span>. Además, se podrá detallar si estás rejugándolo, en la opción de edición del juego, disponible en &quot;Ver Todos&quot;. Desde ahí, también podrás cambiar el estado de juego a otra categoría, o eliminarlo. Si está seleccionado <span className="font-bold">rejugando</span>, aparecerá un icono en la esquina inferior izquierda de la imagen del juego.
+        <h3 className="mt-2 text-sm italic font-bold uppercase lg:text-lg">Jugando</h3>
+        <p className="mt-1 text-xs text-justify text-gray-700 lg:text-base">
+          Destinada para indicar los <span className="font-bold">juegos que te estás pasando actualmente</span>.
         </p>
-        <div className="flex items-center justify-center w-full gap-3 text-xs lg:mt-8"><span>Icono de Rejugando</span>
-            <div className="p-1 text-white bg-green-700 rounded-lg shadow shadow-black"><UpdateIcon w="4" h="4"/></div>
-        </div>
+      </div>
     </div>
 
-    <div className="flex flex-col items-start justify-center gap-6 mt-10">
-        <div className="flex items-center gap-3">
-            <h3 className="text-sm italic font-bold uppercase lg:text-base">Completando</h3>
-            <div className="inline-block p-1 text-sm font-bold text-white bg-gray-700 rounded-lg shadow text-start shadow-black"><CompleteIcon  w="4" h="4"/></div>
+    {/* Categoría: Completando */}
+    <div className="flex flex-col items-center gap-8 mt-10 lg:p-6 sm:items-start sm:flex-row">
+      <div className="flex flex-col items-center justify-center w-full p-4 transition duration-300 bg-white shadow-lg rounded-2xl hover:bg-blue-50">
+        <div className="p-2 text-white bg-gray-700 rounded-full">
+          <CompleteIcon w="6" h="6" />
         </div>
-        <p className="w-full text-xs italic text-justify lg:text-base">
-          Subcategoría similar a la sección de Jugando. En portada se muestran como máximo cuatro juegos, el resto está disponible en &quot;Ver Todos&quot;. Está diseñada para indicar los <span className="font-bold">juegos que, una vez terminada la historia o campaña principal, se están completando con el objetivo de conseguir el 100%, trofeos, etc.</span> Se ubica inmediatemente debajo de Jugando en la página principal y, como en dicha categoría, podrás indicar si estás rejugándolo, en la opción de edición del juego, disponible en &quot;Ver Todos&quot;. Desde ahí, también podrás cambiar el estado de juego a otra categoría, o eliminarlo. Si está seleccionado <span className="font-bold">rejugando</span>, aparecerá un icono en la esquina inferior izquierda de la imagen del juego.
+        <h3 className="mt-2 text-sm italic font-bold uppercase lg:text-lg">Completando</h3>
+        <p className="mt-1 text-xs text-justify text-gray-700 lg:text-base">
+          Indica los <span className="font-bold">juegos que estás completando para conseguir el 100%</span>. Se ubica inmediatemente debajo de Jugando en la página principal. 
         </p>
-        <div className="flex items-center justify-center w-full gap-3 text-xs lg:mt-8"><span>Icono de Rejugando</span>
-            <div className="p-1 text-white bg-green-700 rounded-lg shadow shadow-black"><UpdateIcon w="4" h="4"/></div>
-        </div>
+      </div>
     </div>
 
-    <div className="flex flex-col items-start justify-center gap-6 mt-10">
-        <div className="flex items-center gap-3">
-            <h3 className="text-sm italic font-bold uppercase lg:text-base">Terminados</h3>
-            <div className="inline-block p-1 text-sm font-bold text-center text-white bg-green-600 rounded-lg shadow shadow-black"><CheckIcon w="4" h="4"/></div>
+    {/* Categoría: Terminados */}
+    <div className="flex flex-col items-center gap-8 mt-10 lg:p-6 sm:items-start sm:flex-row">
+      <div className="flex flex-col items-center justify-center w-full p-4 transition duration-300 bg-white shadow-lg rounded-2xl hover:bg-blue-50">
+        <div className="p-2 text-white bg-green-600 rounded-full">
+          <CheckIcon w="6" h="6" />
         </div>
-        <p className="w-full text-xs italic text-justify lg:text-base">
-          Segunda categoría de la página principal. En portada se muestran como máximo cuatro juegos, el resto está disponible en &quot;Ver Todos&quot;. Está diseñada para indicar los <span className="font-bold">juegos que has terminado</span>. Se podrá modificar el estado de juego a otra categoría, o eliminarlo, en la opción de edición del juego, disponible en &quot;Ver Todos&quot;.
+        <h3 className="mt-2 text-sm italic font-bold uppercase lg:text-lg">Terminados</h3>
+        <p className="mt-1 text-xs text-justify text-gray-700 lg:text-base">
+          Indica los <span className="font-bold">juegos que has terminado</span>. 
         </p>
+      </div>
     </div>
 
-    <div className="flex flex-col items-start justify-center gap-6 mt-10">
-        <div className="flex items-center gap-3">
-            <h3 className="text-sm italic font-bold uppercase lg:text-base">En Lista</h3>
-            <div className="inline-block p-1 text-sm font-bold text-center text-white bg-indigo-500 rounded-lg shadow shadow-black"><ProximosIcon w="4" h="4"/></div>
+    {/* Categoría: En Lista */}
+    <div className="flex flex-col items-center gap-8 mt-10 lg:p-6 sm:items-start sm:flex-row">
+      <div className="flex flex-col items-center justify-center w-full p-4 transition duration-300 bg-white shadow-lg rounded-2xl hover:bg-blue-50">
+        <div className="p-2 text-white bg-indigo-500 rounded-full">
+          <ProximosIcon w="6" h="6" />
         </div>
-        <p className="w-full text-xs italic text-justify lg:text-base">
-          Tercera categoría de la página principal. En portada se muestran como máximo cuatro juegos, el resto está disponible en &quot;Ver Todos&quot;. Está diseñada para indicar los <span className="font-bold">juegos que quieres pasarte próximamente</span>. Se podrá cambiar el estado de juego a otra categoría, o eliminarlo, en la opción de edición del juego, disponible en &quot;Ver Todos&quot;.
+        <h3 className="mt-2 text-sm italic font-bold uppercase lg:text-lg">En Lista</h3>
+        <p className="mt-1 text-xs text-justify text-gray-700 lg:text-base">
+          Indica los <span className="font-bold">juegos que quieres pasarte próximamente</span>.
         </p>
+      </div>
     </div>
 
-    <div className="flex flex-col items-start justify-center gap-6 mt-10">
-        <div className="flex items-center gap-3">
-            <h3 className="text-sm italic font-bold uppercase lg:text-base">Rejugar</h3>
-            <div className="inline-block p-1 text-sm font-bold text-center text-white bg-purple-700 rounded-lg shadow shadow-black"><UpdateIcon w="4" h="4"/></div>
+    {/* Categoría: Otra vez */}
+    <div className="flex flex-col items-center gap-8 mt-10 lg:p-6 sm:items-start sm:flex-row">
+      <div className="flex flex-col items-center justify-center w-full p-4 transition duration-300 bg-white shadow-lg rounded-2xl hover:bg-blue-50">
+        <div className="p-2 text-white bg-purple-700 rounded-full">
+          <UpdateIcon w="6" h="6" />
         </div>
-        <p className="w-full text-xs italic text-justify lg:text-base">
-          Categoría extra que no muestra directamente juegos en la página principal. Está diseñada para indicar los <span className="font-bold">juegos que ya has jugado pero que quieres volver a pasarte. Tiene el mismo objetivo que En Lista, pero para ese tipo de juegos</span>. Se podrá modificar el estado de juego a otra categoría, o eliminarlo, en la opción de edición del juego, disponible en &quot;Ver Todos&quot;.
+        <h3 className="mt-2 text-sm italic font-bold uppercase lg:text-lg">Otra vez</h3>
+        <p className="mt-1 text-xs text-justify text-gray-700 lg:text-base">
+          Indica los <span className="font-bold">juegos que ya has jugado pero que quieres volver a pasarte</span>.
         </p>
+      </div>
     </div>
 
-    <div className="flex flex-col items-start justify-center gap-6 mt-10">
-        <div className="flex items-center gap-3">
-            <h3 className="text-sm italic font-bold uppercase lg:text-base">Lista de deseos</h3>
-            <div className="inline-block p-1 text-sm font-bold text-center text-white bg-orange-700 rounded-lg shadow shadow-black"><StartIcon w="4" h="4"/></div>
+    {/* Categoría: Lista de deseos */}
+    <div className="flex flex-col items-center gap-8 mt-10 lg:p-6 sm:items-start sm:flex-row">
+      <div className="flex flex-col items-center justify-center w-full p-4 transition duration-300 bg-white shadow-lg rounded-2xl hover:bg-blue-50">
+        <div className="p-2 text-white bg-orange-700 rounded-full">
+          <StartIcon w="6" h="6" />
         </div>
-        <p className="w-full text-xs italic text-justify lg:text-base">
-          Categoría extra que no muestra directamente juegos en la página principal. Está diseñada para indicar los <span className="font-bold">juegos te gustaría tener algún día</span>. Se podrá cambiar el estado de juego a otra categoría, o eliminarlo, en la opción de edición del juego, disponible en &quot;Ver Todos&quot;.
+        <h3 className="mt-2 text-sm italic font-bold uppercase lg:text-lg">Lista de deseos</h3>
+        <p className="mt-1 text-xs text-justify text-gray-700 lg:text-base">
+          Indica los <span className="font-bold">juegos te gustaría tener algún día</span>.
         </p>
+      </div>
     </div>
 
-    <div className="flex flex-col items-start justify-center gap-6 mt-10">
-        <div className="flex items-center gap-3">
-            <h3 className="text-sm italic font-bold uppercase lg:text-base">Pausados</h3>
-            <div className="inline-block p-1 text-sm font-bold text-center text-white bg-yellow-600 rounded-lg shadow shadow-black"><PauseIcon w="4" h="4"/></div>
+    {/* Categoría: Pausados */}
+    <div className="flex flex-col items-center gap-8 mt-10 lg:p-6 sm:items-start sm:flex-row">
+      <div className="flex flex-col items-center justify-center w-full p-4 transition duration-300 bg-white shadow-lg rounded-2xl hover:bg-blue-50">
+        <div className="p-2 text-white bg-yellow-600 rounded-full">
+          <PauseIcon w="6" h="6" />
         </div>
-        <p className="w-full text-xs italic text-justify lg:text-base">
-          Categoría extra que no muestra directamente juegos en la página principal. Está diseñada para indicar los <span className="font-bold">juegos que has dejado a medias pero que quieres volver a retomarlo en algún momento</span>. Se podrá modificar el estado de juego a otra categoría, o eliminarlo, en la opción de edición del juego, disponible en &quot;Ver Todos&quot;.
+        <h3 className="mt-2 text-sm italic font-bold uppercase lg:text-lg">Pausados</h3>
+        <p className="mt-1 text-xs text-justify text-gray-700 lg:text-base">
+          Indica los <span className="font-bold">juegos que has dejado a medias</span>.
         </p>
+      </div>
     </div>
 
-    <div className="flex flex-col items-start justify-center gap-6 mt-10">
-        <div className="flex items-center gap-3">
-            <h3 className="text-sm italic font-bold uppercase lg:text-base">Abandonados</h3>
-            <div className="inline-block p-1 text-sm font-bold text-center text-white bg-red-700 rounded-lg shadow shadow-black"><AbandonadoIcon w="4" h="4"/></div>
+    {/* Categoría: Abandonados */}
+    <div className="flex flex-col items-center gap-8 mt-10 lg:p-6 sm:items-start sm:flex-row">
+      <div className="flex flex-col items-center justify-center w-full p-4 transition duration-300 bg-white shadow-lg rounded-2xl hover:bg-blue-50">
+        <div className="p-2 text-white bg-red-700 rounded-full">
+          <AbandonadoIcon w="6" h="6" />
         </div>
-        <p className="w-full text-xs italic text-justify lg:text-base">
-          Categoría extra que no muestra directamente juegos en la página principal. Está diseñada para indicar los <span className="font-bold">juegos que has dejado a medias y que no piensas volver a jugarlo</span>. Se podrá cambiar el estado de juego a otra categoría, o eliminarlo, en la opción de edición del juego, disponible en &quot;Ver Todos&quot;.
+        <h3 className="mt-2 text-sm italic font-bold uppercase lg:text-lg">Abandonados</h3>
+        <p className="mt-1 text-xs text-justify text-gray-700 lg:text-base">
+          Indica los <span className="font-bold">juegos que has dejado a medias y que no piensas volver a jugar</span>.
         </p>
+      </div>
     </div>
-</div>
-  )
+
+    {/* Sección Importante */}
+    <div className="flex flex-col items-center w-full p-6 mt-5 text-xs rounded-lg bg-slate-400 lg:text-base sm:items-start">
+      <h1 className="mb-3 text-lg font-semibold uppercase">Importante</h1>
+      <p className="w-full mb-3 text-justify text-gray-700 lg:text-base">
+        En la página principal se muestran algunos juegos. Al hacer clic en "Ver todos" en una colección concreta, podrás acceder a todos los que contiene. Además, al seleccionar la imagen de un juego entrarás en su ficha específica, donde encontrarás opciones de edición.
+      </p>
+      <p className="w-full mb-3 text-justify text-gray-700 lg:text-base">
+        En las colecciones de "Jugando" y "Completando", también podrás marcar si estás rejugando un título. Esto activará un ícono indicativo en las imágenes de los juegos correspondientes.
+      </p>
+      <p className="w-full text-justify text-gray-700 lg:text-base">
+        Si deseas eliminar un juego, puedes hacerlo desde "Editar estado", en la ficha del juego.
+      </p>
+      <div className="flex flex-col items-center justify-center w-full gap-3 pt-5 lg:mt-8">   
+        <div>
+          <span className="text-[10px] italic text-gray-700">Ejemplo visual de opción de Eliminar</span>
+            <div className="flex items-center gap-2 p-1 px-2 mt-2 text-xs text-white transition duration-300 bg-gray-700 rounded-lg shadow shadow-black hover:bg-red-700 lg:text-base">
+              <span>Eliminar de mi colección</span><DeleteIcon />
+            </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+);
 }

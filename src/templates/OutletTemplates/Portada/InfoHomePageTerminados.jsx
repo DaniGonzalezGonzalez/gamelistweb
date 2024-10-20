@@ -1,78 +1,58 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useGetDataPortadaPorEstado } from "../../../hooks/Portada/useGetDataPortadaPorEstado";
-import { cleanTitle, scrollToTop } from "../../helpers/no-components/constants";
-import { CheckIcon } from "../../../assets/Icons/CheckIcon";
-import { ArrowRight } from "../../../assets/Icons/ArrowRight";
-import { useEffect, useState } from "react";
-import { fetchPlatformImagesPortada } from "../../../hooks/useFetchsPlatforms";
-
-// import { HomePageSkeleton } from "../../../helpers/components/Skeletons/HomePageSkeleton";
+import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
+import { ArrowRight, CheckIcon } from "../../../assets/Icons"
+import { useGetDataPortadaPorEstado } from "../../../hooks/Portada/useGetDataPortadaPorEstado"
+import { useHandles } from "../../../hooks/useHandles/useHandles"
+import { fetchPlatformImagesPortada } from "../../../hooks/useFetchsPlatforms"
+import { useHandlePlatformMenus } from "../../../hooks/useHandles"
+import { GET_STATE_BACKGROUND, ordenarYLimitarJuegos, scrollToTop } from "../../helpers/no-components/constants"
+import { renderJuegosPortada } from "../../helpers/components/Utils/renderJuegosPortada"
+import { ChooseAddGamesMenuFlotante } from "../../helpers/components/Utils/ChooseAddGamesMenuFlotante"
 
 export function InfoHomePageTerminados() {
-    const { juegosPortada, error, isLoading } = useGetDataPortadaPorEstado('Terminado');
-    const navigate = useNavigate() // Usa useNavigate
-    const [platformImages, setPlatformImages] = useState({});
+    const [platformImages, setPlatformImages] = useState({})
+    const { juegosPortada, error, isLoading } = useGetDataPortadaPorEstado('Terminado')
+    const { handleTitleClick } = useHandles()
+    const { chooseAddGamesMenuOpen, handleAddGameMenu } = useHandlePlatformMenus()
 
     useEffect(() => {
         fetchPlatformImagesPortada(juegosPortada, platformImages, setPlatformImages)
-      }, [juegosPortada]);
-
+      }, [juegosPortada])
     
-    if (isLoading) {
-        return 
-        // <HomePageSkeleton/>
-        
-      }
-    
-      if (error) {
-        return <div>
-            {/* Error: {error} */}
-            </div>;
-      }
+    if (isLoading) return // <HomePageSkeleton/>
+    if (error) return <div> {/* Error: {error} */} </div>
 
-                // Ordenar juegos por fecha de actualización
-    const juegosOrdenados = juegosPortada.sort((a, b) => new Date(b.fechaActualizacion) - new Date(a.fechaActualizacion));
-
-    // Limitar la cantidad de juegos mostrados a 2
-    const juegosLimitados = juegosOrdenados.slice(0, 4);
-
-    const handleTitleClick = (gameId) => {
-        scrollToTop()
-        navigate(`/game/${'Juegos'}/${gameId}`)
-    }
+    // Utilizar la función para ordenar y limitar los juegos
+    const juegosLimitados = ordenarYLimitarJuegos(juegosPortada, 4)
 
     return (
         <>
-            <div className="relative p-8 sm:px-16 bg-zinc-950">
-                <div className="absolute top-0 left-0 w-full h-full" style={{ backgroundImage: 'linear-gradient(to bottom, rgba(3, 7, 18, 1), rgba(9, 9, 11, 1))', backgroundSize: 'cover', backgroundPosition: 'center center', height: '20%' }}/>
-                <h2 className="relative z-20 pb-8 mt-12 mb-2 text-xl font-bold uppercase">Terminados</h2>
-                <div className="relative z-10 grid grid-cols-2 gap-5 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-                    {juegosLimitados.map((item, index) => (
-                        <div key={index}>
-                            <div className="flex items-center justify-center gap-1 duration-500 xl:px-2 sm:flex hover:scale-105 hover:shadow-white opacity-95 hover:opacity-100">
-                                <div className="w-full h-full">
-                                    <button onClick={() => handleTitleClick(item.id)} className="relative flex items-center justify-center w-full gap-3 shadow-md sm:flex hover:rounded">
-                                        <img className="object-cover w-full h-40 transition duration-500 ease-in-out border-2 border-transparent rounded-lg hover:border-2 hover:rounded-lg hover:border-gray-300" src={item?.imageUrl} alt="No hay imagen" />
-                                        <img className="absolute object-contain w-8 h-8 p-1 bg-gray-200 rounded-lg shadow right-2 bottom-2 shadow-black" src={platformImages[item.plataforma]} alt="No hay imagen" title={`Plataforma: ${item?.plataforma || 'Sin plataforma especificada'}`} />
-                                    </button>
-                                    <div className="sm:w-2/3">
-                                        <div className="flex flex-col gap-8 py-3 text-start">
-                                            <p className="text-xs text-gray-200">{cleanTitle(item?.titulo)}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-                <div className="flex items-center gap-3 mt-3">
-                    <div className="flex items-center p-1 bg-green-600 rounded"><CheckIcon /></div>
-                    <Link onClick={scrollToTop} className="flex items-center justify-end gap-3 text-xs font-thin" to="/admin-edit-game-to-list-terminados">
-                        Ver todos<div className="flex items-center gap-2 text-xs">
-                            {/* {juegosOrdenados.length} */}
-                            <ArrowRight /></div>
-                    </Link>
-                </div>
+            <div className="relative px-8 pt-8 pb-5 sm:px-16">
+                {/* <div className="absolute top-0 left-0 w-full h-full" style={{ backgroundImage: 'linear-gradient(to bottom, rgba(3, 7, 18, 1), rgba(9, 9, 11, 1))', backgroundSize: 'cover', backgroundPosition: 'center center', height: '20%' }}/> */}
+                <h2 className="relative z-20 pb-4 mt-8 mb-2 text-xl font-bold uppercase lg:pb-8 sm:mt-0 lg:mt-12 lg:text-xl sm:text-base">Terminados</h2>
+                { juegosLimitados.length >=1 && <div className="relative z-10 grid grid-cols-2 gap-5 md:grid-cols-3 xl:grid-cols-4">
+                    {renderJuegosPortada(juegosLimitados, platformImages, handleTitleClick)}
+                </div>}
+                {juegosLimitados.length === 0 && (
+                    <div className="flex flex-col items-center justify-center h-64 p-6 bg-gray-800 border-2 border-gray-600 border-dashed rounded-lg">
+                        <h3 className="mb-4 text-lg font-semibold text-gray-300">¡No tienes juegos terminados!</h3>
+                        <p className="mb-4 text-gray-400">Agrega tus juegos terminados para llevar un registro de tus logros.</p>
+                        <button onClick={handleAddGameMenu} className="flex items-center px-4 py-2 text-sm font-medium text-white transition duration-300 bg-purple-600 rounded-lg hover:bg-purple-700">
+                            Agregar Juegos
+                            <span className="ml-2">➕</span>
+                        </button>
+                    </div>
+                )}
+
+                {chooseAddGamesMenuOpen && <ChooseAddGamesMenuFlotante chooseAddGamesMenuOpen={chooseAddGamesMenuOpen} handleAddGameMenu={handleAddGameMenu}/>}
+
+                { juegosLimitados.length >= 1 && 
+                    <div className="flex items-center gap-3 mt-3">                    
+                        <Link onClick={scrollToTop} className="flex items-center justify-end gap-3 text-xs font-thin" to="/edit-game-to-list-terminados">
+                            <div className={`flex items-center p-1 ${GET_STATE_BACKGROUND('Terminado')} rounded`}><CheckIcon /></div>
+                            Ver todos<div className="flex items-center gap-2 text-xs"><ArrowRight /></div></Link>
+                    </div>
+                }
             </div>
         </>
     )

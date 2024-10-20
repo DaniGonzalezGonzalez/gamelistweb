@@ -51,12 +51,12 @@ export function useAddGameToList(tituloRef, tipoContenidoRef) {
         setSuccess(
           <div className="flex flex-col items-center justify-center gap-4 py-8">
             <div>{cleanTitle(data?.titulo)} registrado correctamente</div>
-            <img className="object-cover rounded-lg shadow-md w-28 h-28 hover:rounded-lg hover:shadow-gray-700 shadow-black" src={data.imageUrl} alt="No hay imagen del juego" />
+            <img className="object-cover w-40 rounded-lg shadow-md h-28 hover:rounded-lg hover:shadow-gray-700 shadow-black" src={data.imageUrl} alt="No hay imagen del juego" />
           </div>
         );
         setTimeout(() => {
           setSuccess(null);
-        }, 7000);
+        }, 2000);
         // navigate('/');
       } catch (error) {
         setError(error.message);

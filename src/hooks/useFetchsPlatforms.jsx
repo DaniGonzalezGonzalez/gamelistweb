@@ -1,4 +1,4 @@
-import { getPlatformImageUrl } from "../api/supabase/cloud-supabase";
+import { getPlatformImage } from "../templates/helpers/no-components/constants";
 
 
 export const fetchPlatformImagesJugandoYCompletando = async (juegosJugando, juegosCompletando, platformImages, setPlatformImages) => {
@@ -7,7 +7,7 @@ export const fetchPlatformImagesJugandoYCompletando = async (juegosJugando, jueg
   
     for (const juego of allJuegos) {
       if (juego.plataforma && !platformImages[juego.plataforma]) {
-        const url = await getPlatformImageUrl(juego.plataforma);
+        const url = await getPlatformImage(juego.plataforma);
         imageUrls[juego.plataforma] = url;
       }
     }
@@ -28,7 +28,7 @@ export const fetchPlatformImagesJugandoYCompletando = async (juegosJugando, jueg
     const allJuegos = [...juegosPortada];
     for (const juego of allJuegos) {
       if (juego.plataforma && !platformImages[juego.plataforma]) {
-        const url = await getPlatformImageUrl(juego.plataforma);
+        const url = await getPlatformImage(juego.plataforma);
         imageUrls[juego.plataforma] = url;
       }
     }
@@ -48,7 +48,7 @@ export const fetchPlatformImagesJugandoYCompletando = async (juegosJugando, jueg
     for (const juego of allJuegos) {
       const plataforma = juego.plataforma;  
       if (plataforma) {
-        const url = await getPlatformImageUrl(plataforma);
+        const url = await getPlatformImage(plataforma);
         imageUrls[plataforma] = url;
       }
     }

@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { deleteDocument, updateDocument, uploadFileToSupabase } from '../api/supabase/cloud-supabase';
+import { cleanTitle } from '../templates/helpers/no-components/constants';
 
 export function useEditGameToList(uid, option, categoria) {
   const tituloRef = useRef(null);
@@ -17,10 +18,21 @@ export function useEditGameToList(uid, option, categoria) {
     setError(null);
     setIsLoading(true);
     try {
+      // Validar título
       if (!data.titulo || !data.titulo.length) throw new Error('El campo título no puede estar vacío');
+  
+      // Validar notaJuego y convertir a número si es necesario
+      if (data.notaJuego === '' || data.notaJuego === '-') {
+        data.notaJuego = null; // O podrías usar 0 si eso es adecuado para tu base de datos
+      } else {
+        data.notaJuego = parseFloat(data.notaJuego); // Asegúrate de que sea un número
+        if (isNaN(data.notaJuego)) throw new Error('El campo notaJuego debe ser un número válido');
+      }
+  
       // Eliminar campos de archivo si no se subieron
       if (data.file1 === '') delete data.file1;
       if (data.file2 === '') delete data.file2;
+  
       await updateDocument(option, uid, data);
       navigate(`/admin-edit-game-to-list-${categoria}`);
     } catch (error) {
@@ -95,7 +107,7 @@ export function useEditGameToList(uid, option, categoria) {
     setError(null);
     try {
       await deleteDocument(option, uid);
-      navigate(`/admin-edit-game-to-list-${categoria}`);
+      navigate(-1);
     } catch (error) {
       setError(error.message);
       console.log(error);
@@ -103,7 +115,7 @@ export function useEditGameToList(uid, option, categoria) {
   };
 
   const handleDelete = (uid, titulo) => {
-    if (!window.confirm(`Confirma que desea eliminar el documento ${titulo}`)) return;
+    if (!window.confirm(`Confirma que desea eliminar el documento ${cleanTitle(titulo)}`)) return;
     eliminarDocumento(uid);
     const dataChangedEvent = new Event('data-changed');
     document.dispatchEvent(dataChangedEvent);

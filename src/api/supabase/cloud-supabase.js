@@ -18,21 +18,18 @@ export async function getDocuments(tableName) {
  * @param {Object} data Objeto con los datos que se van a insertar en la tabla.
  * @return {Object} El objeto insertado con la propiedad de id si la inserción es exitosa.
  */
-export const addDocument = async (tableName, data) => {
-    // const { data: insertedData, 
-    //   // error 
-    // } = 
+export const addDocument = async (table, data) => {
+  const { data: insertedData, error } = await supabase
+      .from(table)
+      .insert([data]); // Asegúrate de que esto esté bien formado
 
-    await supabase.from(tableName).insert([data]);
-     
-    // if (error) {
-    //   console.error("Error al añadir documento:", error.message);
-    //   throw new Error("Error al añadir documento: " + error.message);
-    // }
-    
-    // return insertedData[0]; 
-    // Devuelve el primer registro insertado
-  };
+  if (error) {
+      console.error('Error al añadir el documento:', error);
+      throw error; // Lanza el error para que pueda ser manejado en el lugar donde se llama
+  }
+
+  return insertedData; // Retorna los datos insertados si todo va bien
+};
 
 
 
@@ -56,7 +53,20 @@ export const getDocument = async (tableName, id) => {
   };
 
 
-
+  export const getGameByTitle = async (titulo, tablename, limit) => {
+    const { data, error } = await supabase
+      .from(tablename) // Asegúrate de que el nombre de la tabla es 'GamesBD'
+      .select('*')
+      .ilike('titulo', titulo) // Usamos 'ilike' para una búsqueda que ignore mayúsculas/minúsculas
+      .limit(limit); // Limitar a un solo registro
+  
+    if (error) {
+      throw new Error("Error al obtener el juego: " + error.message);
+    }
+  
+    return data || null; // Devuelve los datos o null si no se encuentra nada
+  };
+  
 
 
 
@@ -65,13 +75,14 @@ export const getDocument = async (tableName, id) => {
  * @param {Array} filters Array de filtros en formato { field: 'campo', value: 'valor' }
  * @returns {Array} Array de documentos filtrados
  */
-export const getDocumentsWithFilter = async (tableName, filters) => {
+  export const getDocumentsWithFilter = async (tableName, filters) => {
     try {
       let query = supabase.from(tableName).select('*');
   
       // Aplicar filtros
       filters.forEach(filter => {
-        query = query.filter(filter.field, 'eq', filter.value);
+        // Cambiar 'eq' por 'ilike' para coincidencias parciales
+        query = query.filter(filter.field, 'ilike', `%${filter.value}%`); // Agregar comodines para búsqueda parcial
       });
   
       // Ejecutar la consulta
@@ -88,6 +99,7 @@ export const getDocumentsWithFilter = async (tableName, filters) => {
   };
 
 
+
   /** // Obtener documentos con filtros
  * @param {String} tableName Nombre de la tabla
  * @param {Array} filters Array de filtros en formato { field: 'campo', value: 'valor' }
@@ -97,25 +109,73 @@ export const getDocumentsWithFilter = async (tableName, filters) => {
     try {
       // Determinar el orden basado en el estado
       const orderDirection = estado === 'En lista' ? 'asc' : 'desc';
-  
+      
       const { data, error } = await supabase
-        .from(tableName)
-        .select('*')
-        .eq('estado', estado)
-        .eq('infouser', email)
-        .order('fechaActualizacion', { ascending: orderDirection === 'asc' })
-        .limit(4);
-  
+      .from(tableName)
+      .select('*')
+      .eq('estado', estado)
+      .eq('infouser', email)
+      .order('position', { ascending: orderDirection === 'asc' })
+      .limit(4);
+      
       if (error) {
         throw new Error("Error al obtener juegos: " + error.message);
       }
-  
+
       return data || [];
     } catch (error) {
       throw new Error("Error al obtener juegos: " + error.message);
     }
   };
 
+
+    /** // Obtener documentos con filtros
+ * @param {String} tableName Nombre de la tabla
+ * @param {Array} filters Array de filtros en formato { field: 'campo', value: 'valor' }
+ * @returns {Array} Array de documentos filtrados
+ */
+    export const getGamesOffline = async (tableName, plataforma, limit) => {
+      try {        
+        const { data, error } = await supabase
+          .from(tableName)
+          .select('*')
+          // Aquí usamos ilike para encontrar juegos cuya primera plataforma sea la buscada
+          .ilike('plataforma', `${plataforma}%`)
+          .order('created_at', { ascending: false })
+          .limit(limit);
+    
+        if (error) {
+          throw new Error("Error al obtener juegos: " + error.message);
+        }
+    
+        // Devolvemos los juegos filtrados
+        return data || [];
+      } catch (error) {
+        throw new Error("Error al obtener juegos: " + error.message);
+      }
+    };
+
+// Si quiero mostrar aletaorios de forma manual
+    // export const getGamesOffline = async (tableName) => {
+    //   try {
+    //     const { data, error } = await supabase
+    //       .from(tableName)
+    //       .select('*')
+    //       .limit(100); // Obtén más juegos de los que necesitas
+    
+    //     if (error) {
+    //       throw new Error("Error al obtener juegos: " + error.message);
+    //     }
+    
+    //     // Selecciona aleatoriamente 4 juegos del conjunto de datos
+    //     const shuffledGames = data.sort(() => 0.5 - Math.random());
+    //     const selectedGames = shuffledGames.slice(0, 4);
+    
+    //     return selectedGames;
+    //   } catch (error) {
+    //     throw new Error("Error al obtener juegos: " + error.message);
+    //   }
+    // };
 
 
 
@@ -191,16 +251,3 @@ export const uploadFileToSupabase = async (file, path, bucketName) => {
 };
 
 
-// Para obtener la imagen de la plataforma personalizada
-export const getPlatformImageUrl = async (platform) => {
-  const plataforma = platform.replace(/\s+/g, '').trim()
-  const { data, error } = await supabase.storage.from('platformImages').list();
-  if (error) {
-    console.error('Error fetching platform images:', error);
-    return null;
-  }
-  
-  const image = data.find(file => file.name.startsWith(plataforma));
-  const platformImageUrl = supabase.storage.from('platformImages').getPublicUrl(image.name).data.publicUrl
-  return image ? platformImageUrl : null;
-};

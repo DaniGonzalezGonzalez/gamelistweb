@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../../../api/supabase/supabase";
+import { Link, useNavigate } from "react-router-dom";
+import { HomeIcon } from "../../../../assets/Icons";
 
 export function ResetPassword() {
     const [email, setEmail] = useState('');
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');
     const [showError, setShowError] = useState(false)
+    const navigate = useNavigate();
 
     useEffect(() => {
       if (error) {
@@ -49,9 +52,23 @@ export function ResetPassword() {
         console.log(message)
       }
     };
+    const handleGoBack = () => {
+      navigate(-1);
+    };
   
+
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen p-4 pt-20 pb-10 bg-center bg-cover" style={{ backgroundImage: `url("/Imagen-fondo-colecciones.jpg")` }}>
+      <div className="relative flex flex-col items-center justify-center min-h-screen p-4 pt-20 pb-10 bg-center bg-cover" style={{ backgroundImage: `url("/Imagen-fondo-colecciones.jpg")` }}>
+      {!user.id && <div className="absolute z-10 flex items-center gap-2 top-4 left-4">
+          <Link to="/">
+            <div className="p-1 mt-1 text-white transition duration-500 rounded-lg bg-slate-700 hover:bg-slate-600">
+              <HomeIcon />
+            </div>
+          </Link>
+          <button className="flex items-center gap-3 p-2 mt-1 text-xs text-white transition duration-500 rounded-lg bg-slate-700 hover:bg-green-700" onClick={handleGoBack}>
+            <p className="p-.05">Volver</p>
+          </button>
+        </div>}
           <h1 className="mb-8 text-3xl font-bold text-center text-white uppercase">Recuperar Contraseña</h1>
           <form className="flex flex-col w-5/6 max-w-md gap-6 p-8 bg-gray-900 bg-opacity-75 shadow-xl sm:w-full rounded-xl" onSubmit={handleResetPassword}>
               <div className="flex flex-col gap-2">

@@ -1,14 +1,15 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import { getDocumentsWithFilter } from "../api/supabase/cloud-supabase";
 
 export function useFetchDataAndSort(estadoSingularMayusculas) {
   const [dataBD, setDataBD] = useState([]);
   const [error, setError] = useState(null);
-  const [sortBy, setSortBy] = useState('fechaActualizacion');
+  const [sortBy, setSortBy] = useState('position');
   const [sortDirection, setSortDirection] = useState('asc');
   const [searchTerm, setSearchTerm] = useState('');
   const [itemsToShow, setItemsToShow] = useState(10);
+  const [noGamesLoaded, setNoGamesLoaded] = useState(false)
 
   const { user } = useContext(UserContext);
 
@@ -21,6 +22,11 @@ export function useFetchDataAndSort(estadoSingularMayusculas) {
       const response = await getDocumentsWithFilter('Juegos', filters);
       const datosPrefiltro = response;
       setDataBD(datosPrefiltro);
+        if (response.length === 0) {
+          setNoGamesLoaded(true)
+        } else {
+          setNoGamesLoaded(false)
+        }
     } catch (error) {
       console.error('Error al cargar los datos: ', error);
       setError("Error al cargar los datos");
@@ -28,24 +34,32 @@ export function useFetchDataAndSort(estadoSingularMayusculas) {
   };
 
   const sortedData = dataBD
-    .filter(item => item.notaJuego !== undefined)
-    .filter((item) => item.titulo.toLowerCase().includes(searchTerm.toLowerCase()))
-    .sort((b, a) => {
-      if (sortBy === 'titulo') {
-        return sortDirection === 'asc' ? b.titulo.localeCompare(a.titulo) : a.titulo.localeCompare(b.titulo);
-      } else if (sortBy === 'plataforma') {
-        return sortDirection === 'asc' ? b.plataforma.localeCompare(a.plataforma) : a.plataforma.localeCompare(b.plataforma);
-      } else if (sortBy === 'notaJuego') {
-        return sortDirection === 'asc' ? parseFloat(a.notaJuego) - parseFloat(b.notaJuego) : parseFloat(b.notaJuego) - parseFloat(a.notaJuego);
+  .filter(item => item.notaJuego !== undefined)
+  .filter((item) => item.titulo.toLowerCase().includes(searchTerm.toLowerCase()))
+  .sort((b, a) => {
+    // Ordenar por el criterio seleccionado
+    if (sortBy === 'titulo') {
+      return sortDirection === 'asc' ? b.titulo.localeCompare(a.titulo) : a.titulo.localeCompare(b.titulo);
+    } else if (sortBy === 'plataforma') {
+      return sortDirection === 'asc' ? b.plataforma.localeCompare(a.plataforma) : a.plataforma.localeCompare(b.plataforma);
+    } else if (sortBy === 'notaJuego') {
+      return sortDirection === 'asc' ? parseFloat(a.notaJuego) - parseFloat(b.notaJuego) : parseFloat(b.notaJuego) - parseFloat(a.notaJuego);
+    } else if (sortBy === 'position') {
+      // Solo en "En lista" y "Otra vez" se ordena ascendente, en los demás estados es descendente
+      if (estadoSingularMayusculas === 'En lista' || estadoSingularMayusculas === 'Otra vez') {
+        return sortDirection === 'asc' ? b.position - a.position : a.position - b.position;
       } else {
-        if (estadoSingularMayusculas === 'En lista' || estadoSingularMayusculas === 'Proximo') {
-          return sortDirection === 'asc' ? b[sortBy].localeCompare(a[sortBy]) : a[sortBy].localeCompare(b[sortBy]);
-        } else {
-          return sortDirection === 'asc' ? a[sortBy].localeCompare(b[sortBy]) : b[sortBy].localeCompare(a[sortBy]);
-        }
+        // En todos los demás casos, por defecto descendente
+        return sortDirection === 'asc' ? a.position - b.position : b.position - a.position;
       }
-    })
-    .filter((item, index) => index < itemsToShow);
+    } else {
+      // Criterios alternativos que no sean "position"
+      return sortDirection === 'asc' ? b[sortBy].localeCompare(a[sortBy]) : a[sortBy].localeCompare(b[sortBy]);
+    }
+  })
+  .filter((item, index) => index < itemsToShow);
+
+
 
   return {     
     fetchData,
@@ -59,6 +73,7 @@ export function useFetchDataAndSort(estadoSingularMayusculas) {
     setItemsToShow,
     itemsToShow,
     searchTerm,
-    sortBy
+    sortBy,
+    noGamesLoaded    
   };
 }

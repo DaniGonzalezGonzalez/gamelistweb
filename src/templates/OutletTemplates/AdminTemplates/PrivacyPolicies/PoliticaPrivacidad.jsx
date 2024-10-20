@@ -1,7 +1,16 @@
+import { Link } from "react-router-dom";
+import { HomeIcon } from "../../../../assets/Icons";
+import { useUser } from "../../../../hooks/useUser";
+
 export function PoliticaPrivacidad() {
+  const { user } = useUser()
+
   return (
-    <div className="min-h-screen pt-20 pb-10 bg-slate-950">
-        <div className="container flex flex-col gap-8 p-4 mx-auto text-sm text-justify text-white font-montserrat">
+    <div className="min-h-screen px-4 pt-20 pb-10 sm:pt-28 sm:px-10 bg-slate-950">
+         {!user.id && <div className="flex items-center justify-center w-10 mb-3">
+             <Link to='/'><div className="p-1 transition duration-500 bg-gray-200 rounded-lg hover:bg-gray-600"><HomeIcon/></div></Link>
+         </div>}
+        <div className="flex flex-col gap-8 p-4 text-xs text-justify text-gray-100 bg-gray-700 sm:text-sm rounded-2xl font-montserrat">
             <h1 className="mt-8 text-4xl text-center text-gray-100 uppercase font-montserrat">Politica de Privacidad</h1>
             <p className="mt-8">Esta Política de Privacidad describe cómo GameListWeb (web creada por Daniel González González) recopila, utiliza y protege la información personal que usted proporciona cuando utiliza nuestro sitio web.</p>
             <section>
@@ -22,7 +31,7 @@ export function PoliticaPrivacidad() {
             </section>
             <section>
                 <header className="mb-2 font-bold">5. Derechos de los Sujetos de Datos:</header>
-                <p>Usted tiene derecho a acceder, rectificar o eliminar sus datos personales. Para ejercer estos derechos o para cualquier pregunta relacionada con sus datos, contáctenos a través de dgongon.cec@gmail.com.</p>
+                <p>Usted tiene derecho a acceder, rectificar o eliminar sus datos personales. Para ejercer estos derechos o para cualquier pregunta relacionada con sus datos, contáctenos a través de gamelistwebsoporte@gmail.com.</p>
             </section>
             <section>
                 <header className="mb-2 font-bold">6. Cambios en esta Política:</header>

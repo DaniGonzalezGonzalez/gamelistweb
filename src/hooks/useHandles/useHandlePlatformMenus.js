@@ -17,13 +17,15 @@ export function useHandlePlatformMenus(){
   const [configAddGamesPortatiles, setConfigAddGamesPortatiles] = useState(false)
   const [configAddGamesRetro, setConfigAddGamesRetro] = useState(false)
   const [configAddGamesPC, setConfigAddGamesPC] = useState(false)
+  const [chooseAddGamesMenuOpen, setChooseAddGamesMenuOpen] = useState(false)
 
 
   const handleAddGameMenu = () => {
-    setMenuAddGamesByPlatformOpen(!menuAddGamesByPlatformOpen)
-    setMenuAddGamesPS(false)
-    setMenuAddGamesNintendo(false)
-    setConfigAddGamesByPlatformOpen(false)
+    setChooseAddGamesMenuOpen(!chooseAddGamesMenuOpen)
+    // setMenuAddGamesByPlatformOpen(!menuAddGamesByPlatformOpen)
+    // setMenuAddGamesPS(false)
+    // setMenuAddGamesNintendo(false)
+    // setConfigAddGamesByPlatformOpen(false)
   }
 
   const handlePSMenu = () => {
@@ -106,6 +108,8 @@ export function useHandlePlatformMenus(){
       menuAddGamesPortatiles,
       menuAddGamesRetro,
       menuAddGamesPC,
-      setMenuAddGamesByPlatformOpen
+      setMenuAddGamesByPlatformOpen,
+      chooseAddGamesMenuOpen, 
+      setChooseAddGamesMenuOpen
     }
 }

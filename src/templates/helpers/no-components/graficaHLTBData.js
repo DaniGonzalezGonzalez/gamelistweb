@@ -1,6 +1,6 @@
 
 export const graficaHLTBData = {
-    labels: ['Main Story', 'Main + Extra', 'Completionist'],
+    labels: ['Hª principal', 'Hª + Extra', 'Completista'],
     datasets: [
         {
             data: [0, 0, 0], // Inicialmente los datos pueden ser 0 o algún valor por defecto

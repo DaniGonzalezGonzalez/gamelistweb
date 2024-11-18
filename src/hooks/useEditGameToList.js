@@ -1,125 +1,125 @@
-import { useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { deleteDocument, updateDocument, uploadFileToSupabase } from '../api/supabase/cloud-supabase';
-import { cleanTitle } from '../templates/helpers/no-components/constants';
+import { useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { deleteDocument, updateDocument, uploadFileToSupabase } from '../api/supabase/cloud-supabase'
+import { cleanTitle } from '../templates/helpers/constants/constants'
 
 export function useEditGameToList(uid, option, categoria) {
-  const tituloRef = useRef(null);
-  const navigate = useNavigate();
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [file1, setFile1] = useState(null);
-  const [file2, setFile2] = useState(null);
-  const [nombreArchivo, setNombreArchivo] = useState('');
-  const [nombrePlataforma, setNombrePlataforma] = useState('');
+  const tituloRef = useRef(null)
+  const navigate = useNavigate()
+  const [error, setError] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
+  const [file1, setFile1] = useState(null)
+  const [file2, setFile2] = useState(null)
+  const [nombreArchivo, setNombreArchivo] = useState('')
+  const [nombrePlataforma, setNombrePlataforma] = useState('')
 
   // Actualizar datos en la base de datos
   const actualizarDatos = async (uid, data) => {
-    setError(null);
-    setIsLoading(true);
+    setError(null)
+    setIsLoading(true)
     try {
       // Validar título
-      if (!data.titulo || !data.titulo.length) throw new Error('El campo título no puede estar vacío');
+      if (!data.titulo || !data.titulo.length) throw new Error('El campo título no puede estar vacío')
   
       // Validar notaJuego y convertir a número si es necesario
       if (data.notaJuego === '' || data.notaJuego === '-') {
-        data.notaJuego = null; // O podrías usar 0 si eso es adecuado para tu base de datos
+        data.notaJuego = null // O podrías usar 0 si eso es adecuado para tu base de datos
       } else {
-        data.notaJuego = parseFloat(data.notaJuego); // Asegúrate de que sea un número
-        if (isNaN(data.notaJuego)) throw new Error('El campo notaJuego debe ser un número válido');
+        data.notaJuego = parseFloat(data.notaJuego) // Asegúrate de que sea un número
+        if (isNaN(data.notaJuego)) throw new Error('El campo notaJuego debe ser un número válido')
       }
   
       // Eliminar campos de archivo si no se subieron
-      if (data.file1 === '') delete data.file1;
-      if (data.file2 === '') delete data.file2;
+      if (data.file1 === '') delete data.file1
+      if (data.file2 === '') delete data.file2
   
-      await updateDocument(option, uid, data);
-      navigate(`/admin-edit-game-to-list-${categoria}`);
+      await updateDocument(option, uid, data)
+      navigate(`/admin-edit-game-to-list-${categoria}`)
     } catch (error) {
-      setError(error.message);
-      console.log(error);
+      setError(error.message)
+      console.log(error)
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  };
+  }
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    handleUpload(e);
-  };
+    e.preventDefault()
+    handleUpload(e)
+  }
 
   // Subir archivos y actualizar los datos
   const handleUpload = async (e) => {
     try {
-      const formData = new FormData(e.target);
-      const entries = formData.entries();
-      const obj = Object.fromEntries(entries);
-      const fileUrls = await uploadFiles(file1, file2);
+      const formData = new FormData(e.target)
+      const entries = formData.entries()
+      const obj = Object.fromEntries(entries)
+      const fileUrls = await uploadFiles(file1, file2)
       if (fileUrls.length) {
-        obj.url = fileUrls;
+        obj.url = fileUrls
       }
       if (uid) {
-        actualizarDatos(uid, obj);
-        const dataChangedEvent = new Event('data-changed');
-        document.dispatchEvent(dataChangedEvent);
+        actualizarDatos(uid, obj)
+        const dataChangedEvent = new Event('data-changed')
+        document.dispatchEvent(dataChangedEvent)
       } else {
-        console.error('UID no está definido');
+        console.error('UID no está definido')
       }
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   const handleNombreArchivo = (e) => {
-    setNombreArchivo(e.target.value);
-  };
+    setNombreArchivo(e.target.value)
+  }
 
   const handleNombrePlataforma = (e) => {
-    setNombrePlataforma(e.target.value);
-  };
+    setNombrePlataforma(e.target.value)
+  }
 
   // Subir archivos a Supabase y retornar sus URLs
   const uploadFiles = async (file1, file2) => {
-    const fileUrls = [];
+    const fileUrls = []
     if (file1) {
-      const fileUrl = await uploadFileToSupabase(file1, `${option}/${nombreArchivo}_file1`);
-      fileUrls.push(fileUrl);
+      const fileUrl = await uploadFileToSupabase(file1, `${option}/${nombreArchivo}_file1`)
+      fileUrls.push(fileUrl)
     }
     if (file2) {
-      const fileUrl = await uploadFileToSupabase(file2, `${option}/${nombreArchivo}_file2`);
-      fileUrls.push(fileUrl);
+      const fileUrl = await uploadFileToSupabase(file2, `${option}/${nombreArchivo}_file2`)
+      fileUrls.push(fileUrl)
     }
-    return fileUrls; // Retorna un array con URLs de archivos
-  };
+    return fileUrls // Retorna un array con URLs de archivos
+  }
 
   const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    setFile1(selectedFile);
-  };
+    const selectedFile = e.target.files[0]
+    setFile1(selectedFile)
+  }
 
   const handleFile2Change = (e) => {
-    const selectedFile = e.target.files[0];
-    setFile2(selectedFile);
-  };
+    const selectedFile = e.target.files[0]
+    setFile2(selectedFile)
+  }
 
   // Eliminar documento
   const eliminarDocumento = async (uid) => {
-    setError(null);
+    setError(null)
     try {
-      await deleteDocument(option, uid);
-      navigate(-1);
+      await deleteDocument(option, uid)
+      navigate(-1)
     } catch (error) {
-      setError(error.message);
-      console.log(error);
+      setError(error.message)
+      console.log(error)
     }
-  };
+  }
 
   const handleDelete = (uid, titulo) => {
-    if (!window.confirm(`Confirma que desea eliminar el documento ${cleanTitle(titulo)}`)) return;
-    eliminarDocumento(uid);
-    const dataChangedEvent = new Event('data-changed');
-    document.dispatchEvent(dataChangedEvent);
-  };
+    if (!window.confirm(`Confirma que desea eliminar el documento ${cleanTitle(titulo)}`)) return
+    eliminarDocumento(uid)
+    const dataChangedEvent = new Event('data-changed')
+    document.dispatchEvent(dataChangedEvent)
+  }
 
   return {
     handleSubmit,
@@ -133,5 +133,5 @@ export function useEditGameToList(uid, option, categoria) {
     handleNombrePlataforma,
     nombreArchivo,
     nombrePlataforma
-  };
+  }
 }

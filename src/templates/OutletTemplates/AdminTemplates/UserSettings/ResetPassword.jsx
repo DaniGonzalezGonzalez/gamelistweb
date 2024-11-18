@@ -1,13 +1,16 @@
-import { useEffect, useState } from "react";
-import { supabase } from "../../../../api/supabase/supabase";
-import { Link, useNavigate } from "react-router-dom";
-import { HomeIcon } from "../../../../assets/Icons";
+import { useContext, useEffect, useState } from "react"
+import { supabase } from "../../../../api/supabase/supabase"
+import { Link, useNavigate } from "react-router-dom"
+import { HomeIcon } from "../../../../assets/Icons"
+import { UserContext } from "../../../../context/UserContext"
 
 export function ResetPassword() {
     const [email, setEmail] = useState('');
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');
     const [showError, setShowError] = useState(false)
+    const { user } = useContext(UserContext)
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -30,7 +33,7 @@ export function ResetPassword() {
       console.log('El data', await supabase.rpc('check_user_exists', { email_input: email }))
         
         if (fetchError) {
-            setError('Error verificando el correo electrónico. Por favor, inténtelo más tarde.');
+            setError('Error verificando el correo electrónico. Por favor, inténtelo más tarde.')
             console.log(fetchError.message);
             return;
         }
@@ -51,21 +54,22 @@ export function ResetPassword() {
         setMessage('Se ha enviado un enlace de restablecimiento de contraseña a su correo electrónico.');
         console.log(message)
       }
-    };
+    }
+
     const handleGoBack = () => {
-      navigate(-1);
-    };
+      navigate(-1)
+    }
   
 
     return (
       <div className="relative flex flex-col items-center justify-center min-h-screen p-4 pt-20 pb-10 bg-center bg-cover" style={{ backgroundImage: `url("/Imagen-fondo-colecciones.jpg")` }}>
       {!user.id && <div className="absolute z-10 flex items-center gap-2 top-4 left-4">
           <Link to="/">
-            <div className="p-1 mt-1 text-white transition duration-500 rounded-lg bg-slate-700 hover:bg-slate-600">
+            <div className="p-1 mt-1 text-white transition duration-500 rounded-lg bg-slate-900 hover:bg-slate-600">
               <HomeIcon />
             </div>
           </Link>
-          <button className="flex items-center gap-3 p-2 mt-1 text-xs text-white transition duration-500 rounded-lg bg-slate-700 hover:bg-green-700" onClick={handleGoBack}>
+          <button className="flex items-center gap-3 p-2 mt-1 text-xs text-white transition duration-500 rounded-lg bg-slate-900 hover:bg-green-700" onClick={handleGoBack}>
             <p className="p-.05">Volver</p>
           </button>
         </div>}
@@ -82,5 +86,5 @@ export function ResetPassword() {
           {showError && (<p className="mt-4 text-sm text-center text-red-500">{error}</p>)}
           {message && (<p className="mt-4 text-sm text-green-500">{message}</p>)}
       </div>
-  );
+  )
 }

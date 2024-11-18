@@ -78,20 +78,46 @@ export const getDocument = async (tableName, id) => {
   export const getDocumentsWithFilter = async (tableName, filters) => {
     try {
       let query = supabase.from(tableName).select('*');
-  
+    
       // Aplicar filtros
       filters.forEach(filter => {
-        // Cambiar 'eq' por 'ilike' para coincidencias parciales
-        query = query.filter(filter.field, 'ilike', `%${filter.value}%`); // Agregar comodines para búsqueda parcial
-      });
+        if (filter.field === 'plataforma') {
+          const platform = filter.value;
   
+          // Manejo general de excepciones para plataformas conflictivas
+          switch (platform) {
+            case 'NES':
+              // Caso especial para NES (excluir SNES)
+              query = query.filter(filter.field, 'ilike', `%NES%`).not('plataforma', 'ilike', `%SNES%`);
+              break;
+            case 'Game Boy':
+              // Caso especial para Game Boy (excluir Game Boy Color y Game Boy Advance)
+              query = query.filter(filter.field, 'ilike', `%Game Boy%`)
+                           .not('plataforma', 'ilike', `%Game Boy Color%`)
+                           .not('plataforma', 'ilike', `%Game Boy Advance%`);
+              break;  
+            case 'Wii':
+              // Caso especial para Game Boy (excluir Game Boy Color y Game Boy Advance)
+              query = query.filter(filter.field, 'ilike', `%Wii%`)
+                            .not('plataforma', 'ilike', `%WiiU%`)
+              break;  
+            default:
+              // Búsqueda parcial para otras plataformas
+              query = query.filter(filter.field, 'ilike', `%${platform}%`);
+          }
+        } else {
+          // Aplicar otros filtros sin cambios
+          query = query.filter(filter.field, 'ilike', `%${filter.value}%`);
+        }
+      });
+    
       // Ejecutar la consulta
       const { data, error } = await query;
-  
+    
       if (error) {
         throw new Error("Error al obtener documentos filtrados: " + error.message);
       }
-  
+    
       return data || []; // Devuelve los datos o un array vacío si no hay resultados
     } catch (error) {
       throw new Error("Error al obtener documentos filtrados: " + error.message);
@@ -129,53 +155,84 @@ export const getDocument = async (tableName, id) => {
   };
 
 
-    /** // Obtener documentos con filtros
- * @param {String} tableName Nombre de la tabla
- * @param {Array} filters Array de filtros en formato { field: 'campo', value: 'valor' }
- * @returns {Array} Array de documentos filtrados
- */
-    export const getGamesOffline = async (tableName, plataforma, limit) => {
-      try {        
-        const { data, error } = await supabase
-          .from(tableName)
-          .select('*')
-          // Aquí usamos ilike para encontrar juegos cuya primera plataforma sea la buscada
-          .ilike('plataforma', `${plataforma}%`)
-          .order('created_at', { ascending: false })
-          .limit(limit);
-    
-        if (error) {
-          throw new Error("Error al obtener juegos: " + error.message);
-        }
-    
-        // Devolvemos los juegos filtrados
-        return data || [];
-      } catch (error) {
+
+
+
+  export const getGamesOffline = async (tableName, plataforma, limit) => {
+    try {
+      let query = supabase.from(tableName).select('*');
+  
+      // Manejo general de excepciones para plataformas conflictivas
+      switch (plataforma) {
+        case 'NES':
+          // Caso especial para NES (excluir SNES)
+          query = query.ilike('plataforma', `%NES%`).not('plataforma', 'ilike', `%SNES%`);
+          break;
+        case 'Game Boy':
+          // Caso especial para Game Boy (excluir Game Boy Color y Game Boy Advance)
+          query = query.ilike('plataforma', `%Game Boy%`)
+                       .not('plataforma', 'ilike', `%Game Boy Color%`)
+                       .not('plataforma', 'ilike', `%Game Boy Advance%`);
+          break;
+        case 'Wii':
+          // Caso especial para Game Boy (excluir Game Boy Color y Game Boy Advance)
+          query = query.filter(filter.field, 'ilike', `%Wii%`)
+                        .not('plataforma', 'ilike', `%WiiU%`)
+          break;  
+        default:
+          // Búsqueda parcial para otras plataformas
+          query = query.ilike('plataforma', `${plataforma}%`);
+      }
+  
+      // Ordenar por la fecha de creación y limitar resultados
+      query = query.order('created_at', { ascending: false }).limit(limit);
+  
+      // Ejecutar la consulta
+      const { data, error } = await query;
+  
+      if (error) {
         throw new Error("Error al obtener juegos: " + error.message);
       }
-    };
+  
+      // Devolvemos los juegos filtrados
+      return data || [];
+    } catch (error) {
+      throw new Error("Error al obtener juegos: " + error.message);
+    }
+  };
+  
 
-// Si quiero mostrar aletaorios de forma manual
-    // export const getGamesOffline = async (tableName) => {
-    //   try {
-    //     const { data, error } = await supabase
-    //       .from(tableName)
-    //       .select('*')
-    //       .limit(100); // Obtén más juegos de los que necesitas
+
+
+
+
+//     /** // Obtener documentos con filtros
+//  * @param {String} tableName Nombre de la tabla
+//  * @param {Array} filters Array de filtros en formato { field: 'campo', value: 'valor' }
+//  * @returns {Array} Array de documentos filtrados
+//  */
+//     export const getGamesOffline = async (tableName, plataforma, limit) => {
+//       try {        
+//         const { data, error } = await supabase
+//           .from(tableName)
+//           .select('*')
+//           // Aquí usamos ilike para encontrar juegos cuya primera plataforma sea la buscada
+//           .ilike('plataforma', `${plataforma}%`)
+//           .order('created_at', { ascending: false })
+//           .limit(limit);
     
-    //     if (error) {
-    //       throw new Error("Error al obtener juegos: " + error.message);
-    //     }
+//         if (error) {
+//           throw new Error("Error al obtener juegos: " + error.message);
+//         }
     
-    //     // Selecciona aleatoriamente 4 juegos del conjunto de datos
-    //     const shuffledGames = data.sort(() => 0.5 - Math.random());
-    //     const selectedGames = shuffledGames.slice(0, 4);
-    
-    //     return selectedGames;
-    //   } catch (error) {
-    //     throw new Error("Error al obtener juegos: " + error.message);
-    //   }
-    // };
+//         // Devolvemos los juegos filtrados
+//         return data || [];
+//       } catch (error) {
+//         throw new Error("Error al obtener juegos: " + error.message);
+//       }
+//     };
+
+
 
 
 

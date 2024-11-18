@@ -1,18 +1,19 @@
 import { useContext, useEffect } from "react"
-import { UserContext } from "../../../context/UserContext"
-import { HeadHomePage, InfoHomePageJugando, InfoHomePageEnLista, InfoHomePageResto, InfoHomePageTerminados } from './index'
-import { InfoHomePageEnListaOffline, InfoHomePageGamesCategoriesOffline, InfoHomePageJugandoOffline, InfoHomePageTerminadosOffline } from "./PortadaOffline"
-import { ScrollToTopButton } from "../../helpers/components/Menus&IndexHelpers/ScrollToTopButton"
 import { useLocation } from "react-router-dom"
- 
+import { UserContext } from "../../../context/UserContext"
+import { HeadHomePage, InfoHomePageJugando, InfoHomePageEnLista, InfoHomePageResto, InfoHomePageTerminados, Carrusel } from './PortadaOnline'
+import { InfoHomePageEnListaOffline, InfoHomePageGamesCategoriesOffline, InfoHomePageJugandoOffline, InfoHomePageTerminadosOffline } from "./PortadaOffline"
+import { ScrollToTopButton } from "../../helpers/Utils/ScrollToTopButton"
+
 export function Homepage() {  
   const { user } = useContext(UserContext)
-  const location = useLocation();
-
+  const location = useLocation()
+  
   useEffect(() => {
-    // Limpiar previousUrl al cambiar de ruta
+    // Limpiar previousUrl al cambiar de ruta. Url se usa para añadir plataforma a título de juego
     sessionStorage.removeItem('previousUrl');
-  }, [location]);
+  }, [location])
+
   return (
     <div className={`text-sm ${user.id && 'sm:pl-10'} font-montserrat`}>
       <HeadHomePage/>
@@ -30,6 +31,11 @@ export function Homepage() {
         </div>
         <div id="indice-infohomepage-resto" className="text-white">
           <InfoHomePageResto/>
+        </div>
+        <div className="flex flex-col items-start justify-start text-white mt-28 lg:mt-40 sm:pl-16">
+          <h1 className="pl-8 text-2xl font-bold text-center uppercase sm:pl-0">Explora el catálogo</h1>
+          <h1 className="pl-8 mt-3 text-sm font-bold text-center lg:text-xl sm:pl-0">¡Añade nuevos juegos!</h1>
+          <Carrusel />
         </div>
         <div className="relative z-10"><ScrollToTopButton/></div>
       </div>
@@ -51,7 +57,6 @@ export function Homepage() {
         </div>
        </div>
       }
-      
     </div>
   )
 }

@@ -28,6 +28,10 @@ export default {
           '100%': { backgroundColor: '#1e3a8a' },   // Regresa al azul oscuro
         },
       },
+      scale: {
+        '102': '1.02',  // Agregar escala personalizada
+        '103': '1.03',  // Puedes agregar más si es necesario
+      },
     },
   },
   plugins: [],

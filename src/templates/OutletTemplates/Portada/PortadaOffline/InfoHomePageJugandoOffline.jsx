@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react"
 import { useGetDataPortadaPorEstadoOffline } from "../../../../hooks/Portada/useGetDataPortadaPorEstadoOffline"
 import { fetchPlatformImagesJugandoYCompletando } from "../../../../hooks/useFetchsPlatforms"
-import { HomePageSkeleton } from "../../../helpers/components/Menus&IndexHelpers/Skeletons/HomePageSkeleton"
-import { GET_COLOR_CLASS, totalNotaMetacriticPrensa } from "../../../helpers/no-components/constants"
-import ImagesHeadAddToGameList from "../../../helpers/components/Menus&IndexHelpers/ImagesAddToGameList/ImagesHeadAddToGameList"
-
+import { GET_COLOR_CLASS, totalNotaMetacriticPrensa } from "../../../helpers/constants/constants"
+import { HomePageSkeleton } from "../../../helpers/Utils/Skeletons/HomePageSkeleton"
+import ImagesComunityHomepage from "./PortadaOfflineHelpers/ImagesComunityHomepage"
 
 export function InfoHomePageJugandoOffline() {
   const [platformImages, setPlatformImages] = useState({})
@@ -37,7 +36,7 @@ export function InfoHomePageJugandoOffline() {
       <div className="absolute top-0 left-0 w-full h-full"
         style={{ backgroundImage: 'linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1))', backgroundSize: 'cover', backgroundPosition: 'center center', height: '20%' }} />
       <h2 className="relative z-20 flex gap-4 pt-4 pb-10 text-lg font-semibold uppercase sm:pt-8">Por la comunidad</h2>
-      <ImagesHeadAddToGameList gamesBDByPlatform={juegosJugandoLimitados}/>
+      <ImagesComunityHomepage gamesBDByPlatform={juegosJugandoLimitados}/>
       <h2 className="relative z-20 flex gap-4 pt-4 text-sm font-semibold lg:pt-8 lg:text-lg">Se está jugando</h2> 
       <h3 className="relative z-20 flex items-center gap-1 pt-2 lg:pt-4 lg:text-xs text-[9px] uppercase">Nota media metacritic · 
         <div className="pr-2">

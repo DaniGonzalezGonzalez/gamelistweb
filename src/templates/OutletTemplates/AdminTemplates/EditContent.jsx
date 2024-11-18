@@ -155,6 +155,10 @@ export function EditContent() {
                               <label htmlFor="linkHowLongToBeat" className="block text-xs font-montserrat">Link de HowLongToBeat</label>
                               <input className="p-2 border rounded resize-none" name="linkHowLongToBeat" id="linkHowLongToBeat" placeholder="https://howlongtobeat.com/" type="text" value={contenido.linkHowLongToBeat} onChange={handleChange}></input>
                             </div>
+                            {/* <div className="flex flex-col gap-2">
+                              <label htmlFor="linkVideo" className="block text-xs font-montserrat">Link de Youtube</label>
+                              <input className="p-2 border rounded resize-none" name="linkVideo" id="linkVideo" placeholder="https://youtube.com/" type="text" value={contenido.linkVideo} onChange={handleChange}></input>
+                            </div> */}
                           </div>
 
                           <div className="flex flex-col gap-2">
@@ -165,6 +169,11 @@ export function EditContent() {
                           <div className="flex flex-col gap-2">
                             <label htmlFor="genero" className="block font-montserrat">Género del juego</label>
                             <input className="p-2 border rounded resize-none" name="genero" id="genero" placeholder="Lucha, aventuras" value={contenido.genero} onChange={handleChange}></input>
+                          </div>
+
+                          <div className="flex flex-col gap-2">
+                            <label htmlFor="lanzamiento" className="block font-montserrat">Año de lanzamiento del juego</label>
+                            <input className="p-2 border rounded resize-none" name="lanzamiento" id="lanzamiento" placeholder="Lucha, aventuras" value={contenido.lanzamiento} onChange={handleChange}></input>
                           </div>
 
                         {/* <div className='flex flex-col gap-2'>

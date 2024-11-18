@@ -46,10 +46,10 @@ export const DeleteAccount = () => {
             alert('No se pudo obtener el token de sesión.');
           }
         } catch (error) {
-          console.error('Error al eliminar la cuenta:', error);
-          alert('Error al eliminar la cuenta.');
+          console.error('Error al eliminar la cuenta:', error)
+          alert('Error al eliminar la cuenta.')
         }
-      };
+      }
       
     
 

@@ -1,8 +1,7 @@
 import { useContext, useRef } from "react"
 import { useAdd } from "../../../hooks/useAdd"
 import { UserContext } from "../../../context/UserContext"
-import { HomePageSkeleton } from "../../helpers/components/Menus&IndexHelpers/Skeletons/HomePageSkeleton"
-import { PlatformSelect } from "../../helpers/components/Menus&IndexHelpers/PlatformSelect"
+import { HomePageSkeleton } from "../../helpers/Utils/Skeletons/HomePageSkeleton"
 
 
 export function AddContent() {
@@ -110,6 +109,10 @@ export function AddContent() {
                   <label htmlFor="linkHowLongToBeat" className="block text-xs text-white font-montserrat">Link de HowLongToBeat</label>
                   <input className="p-2 border rounded resize-none" name="linkHowLongToBeat" id="linkHowLongToBeat" placeholder="https://howlongtobeat.com/" type="text"></input>
                 </div>
+                {/* <div className="flex flex-col gap-2">
+                  <label htmlFor="linkVideo" className="block text-xs text-white font-montserrat">Link de Youtube</label>
+                  <input className="p-2 border rounded resize-none" name="linkVideo" id="linkVideo" placeholder="https://youtube.com/" type="text"></input>
+                </div> */}
               </div>
 
               <div className="flex flex-col gap-2">
@@ -120,6 +123,11 @@ export function AddContent() {
               <div className="flex flex-col gap-2">
                 <label htmlFor="genero" className="block font-medium text-white font-montserrat">Género del juego</label>
                 <input className="p-2 border rounded resize-none" name="genero" id="genero" placeholder="Lucha, aventuras"></input>
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label htmlFor="lanzamiento" className="block font-medium text-white font-montserrat">Año de lanzamiento del juego</label>
+                <input className="p-2 border rounded resize-none" type="number" name="lanzamiento" id="lanzamiento" placeholder="2015"></input>
               </div>
 
 

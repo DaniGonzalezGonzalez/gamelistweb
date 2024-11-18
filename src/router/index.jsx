@@ -1,18 +1,13 @@
 import { createBrowserRouter } from "react-router-dom"
 import { MainTemplate } from "../templates/MainTemplate"
 import { Homepage } from "../templates/OutletTemplates/Portada/Homepage"
-import { AddContent, AddGameToList, EditContent, EditGametoList, ErrorPage, Login } from "../templates/OutletTemplates/AdminTemplates"
-import { AddGameToListByPlatform } from "../templates/OutletTemplates/AdminTemplates/AddGameToListByPlatform/AddGameToListByPlatform"
-import {  EditGametoListByState, EditGametoListByStateRejugando, GameDetail } from "../templates/OutletTemplates/ExtraInfoCategories"
-import { AccesoPrivado } from "../templates/helpers/components/AdminComponents/AccesoPrivado"
-import { UserRegister } from "../templates/OutletTemplates/AdminTemplates/UserSettings/UserRegister"
-import { ResetPassword } from "../templates/OutletTemplates/AdminTemplates/UserSettings/ResetPassword"
-import { UpdatePassword } from "../templates/OutletTemplates/AdminTemplates/UserSettings/UpdatePassword"
-import { UserProfile } from "../templates/OutletTemplates/AdminTemplates/UserSettings/UserProfile"
-import { FAQ } from "../templates/OutletTemplates/ExtraInfoCategories/FAQ"
-import { TerminosUso } from "../templates/OutletTemplates/AdminTemplates/PrivacyPolicies/TerminosUso"
-import { PoliticaPrivacidad } from "../templates/OutletTemplates/AdminTemplates/PrivacyPolicies/PoliticaPrivacidad"
-import { GameBDDetail } from "../templates/OutletTemplates/ExtraInfoCategories/GameBDDetail"
+import { AddContent, EditContent, ErrorPage, Login } from "../templates/OutletTemplates/AdminTemplates"
+import { ResetPassword, UpdatePassword, UserProfile, UserRegister } from "../templates/OutletTemplates/AdminTemplates/UserSettings"
+import { GameDetail } from "../templates/OutletTemplates/GameDetails/GameDetail"
+import { AddGameToList, AddGameToListByPlatform, GameListComplete, GameListByState, GameListByStateRejugando } from "../templates/OutletTemplates/AddAndListTemplates"
+import { FAQ } from "../templates/OutletTemplates/FAQ/FAQ"
+import { PoliticaPrivacidad, TerminosUso } from "../templates/OutletTemplates/AdminTemplates/PrivacyPolicies"
+import { AccesoPrivado } from "../templates/helpers/AdminComponents/AccesoPrivado"
 
 export const router = createBrowserRouter([
     {
@@ -93,55 +88,55 @@ export const router = createBrowserRouter([
             {
                 path:'edit-game-to-list-completa',
                 element:  <AccesoPrivado>
-                             <EditGametoList/>
+                             <GameListComplete/>
                           </AccesoPrivado>
             },
             {
                 path:'edit-game-to-list-jugando',
                 element: <AccesoPrivado>
-                           <EditGametoListByStateRejugando estadoPluralMinusculas={'jugando'} estadoSingularMayusculas={'Jugando'} nombreColeccion={'Jugando'}/>
+                           <GameListByStateRejugando estadoPluralMinusculas={'jugando'} estadoSingularMayusculas={'Jugando'} nombreColeccion={'Jugando'}/>
                          </AccesoPrivado>
             },
             {
                 path:'edit-game-to-list-en-lista',
                 element: <AccesoPrivado>
-                            <EditGametoListByState estadoPluralMinusculas={'en-lista'} estadoSingularMayusculas={'En lista'} nombreColeccion={'En lista'}/>
+                            <GameListByState estadoPluralMinusculas={'en-lista'} estadoSingularMayusculas={'En lista'} nombreColeccion={'En lista'}/>
                          </AccesoPrivado>
             },
             {
                 path:'edit-game-to-list-terminados',
                 element:    <AccesoPrivado>
-                            <EditGametoListByState estadoPluralMinusculas={'terminados'} estadoSingularMayusculas={'Terminado'} nombreColeccion={'Terminados'}/>
+                            <GameListByState estadoPluralMinusculas={'terminados'} estadoSingularMayusculas={'Terminado'} nombreColeccion={'Terminados'}/>
                             </AccesoPrivado>
             },
             {
                 path:'edit-game-to-list-completando',
                 element: <AccesoPrivado>
-                            <EditGametoListByStateRejugando estadoPluralMinusculas={'completando'} estadoSingularMayusculas={'Completando'} nombreColeccion={'Completando'}/>
+                            <GameListByStateRejugando estadoPluralMinusculas={'completando'} estadoSingularMayusculas={'Completando'} nombreColeccion={'Completando'}/>
                         </AccesoPrivado>
             },
             {
                 path:'edit-game-to-list-lista-de-deseos',
                 element:<AccesoPrivado>
-                            <EditGametoListByState estadoPluralMinusculas={'lista-de-deseos'} estadoSingularMayusculas={'Lista de deseos'} nombreColeccion={'Lista de deseos'}/>
+                            <GameListByState estadoPluralMinusculas={'lista-de-deseos'} estadoSingularMayusculas={'Lista de deseos'} nombreColeccion={'Lista de deseos'}/>
                         </AccesoPrivado>
             },
             {
                 path:'edit-game-to-list-otra-vez',
                 element:<AccesoPrivado>
-                            <EditGametoListByStateRejugando estadoPluralMinusculas={'Otra-vez'} estadoSingularMayusculas={'Otra vez'} nombreColeccion={'Otra vez'}/>
+                            <GameListByStateRejugando estadoPluralMinusculas={'Otra-vez'} estadoSingularMayusculas={'Otra vez'} nombreColeccion={'Otra vez'}/>
                         </AccesoPrivado>
             },
             {
                 path:'edit-game-to-list-pausados',
                 element: <AccesoPrivado>
-                            <EditGametoListByState estadoPluralMinusculas={'pausados'} estadoSingularMayusculas={'Pausado'} nombreColeccion={'Pausados'}/>
+                            <GameListByState estadoPluralMinusculas={'pausados'} estadoSingularMayusculas={'Pausado'} nombreColeccion={'Pausados'}/>
                          </AccesoPrivado>
             },
             {
                 path:'edit-game-to-list-abandonados',
                 element: <AccesoPrivado>
-                            <EditGametoListByState estadoPluralMinusculas={'abandonados'} estadoSingularMayusculas={'Abandonado'} nombreColeccion={'Abandonados'}/>
+                            <GameListByState estadoPluralMinusculas={'abandonados'} estadoSingularMayusculas={'Abandonado'} nombreColeccion={'Abandonados'}/>
                         </AccesoPrivado>
             },
             {
@@ -150,12 +145,12 @@ export const router = createBrowserRouter([
                             <GameDetail/>
                         </AccesoPrivado>
             },
-            {
-                path:'game/:collection/:gameId',
-                element: <AccesoPrivado>
-                            <GameBDDetail/>
-                        </AccesoPrivado>
-            },
+            // {
+            //     path:'game/:collection/:gameId',
+            //     element: <AccesoPrivado>
+            //                 <GameBDDetail/>
+            //             </AccesoPrivado>
+            // },
         ]
     }
 ])

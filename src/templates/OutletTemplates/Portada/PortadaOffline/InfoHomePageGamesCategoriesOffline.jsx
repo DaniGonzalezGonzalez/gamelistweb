@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
-import { HomePageSkeleton } from "../../../helpers/components/Menus&IndexHelpers/Skeletons/HomePageSkeleton"
-import { scrollToTop } from "../../../helpers/no-components/constants"
+import { scrollToTop } from "../../../helpers/constants/constants"
 import { fetchPlatformImagesPortada } from "../../../../hooks/useFetchsPlatforms"
 import { useGetDataGamesOffline } from "../../../../hooks/Portada/useGetDataGamesOffline"
+import { HomePageSkeleton } from "../../../helpers/Utils/Skeletons/HomePageSkeleton"
 
 export function InfoHomePageGamesCategoriesOffline() {
   const [selectedImage, setSelectedImage] = useState(null)

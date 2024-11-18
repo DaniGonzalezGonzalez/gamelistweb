@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { supabase } from "../../../../api/supabase/supabase";
 import { Link, useNavigate } from "react-router-dom";
 import { HomeIcon } from "../../../../assets/Icons";
+import { UserContext } from "../../../../context/UserContext";
 
 export function UserRegister() {
   const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');
+  const { user } = useContext(UserContext)
     const navigate = useNavigate();
 
     const handleRegister = async (e) => {
@@ -55,11 +57,11 @@ export function UserRegister() {
       <div className="flex flex-col items-center justify-center min-h-screen p-4 pt-20 pb-10 bg-center bg-cover" style={{ backgroundImage: `url("/Imagen-fondo-colecciones.jpg")` }}>
         {!user.id && <div className="absolute z-10 flex items-center gap-2 top-4 left-4">
             <Link to="/">
-                <div className="p-1 mt-1 text-white transition duration-500 rounded-lg bg-slate-700 hover:bg-slate-600">
+                <div className="p-1 mt-1 text-white transition duration-500 rounded-lg bg-slate-900 hover:bg-slate-600">
                 <HomeIcon />
                 </div>
             </Link>
-            <button className="flex items-center gap-3 p-2 mt-1 text-xs text-white transition duration-500 rounded-lg bg-slate-700 hover:bg-green-700" onClick={handleGoBack}>
+            <button className="flex items-center gap-3 p-2 mt-1 text-xs text-white transition duration-500 rounded-lg bg-slate-900 hover:bg-green-700" onClick={handleGoBack}>
                 <p className="p-.05">Volver</p>
             </button>
           </div>}

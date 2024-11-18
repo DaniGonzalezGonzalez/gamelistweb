@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
-import { supabase } from "../../../../api/supabase/supabase";
-import { useNavigate } from "react-router-dom";
-import { useUser } from "../../../../hooks/useUser";
+import { useEffect, useState } from "react"
+import { supabase } from "../../../../api/supabase/supabase"
+import { useNavigate } from "react-router-dom"
+import { useUser } from "../../../../hooks/useUser"
 
 export function UpdatePassword() {
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [message, setMessage] = useState('');
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const [message, setMessage] = useState('')
   const [showError, setShowError] = useState(false)
   const navigate = useNavigate()
   const { user } = useUser()
@@ -22,9 +22,9 @@ export function UpdatePassword() {
 }, [error])
 
   const handleUpdatePassword = async (e) => {
-    e.preventDefault();
-    setError('');
-    setMessage('');
+    e.preventDefault()
+    setError('')
+    setMessage('')
 
 
     if (!user) {
@@ -32,24 +32,7 @@ export function UpdatePassword() {
       return;
     }
 
-    // Llamar a la función RPC para verificar si la nueva contraseña es diferente
-    // const { data, error: fetchError } = await supabase.rpc('check_password_different', {
-    //   user_id: user.id,
-    //   new_password: password
-    // });
-
-    // if (fetchError) {
-    //   setError('Error verificando la contraseña. Por favor, inténtelo más tarde.');
-    //   console.log(fetchError.message);
-    //   return;
-    // }
-
-    // if (!data) {
-    //   setError('La nueva contraseña no puede ser la misma que la antigua.');
-    //   return;
-    // }
-
-    const { error } = await supabase.auth.updateUser({ password });
+    const { error } = await supabase.auth.updateUser({ password })
 
     if (error) {
       setError(error.message);
@@ -59,7 +42,7 @@ export function UpdatePassword() {
         navigate('/')
       }, 4000)
     }
-  };
+  }
   
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4 pt-20 pb-10 bg-center bg-cover" style={{ backgroundImage: `url("/Imagen-fondo-colecciones.jpg")` }}>
@@ -78,5 +61,5 @@ export function UpdatePassword() {
       {showError && (<p className="mt-4 text-sm text-center text-red-500">{error}</p>)}
       {message && (<p className="mt-4 text-sm text-green-500">{message}</p>)}
     </div>
-  );
+  )
 }

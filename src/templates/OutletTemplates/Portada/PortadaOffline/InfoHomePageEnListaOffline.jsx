@@ -2,8 +2,8 @@
 import { useEffect, useState } from "react"
 import { fetchPlatformImagesPortada } from "../../../../hooks/useFetchsPlatforms"
 import { useGetDataPortadaPorEstadoOffline } from "../../../../hooks/Portada/useGetDataPortadaPorEstadoOffline"
-import ImagesHeadAddToGameList from "../../../helpers/components/Menus&IndexHelpers/ImagesAddToGameList/ImagesHeadAddToGameList"
-import { GET_COLOR_CLASS, totalNotaMetacriticPrensa } from "../../../helpers/no-components/constants"
+import { GET_COLOR_CLASS, totalNotaMetacriticPrensa } from "../../../helpers/constants/constants"
+import ImagesComunityHomepage from "./PortadaOfflineHelpers/ImagesComunityHomepage"
 
 export function InfoHomePageEnListaOffline() {
     const [platformImages, setPlatformImages] = useState({})
@@ -28,7 +28,7 @@ export function InfoHomePageEnListaOffline() {
             <div className="relative p-8 pb-14 sm:px-16 bg-slate-950">
                 <div className="absolute top-0 left-0 w-full h-full" style={{ backgroundImage: 'linear-gradient(to bottom, rgba(9, 9, 11, 1), rgba(2, 6, 23, 1))', backgroundSize: 'cover', backgroundPosition: 'center center', height: '20%' }}/>
                 <div className="relative z-20">
-                    <ImagesHeadAddToGameList gamesBDByPlatform={juegosLimitados}/>
+                    <ImagesComunityHomepage gamesBDByPlatform={juegosLimitados}/>
                 </div>
                 <h2  className="relative z-20 flex gap-4 pt-4 text-sm font-semibold lg:pt-8 lg:text-lg">En Lista de la comunidad</h2>
                 <h3 className="relative z-20 flex items-center gap-1 pt-2 lg:pt-4 lg:text-xs text-[9px] uppercase">Nota media metacritic · <div className="pr-2">

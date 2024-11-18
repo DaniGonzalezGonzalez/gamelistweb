@@ -1,0 +1,5 @@
+export * from './NoGamesPrompt.jsx'
+export * from './RenderCompletando.jsx'
+export * from './RenderJugando.jsx'
+export * from './RenderJuegosPortada.jsx'
+export * from './TitleCollection.jsx'

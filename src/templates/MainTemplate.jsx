@@ -29,7 +29,7 @@ export function MainTemplate() {
   return (
     <>
       <header className={`${(user.id && isScrolled) ? "bg-gray-950 color-fondo-1 shadow-md h-14 sm:h-0 opacity-95 sm:opacity-100" : `${location.pathname === '/' ? 'bg-transparent h-5': 'bg-transparent'}` } fixed top-0 sm:w-0 w-full z-50 transition-all duration-300 ease-in-out font-montserrat`}>
-        <div className={`${ location.pathname === '/' && isScrolled ? "text-xs" : "text-xs" } py-3 px-4`}>
+        <div className={`${ location.pathname === '/' && isScrolled ? "text-xs" : "text-xs" } py-3 px-4 sm:py-0 sm:px-0`}>
         <NavBar isScrolled={isScrolled}/>
         </div>
       </header>

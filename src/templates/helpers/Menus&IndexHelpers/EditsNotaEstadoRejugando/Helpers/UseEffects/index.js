@@ -1,0 +1,5 @@
+export * from './handlePlatformClick.js'
+export * from './useCheckDuplicatePlatforms.js'
+export * from './useFetchInitialData.js'
+export * from './useEffectFetchDataPlatform.js'
+export * from './useSplitPlatform.js'

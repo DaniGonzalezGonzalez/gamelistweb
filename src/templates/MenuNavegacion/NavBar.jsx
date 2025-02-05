@@ -15,7 +15,7 @@ export function NavBar({ isScrolled }) {
       <div className="flex gap-0 text-white sm:gap-3 font-montserrat">
         {/* Botones del menú en pantallas pequeñas */}
         <NavBarSmallScreenSettingsButtons user={user} location={location} menuOpen={menuOpen} toggleMenu={toggleMenu} toggleConfig={toggleConfig} handleGoBack={handleGoBack} showHomeButton={showHomeButton}/>
-               {/* Menú en pantallas grandes */}
+        {/* Menú en pantallas grandes */}
         <NavBarBigScreenSettingsButtons user={user} isScrolledIndex={isScrolledIndex} toggleConfig={toggleConfig}/>
       </div>
 

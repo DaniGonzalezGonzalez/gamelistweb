@@ -1,11 +1,22 @@
 /* eslint-disable react/prop-types */
-import { PlusIcon } from "../../../../assets/Icons"
+import { useEffect, useState } from "react"
 import { useHandles } from "../../../../hooks/useHandles"
 import { cleanTitle } from "../../../helpers/constants/constants"
+import { getPlataformas, obtenerJuegosCoincidentes } from "../../../helpers/Utils/useObtenerJuegosCoincidentes"
+import { ButtonAddOrAdded, ChooseGameFicha } from "./"
+import { useDataGameListComplete } from "./useDataGameListComplete"
 
-// FoundGames.js
-export function FoundGames({ filteredGames, handleGameSelect, setEditNotaPanelOpen, byPlatform, setEditEstadoPanelOpen, onAvanzar }) {
-  const { handleInfoGameBD } = useHandles()
+export function FoundGames({ filteredGames, handleGameSelect, setEditNotaPanelOpen, byPlatform, setEditEstadoPanelOpen, onAvanzar, user }) {
+  const [dataBD, setDataBD] = useState([])
+  const [noGamesLoaded, setNoGamesLoaded] = useState(false)
+  const [error, setError] = useState(null)
+  const [showChooseGameFicha, setShowChooseGameFicha] = useState(false)
+  const [chooseGameFicha, setChooseGameFicha] = useState([])
+
+  const { handleInfoGameBD, handleTitleClick } = useHandles()
+  const { fetchData } = useDataGameListComplete({ dataBD, setDataBD, setError, setNoGamesLoaded, sortBy:'titulo', sortDirection:'', user, itemsToShow:'', setItemsToShow:'', searchTerm:'', navigate:'' })
+
+  useEffect(() => { fetchData() }, [])
 
   const handleGameClick = (game) => {
     handleGameSelect(
@@ -25,7 +36,6 @@ export function FoundGames({ filteredGames, handleGameSelect, setEditNotaPanelOp
       game.lanzamiento, 
     )
 
-    // Llama a las funciones según la lógica deseada
     if (setEditEstadoPanelOpen) {
       setEditEstadoPanelOpen(true)
     }
@@ -34,32 +44,45 @@ export function FoundGames({ filteredGames, handleGameSelect, setEditNotaPanelOp
       onAvanzar(game.plataforma)
     }
   }
-
-
+  
   return (
     <>
       <h2 className="w-full mt-3 text-lg font-bold text-white lg:mt-4 lg:w-5/6">Juegos encontrados</h2>
-      <ul className="grid w-full grid-cols-2 gap-4 pt-4 mb-6 text-xs text-white border-t border-gray-700 lg:mt-2 lg:w-5/6 sm:mb-10 2xl:grid-cols-9 xl:grid-cols-7 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3">
-        {filteredGames.map((game) => (
-            <li key={game.titulo}>
-              <div className="flex flex-col items-start justify-center gap-1 duration-500 xl:px-2 sm:flex opacity-95 hover:opacity-100">
-                <div className="relative flex items-center justify-center gap-3 border-2 border-transparent shadow-md sm:flex hover:rounded-lg hover:border-2 hover:border-gradient">
-                  <button type="button" onClick={() => handleInfoGameBD(game.id)}>
-                    <img className="object-cover w-full h-32 rounded-lg sm:h-32" src={game?.url[0] ?? game?.imageUrl} alt="No hay imagen"/>
-                  </button>
-                  <button type="button" className="absolute flex items-center justify-center object-contain gap-1 p-0.5 pr-1 bg-gray-600 rounded-lg shadow lg:left-2 left-1 bottom-2 shadow-black hover:bg-green-500"
-                    onClick={(e) => { e.stopPropagation(); handleGameClick(game); }}
-                  >
-                    <PlusIcon w={4} h={4} /> Añadir
-                  </button>
-                </div>
-                <p className="pt-3 text-start">{cleanTitle(game?.titulo)}</p>
-                <p className="pt-2 font-bold text-start">{game.descripcion}</p>
-              </div>
-            </li>
-          ))
-        }
-      </ul>
+        <ul className="grid w-full grid-cols-2 gap-4 pt-4 mb-6 text-xs text-white border-t border-gray-700 lg:mt-2 lg:w-5/6 sm:mb-10 xl:grid-cols-7 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3">
+          {filteredGames.map((game) => {
+              const juegosCoincidentes = obtenerJuegosCoincidentes(game, dataBD)
+              const plataformas = getPlataformas(juegosCoincidentes)
+              const estaAñadido = juegosCoincidentes.length > 0
+
+              return (
+                <li key={game.titulo}>
+                  <div className="flex flex-col items-start justify-center gap-1 mb-2 duration-500 xl:px-2 sm:flex opacity-95 hover:opacity-100">
+                    <div className="relative flex items-center justify-center gap-3 border-2 border-transparent shadow-md sm:flex hover:rounded-lg hover:border-2 hover:border-gradient">
+                      <button type="button" 
+                      onClick={() => {
+                        if (juegosCoincidentes.length > 1) {
+                          setChooseGameFicha(juegosCoincidentes)
+                          setShowChooseGameFicha(true)
+                        } else if (juegosCoincidentes.length === 1) {
+                          handleTitleClick(juegosCoincidentes[0].id)
+                        } else {
+                          handleInfoGameBD(game.id)
+                        }
+                        }}>
+                        <img className="object-cover w-full rounded-lg h-36 sm:h-36" src={game?.url[0] ?? game?.imageUrl} alt="No hay imagen" />
+                      </button>
+                      <ButtonAddOrAdded handleGameClick={handleGameClick} game={game} dataBD={dataBD} juegosCoincidentes={juegosCoincidentes} plataformas={plataformas} estaAñadido={estaAñadido} />
+                    </div>
+                    <p className="pt-3 text-start">{cleanTitle(game?.titulo)}</p>
+                    <p className="pt-2 font-bold text-start">{game.descripcion}</p>
+                  </div>
+                </li>
+              )
+            })}
+        </ul>
+      { showChooseGameFicha && (
+        <ChooseGameFicha game={chooseGameFicha} onSelect={(id) => { handleTitleClick(id); setShowChooseGameFicha(false); }} onClose={() => setShowChooseGameFicha(false)} />
+      )}
     </>
   )
 }

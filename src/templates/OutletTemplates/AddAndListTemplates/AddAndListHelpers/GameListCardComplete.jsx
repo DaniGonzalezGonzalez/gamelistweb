@@ -2,7 +2,7 @@ import React from "react";
 
 export const GameListCardComplete = ({ sortedData, user, handleTitleClick, GET_STATE_BACKGROUND, GET_STATE_ICON, GET_COLOR_CLASS, cleanTitle }) => {
   return (
-    <div className="grid grid-cols-2 gap-6 px-3 py-5 mx-auto lg:px-5 xs:px-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+    <div className="grid grid-cols-2 gap-3 px-0 py-5 mx-auto sm:gap-6 lg:px-5 xs:px-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
       {sortedData.map((item, index) => (
         <div key={index} className="flex justify-center rounded">
           {/* Si el usuario es el propietario del juego, lo mostramos */}

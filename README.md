@@ -1,8 +1,11 @@
-# React + Vite
+# Gamelistweb
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Gamelistweb** es una aplicación web donde puedes crear y gestionar tus listas de videojuegos. Puedes añadir juegos que tienes pendientes, que estás jugando, o que has pausado. La aplicación tiene una base de datos con juegos actuales y retro, y es completamente adaptable a dispositivos móviles y de escritorio.
 
-Currently, two official plugins are available:
+## Características
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Crea y organiza listas de juegos: *Pendientes*, *Jugando*, *Pausados*, etc.
+- Accede a una base de datos con juegos actuales y retro.
+- La aplicación es **responsive**, lo que significa que se adapta a tu teléfono móvil o PC.
+- Busca y añade fácilmente juegos a tus listas.
+

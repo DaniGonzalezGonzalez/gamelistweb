@@ -26,11 +26,11 @@ export function InfoHomePageTerminados() {
 
     return (
         <>
-            <div className="relative px-6 pt-8 pb-5 sm:px-16">
-                <div className="flex items-center gap-1 pb-4 mt-8 mb-2 lg:pb-8 sm:mt-0">
+            <div className="relative px-2 pb-8 sm:py-4 sm:px-3 lg:px-8 sm:pl-20 lg:pl-20 lg:pr-8">
+                <div className="flex items-center gap-1 pb-1 mt-0 mb-0 sm:pb-0 sm:mb-0 lg:pb-0 sm:mt-0">
                    {/* Si NO hay juegos => No habilitamos el acceso a todos los juegos de la colección  */}
                    {juegosLimitados.length === 0 && 
-                        <h2 className="relative z-20 text-xl font-bold uppercase lg:text-xl sm:text-base">Terminados</h2>
+                        <h2 className="relative z-20 text-[15px] px-2 font-bold uppercase lg:text-xl sm:text-base">Terminados</h2>
                    }
 
                    {/* Si hay juegos => Habilitamos el acceso a todos los juegos de la colección  */}
@@ -41,14 +41,16 @@ export function InfoHomePageTerminados() {
 
                 {/* Mostramos los juegos de la colección */}
                 { juegosLimitados.length >= 1 && 
-                    <div className="relative z-10 grid grid-cols-2 gap-5 px-2 md:grid-cols-3 xl:grid-cols-4">
+                    <div className="relative z-10 grid grid-cols-2 gap-3 px-0 sm:gap-0 md:gap-5 sm:grid-cols-4 md:grid-cols-3 xl:grid-cols-4">
                         {RenderJuegosPortada(juegosLimitados, platformImages, handleTitleClick)}
                     </div>
                 }
 
                 {/* Opción de Añadir juegos si NO hay ninguno en la colección */}
                 {juegosLimitados.length === 0 && 
-                     <NoGamesPrompt personalizedTitle='¡No tienes juegos terminados!' personalizedSubtitle='Agrega tus juegos terminados para llevar un registro de tus logros.' handleAddGameMenu={handleAddGameMenu} />                  
+                    <div className="px-2 mt-2">
+                         <NoGamesPrompt personalizedTitle='¡No tienes juegos terminados!' personalizedSubtitle='Agrega tus juegos terminados para llevar un registro de tus logros.' handleAddGameMenu={handleAddGameMenu} />      
+                     </div>            
                 }
 
                 {/* Panel oculto de Elección de catálogo cuando NO hay juegos en la colección */}

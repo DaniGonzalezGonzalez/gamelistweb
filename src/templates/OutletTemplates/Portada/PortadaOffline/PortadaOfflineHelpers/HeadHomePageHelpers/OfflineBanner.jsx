@@ -29,7 +29,7 @@ export const OfflineBanner = ({ juegosPortada, user }) => {
                   Descubre nuestro catálogo
                 </h2>
                 <h3 className="relative z-20 flex gap-1 pt-2 text-xs text-white uppercase lg:pt-4 sm:pt-0 sm:text-xs lg:text-lg">
-                  319 juegos
+                  754 juegos
                 </h3>
               </div>
             </div>

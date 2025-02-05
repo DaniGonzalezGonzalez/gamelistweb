@@ -134,7 +134,7 @@ export const getDocument = async (tableName, id) => {
   export const getRecentGamesByState = async (tableName, estado, email) => {
     try {
       // Determinar el orden basado en el estado
-      const orderDirection = estado === 'En lista' ? 'asc' : 'desc';
+      const orderDirection = estado === 'Próximos' ? 'asc' : 'desc';
       
       const { data, error } = await supabase
       .from(tableName)

@@ -68,7 +68,7 @@ const newPosition = calculateNewPosition(dataBD);
         { onAdded && 
             <button onClick={() => handleDeleteAndRefresh(id, titulo)} type="button" className={`p-3 text-xs transition duration-500 rounded-lg text-white hover:ring-2 hover:ring-red-500 hover:bg-red-600 flex items-center mt-2`}>
               <div className='mr-2'><DeleteIcon w={6} h={6} /></div> 
-              <span className="flex-shrink-0">Eliminar de mis colecciones</span>
+              <span className="flex-shrink-0">Eliminar de mis listas</span>
             </button>
         }
         <div className='flex flex-col items-center justify-center w-full gap-3 mt-5 text-xs sm:gap-0 sm:flex-row sm:text-sm lg:mt-10'>

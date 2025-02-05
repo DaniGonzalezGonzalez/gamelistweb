@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { HomePageSkeleton } from '../../../helpers/Utils/Skeletons/HomePageSkeleton';
 import { FoundGames, RecentGames } from '../Utils';
 
@@ -14,9 +14,12 @@ export const FoundRecentGameMessageAndDisplay = ({
   handleOpenEditPlatformPanel,
   setEditEstadoPanelOpen, // Nueva prop opcional para los casos con plataforma
   byPlatform = 'NO', // Prop opcional para indicar si es por plataforma o no
+  user
 }) => {
+
+
   return (
-    <div className="flex flex-col justify-center w-full">
+    <div className="flex flex-col items-center justify-center w-full">
       {/* Mensaje de éxito o error */}
       {showMessage && (
         <>
@@ -34,6 +37,8 @@ export const FoundRecentGameMessageAndDisplay = ({
           )}
         </>
       )}
+
+
 
       {/* Cargando... */}
       {isLoading && <HomePageSkeleton />}
@@ -54,6 +59,7 @@ export const FoundRecentGameMessageAndDisplay = ({
           onAvanzar={handleOpenEditPlatformPanel}
           byPlatform={byPlatform} // Pasar la prop opcional
           setEditEstadoPanelOpen={setEditEstadoPanelOpen}
+          user={user}
         />
       )}
 
@@ -65,8 +71,10 @@ export const FoundRecentGameMessageAndDisplay = ({
           onAvanzar={handleOpenEditPlatformPanel}
           byPlatform={byPlatform} // Pasar la prop opcional
           setEditEstadoPanelOpen={setEditEstadoPanelOpen} // Solo si es necesario para plataforma
+          user={user}
         />
       )}
+
     </div>
   );
 }

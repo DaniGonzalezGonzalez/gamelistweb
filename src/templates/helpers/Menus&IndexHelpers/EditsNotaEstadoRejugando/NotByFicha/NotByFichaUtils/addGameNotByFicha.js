@@ -23,9 +23,15 @@ export const addGameNotByFicha = async (juego, user, platformDefault, platform, 
       return item.titulo === juegoCompleto && item.infouser === user.email
     })
 
+    // console.log('El juego existente es: ', juegoExistente.titulo)
+    // console.log('El juego completo es: ', juegoCompleto)
+
+
     if (juegoExistente) {            
       if (juegoExistente.titulo === juegoCompleto) {
-        throw new Error(`${juego.titulo} ya existe en tu colección de juegos`)
+        setError(`${juego.titulo} ya existe en tu colección de juegos`);
+        console.log(`${juego.titulo} ya existe en tu colección de juegos`);
+        return; // Detener flujo aquí
       }
     }
 

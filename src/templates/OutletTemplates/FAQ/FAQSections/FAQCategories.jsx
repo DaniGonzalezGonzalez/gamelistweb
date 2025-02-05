@@ -4,7 +4,7 @@ export function FAQCategories() {
 
 return (
   <div className="rounded-lg shadow-lg p-7 bg-slate-100">
-    <h2 className="mb-10 text-xl font-bold text-gray-800 uppercase">Estados o colecciones</h2>
+    <h2 className="mb-10 text-xl font-bold text-gray-800 uppercase">Estados o listas</h2>
 
     {/* Categoría: Jugando */}
     <div className="flex flex-col items-center gap-8 lg:p-6 sm:items-start sm:flex-row">
@@ -27,7 +27,7 @@ return (
         </div>
         <h3 className="mt-2 text-sm italic font-bold uppercase lg:text-lg">Completando</h3>
         <p className="mt-1 text-xs text-justify text-gray-700 lg:text-base">
-          Indica los <span className="font-bold">juegos que estás completando para conseguir el 100%</span>. Se ubica inmediatemente debajo de Jugando en la página principal. 
+          Indica los <span className="font-bold">juegos que estás completando para conseguir el 100%</span>. Se ubica inmediatemente debajo de Jugando en la página principal una vez se añade algún juego. 
         </p>
       </div>
     </div>
@@ -51,7 +51,7 @@ return (
         <div className="p-2 text-white bg-indigo-500 rounded-full">
           <ProximosIcon w="6" h="6" />
         </div>
-        <h3 className="mt-2 text-sm italic font-bold uppercase lg:text-lg">En Lista</h3>
+        <h3 className="mt-2 text-sm italic font-bold uppercase lg:text-lg">Próximos</h3>
         <p className="mt-1 text-xs text-justify text-gray-700 lg:text-base">
           Indica los <span className="font-bold">juegos que quieres pasarte próximamente</span>.
         </p>
@@ -114,10 +114,10 @@ return (
     <div className="flex flex-col items-center w-full p-6 mt-5 text-xs rounded-lg bg-slate-400 lg:text-base sm:items-start">
       <h1 className="mb-3 text-lg font-semibold uppercase">Importante</h1>
       <p className="w-full mb-3 text-justify text-gray-700 lg:text-base">
-        En la página principal se muestran algunos juegos. Al hacer clic en "Ver todos" en una colección concreta, podrás acceder a todos los que contiene. Además, al seleccionar la imagen de un juego entrarás en su ficha específica, donde encontrarás opciones de edición.
+        En la página principal se muestran algunos juegos. Al hacer click en el nombre de la lista, podrás acceder a todos los que contiene. Además, al seleccionar la imagen de un juego entrarás en su ficha específica, donde encontrarás opciones de edición.
       </p>
       <p className="w-full mb-3 text-justify text-gray-700 lg:text-base">
-        En las colecciones de "Jugando" y "Completando", también podrás marcar si estás rejugando un título. Esto activará un ícono indicativo en las imágenes de los juegos correspondientes.
+        En las listas de "Jugando" y "Completando", también podrás marcar si estás rejugando un título. Esto activará un ícono indicativo en las imágenes de los juegos correspondientes.
       </p>
       <p className="w-full text-justify text-gray-700 lg:text-base">
         Si deseas eliminar un juego, puedes hacerlo desde "Editar estado", en la ficha del juego.
@@ -125,8 +125,8 @@ return (
       <div className="flex flex-col items-center justify-center w-full gap-3 pt-5 lg:mt-8">   
         <div>
           <span className="text-[10px] italic text-gray-700">Ejemplo visual de opción de Eliminar</span>
-            <div className="flex items-center gap-2 p-1 px-2 mt-2 text-xs text-white transition duration-300 bg-gray-700 rounded-lg shadow shadow-black hover:bg-red-700 lg:text-base">
-              <span>Eliminar de mi colección</span><DeleteIcon />
+            <div className="flex items-center justify-center gap-2 p-1 px-2 mt-2 text-xs text-white transition duration-300 bg-gray-700 rounded-lg shadow shadow-black hover:bg-red-700 lg:text-base">
+              <span>Eliminar de mis listas</span><DeleteIcon />
             </div>
         </div>
       </div>

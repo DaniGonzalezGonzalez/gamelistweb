@@ -46,7 +46,7 @@ export function useFetchDataAndSort(estadoSingularMayusculas) {
       return sortDirection === 'asc' ? parseFloat(a.notaJuego) - parseFloat(b.notaJuego) : parseFloat(b.notaJuego) - parseFloat(a.notaJuego)
     } else if (sortBy === 'position') {
       // Solo en "En lista" y "Otra vez" se ordena ascendente, en los demás estados es descendente
-      if (estadoSingularMayusculas === 'En lista' || estadoSingularMayusculas === 'Otra vez') {
+      if (estadoSingularMayusculas === 'Próximos' || estadoSingularMayusculas === 'Otra vez') {
         return sortDirection === 'asc' ? b.position - a.position : a.position - b.position
       } else {
         // En todos los demás casos, por defecto descendente

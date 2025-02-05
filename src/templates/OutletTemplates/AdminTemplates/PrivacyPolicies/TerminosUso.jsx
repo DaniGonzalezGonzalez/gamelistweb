@@ -11,9 +11,10 @@ export function TerminosUso() {
           <div className="flex items-center justify-center w-10 mb-3">
             <Link to='/'><div className="p-1 transition duration-500 bg-gray-200 rounded-lg hover:bg-gray-600"><HomeIcon/></div></Link>
          </div>}
-        <div className="flex flex-col gap-8 p-4 text-xs text-justify text-gray-100 bg-gray-700 sm:text-sm rounded-2xl font-montserrat">
-            <h1 className="mt-8 text-4xl text-center text-gray-100 uppercase font-montserrat">Términos de Uso</h1>
-            <p className="mt-8">Estos Términos de Uso rigen el uso de GameListWeb (web creada por Daniel González González) y establecen las reglas y condiciones para el uso de nuestro sitio web.</p>
+        <div className="flex flex-col gap-8 p-4 text-xs text-justify text-gray-900 bg-gray-100 sm:text-sm rounded-2xl font-montserrat">
+            <h1 className="mt-8 text-4xl text-center text-gray-900 uppercase font-montserrat">Términos de Uso</h1>
+            <p className="mt-8">Por favor, lea detenidamente estos términos antes de usar GameListWeb. Al acceder o registrarse, acepta cumplir con estos términos.</p>
+            <p>Estos Términos de Uso rigen el uso de GameListWeb (web creada por Daniel González González) y establecen las reglas y condiciones para el uso de nuestro sitio web.</p>
             <section>
                 <header className="mb-2 font-bold">1. Uso del Sitio:</header>
                 <p>Usted acepta utilizar nuestro sitio web de acuerdo con estos términos y todas las leyes y regulaciones aplicables.</p>
@@ -28,15 +29,15 @@ export function TerminosUso() {
             </section>
             <section>
                 <header className="mb-2 font-bold">4. Cookies o similares:</header>
-                <p>Nuestro sitio web utiliza cookies o tecnologías similares para un buen rendimiento de la aplicación. Al usar nuestro sitio, usted acepta el uso de dichas tecnologías de acuerdo con nuestra Política de Privacidad.</p>
+                <p>Nuestro sitio web utiliza cookies o tecnologías similares para un buen rendimiento de la aplicación. Actualmente, no utilizamos cookies, pero almacenamos datos en el navegador mediante tecnologías como *localStorage* para garantizar el correcto funcionamiento del sitio. Al usar nuestro sitio, usted acepta el uso de dichas tecnologías de acuerdo con nuestra Política de Privacidad.</p>
             </section>
             <section>
                 <header className="mb-2 font-bold">5. Derechos de Propiedad Intelectual:</header>
-                <p>Todas las imágenes utilizadas tienen derechos de autor pertenecientes a compañías indicadas en cada uno de los juegos.</p>
+                <p>Todas las imágenes y marcas utilizadas en GameListWeb son propiedad de sus respectivos dueños. Este sitio no está afiliado, asociado ni respaldado por las compañías dueñas de dichas marcas. El uso de estas imágenes es puramente informativo y sin fines comerciales.</p>
             </section>
             <section>
                 <header className="mb-2 font-bold">6. Limitación de Responsabilidad:</header>
-                <p>No somos responsables de ningún daño o pérdida causada por el uso de nuestro sitio web.</p>
+                <p>No somos responsables de ningún daño o pérdida causada por el uso de nuestro sitio web. El contenido y los datos proporcionados son de carácter informativo y personal, y no garantizamos su precisión o integridad.</p>
             </section>            
             <section>
                 <header className="mb-2 font-bold">7. Terminación de la Cuenta:</header>
@@ -48,7 +49,14 @@ export function TerminosUso() {
             </section>
             <section>
                 <header className="mb-2 font-bold">9. Cumplimiento de la Legislación Española y Europea:</header>
-                <p>{'Los puntos anteriores se establecen con el objetivo de cumplir con todas las leyes y regulaciones de protección de datos en la Unión Europea y España, incluido el Reglamento General de Protección de Datos (RGPD) y la Ley Orgánica de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD). Puede consultar dichas leyes para obtener más información.'}</p>
+                <p>
+                    Los puntos anteriores se establecen con el objetivo de cumplir con todas las leyes y regulaciones de protección de datos en la Unión Europea y España, incluido el Reglamento General de Protección de Datos{" "}
+                    <a href="https://www.boe.es/doue/2016/119/L00001-00088.pdf" target="_blank" rel="noopener noreferrer" className="font-bold text-link-underline">(RGPD)
+                    </a>
+                    {" "}y la Ley Orgánica de Protección de Datos Personales y garantía de los derechos digitales{" "}
+                    <a href="https://www.boe.es/buscar/act.php?id=BOE-A-2018-16673" target="_blank" rel="noopener noreferrer" className="font-bold text-link-underline">(LOPDGDD)</a>
+                    . Puede consultar dichas leyes para obtener más información.
+                    </p>
             </section>
         </div>
     </div>

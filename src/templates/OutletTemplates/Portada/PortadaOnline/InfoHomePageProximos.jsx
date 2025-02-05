@@ -8,8 +8,8 @@ import { ordenarYLimitarJuegos } from "../../../helpers/constants/constants"
 import { ChooseAddGamesMenuFlotante } from "../../../helpers/Utils/ChooseAddGamesMenuFlotante"
 import { NoGamesPrompt, TitleCollection } from "./PortadaOnlineHelpers"
 
-export function InfoHomePageEnLista() {
-    const { juegosPortada, error, isLoading } = useGetDataPortadaPorEstado('En lista')
+export function InfoHomePageProximos() {
+    const { juegosPortada, error, isLoading } = useGetDataPortadaPorEstado('Próximos')
     const { handleTitleClick } = useHandles()
     const [platformImages, setPlatformImages] = useState({})
     const { chooseAddGamesMenuOpen, handleAddGameMenu } = useHandlePlatformMenus()
@@ -20,35 +20,37 @@ export function InfoHomePageEnLista() {
 
     if (isLoading)  return // <HomePageSkeleton/>
     if (error)  return <div> {/* Error: {error} */} </div>
-    
     // Utilizar la función para ordenar y limitar los juegos - El true es para cambiar el orden 
     const juegosLimitados = ordenarYLimitarJuegos(juegosPortada, 4, true)
 
     return (
         <>
-            <div className="relative px-6 py-8 sm:px-16">
-                <div className="flex items-center gap-1 pb-4 mt-8 mb-2 lg:pb-8 sm:mt-0 lg:mt-12">
+            <div className="relative px-2 pb-8 sm:py-4 sm:px-3 lg:px-8 sm:pl-20 lg:pl-20 lg:pr-8">
+                <div className="flex items-center gap-1 pb-1 mt-0 mb-0 sm:pb-0 sm:mb-0 lg:pb-0 sm:mt-0">
                    {/* Si NO hay juegos => No habilitamos el acceso a todos los juegos de la colección  */}
                    { juegosLimitados.length === 0 && 
-                        <h2 className="relative z-20 text-xl font-bold uppercase lg:text-xl sm:text-base">En lista</h2>
+                        <h2 className="relative z-20 text-[15px] px-2 font-bold uppercase lg:text-xl sm:text-base">Próximos</h2>
                    }
 
                    {/* Si hay juegos => Habilitamos el acceso a todos los juegos de la colección  */}
                    { juegosLimitados.length >= 1 && 
-                        <div>{TitleCollection('En lista', '/edit-game-to-list-en-lista')}</div> 
+                        <div>{TitleCollection('Próximos', '/edit-game-to-list-proximos')}</div> 
                     }
                 </div>
 
                 {/* Mostramos los juegos de la colección */}
                 { juegosLimitados.length >=1 && 
-                    <div className="relative z-10 grid grid-cols-2 gap-5 px-2 md:grid-cols-3 xl:grid-cols-4">
+                    <div className="relative z-10 grid grid-cols-2 gap-3 px-0 sm:gap-0 md:gap-5 sm:grid-cols-4 md:grid-cols-3 xl:grid-cols-4">
                         {RenderJuegosPortada(juegosLimitados, platformImages, handleTitleClick)}
                     </div>
                 }
 
                 {/* Opción de Añadir juegos si NO hay ninguno en la colección */}
                 {juegosLimitados.length === 0 && 
-                    <NoGamesPrompt personalizedTitle='¡No tienes juegos en tu lista!' personalizedSubtitle='Agrega juegos a tu lista para planificar tus próximas partidas.' handleAddGameMenu={handleAddGameMenu} />   
+                              <div className="px-2 mt-2">
+
+                        <NoGamesPrompt personalizedTitle='¡No tienes juegos en próximos!' personalizedSubtitle='Agrega juegos a tu lista para planificar tus próximas partidas.' handleAddGameMenu={handleAddGameMenu} />
+                    </div>   
                 }
 
                 {/* Panel oculto de Elección de catálogo cuando NO hay juegos en la colección */}

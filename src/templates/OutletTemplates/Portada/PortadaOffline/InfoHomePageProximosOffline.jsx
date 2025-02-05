@@ -5,9 +5,9 @@ import { useGetDataPortadaPorEstadoOffline } from "../../../../hooks/Portada/use
 import { GET_COLOR_CLASS, totalNotaMetacriticPrensa } from "../../../helpers/constants/constants"
 import ImagesComunityHomepage from "./PortadaOfflineHelpers/ImagesComunityHomepage"
 
-export function InfoHomePageEnListaOffline() {
+export function InfoHomePageProximosOffline() {
     const [platformImages, setPlatformImages] = useState({})
-    const { juegosPortada, error, isLoading } = useGetDataPortadaPorEstadoOffline('En lista')
+    const { juegosPortada, error, isLoading } = useGetDataPortadaPorEstadoOffline('Próximos')
 
     // Ordenar juegos por fecha de actualización
     const juegosOrdenados = juegosPortada.sort((a, b) => new Date(a.position) - new Date(b.position))
@@ -30,7 +30,7 @@ export function InfoHomePageEnListaOffline() {
                 <div className="relative z-20">
                     <ImagesComunityHomepage gamesBDByPlatform={juegosLimitados}/>
                 </div>
-                <h2  className="relative z-20 flex gap-4 pt-4 text-sm font-semibold lg:pt-8 lg:text-lg">En Lista de la comunidad</h2>
+                <h2  className="relative z-20 flex gap-4 pt-4 text-sm font-semibold lg:pt-8 lg:text-lg">Próximos de la comunidad</h2>
                 <h3 className="relative z-20 flex items-center gap-1 pt-2 lg:pt-4 lg:text-xs text-[9px] uppercase">Nota media metacritic · <div className="pr-2">
                     <p className={`text-[10px] lg:text-xs text-gray-100 flex justify-center items-center rounded w-4 h-4 lg:w-5 lg:h-5 lg:px-4 px-3 text-end ${GET_COLOR_CLASS(totalNotaMetacriticPrensa(juegosLimitados))}`}>{totalNotaMetacriticPrensa(juegosLimitados)}</p>
                   </div>

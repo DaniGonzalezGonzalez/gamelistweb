@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { getDocumentsWithFilter } from '../../../../api/supabase/cloud-supabase';
 import { scrollToTop } from '../../../helpers/constants/constants';
 
-export const useDataGameListComplete = (dataBD, setDataBD, setError, setNoGamesLoaded, sortBy, sortDirection, user, itemsToShow, setItemsToShow, searchTerm ) => {
+export const useDataGameListComplete = ({dataBD, setDataBD, setError, setNoGamesLoaded, sortBy, sortDirection, user, itemsToShow, setItemsToShow, searchTerm }) => {
   const navigate = useNavigate()
   const fetchData = async () => {
     try {
@@ -48,7 +48,7 @@ export const useDataGameListComplete = (dataBD, setDataBD, setError, setNoGamesL
           (item.estado === 'Jugando' ||
             item.estado === 'Proximo' ||
             item.estado === 'Recién terminado' ||
-            item.estado === 'En lista' ||
+            item.estado === 'Próximos' ||
             item.estado === 'Terminado' ||
             item.estado === 'Completando' ||
             item.estado === 'Lista de deseos' ||
@@ -57,7 +57,7 @@ export const useDataGameListComplete = (dataBD, setDataBD, setError, setNoGamesL
             item.estado === 'Abandonado') &&
           item.infouser === user.email // Usando directamente user.email
       );
-  }, [dataBD, sortBy, sortDirection, user.email]);
+  }, [dataBD, sortBy, sortDirection, user]);
 
   const sortedData = useMemo(() => {
     return preSortedData

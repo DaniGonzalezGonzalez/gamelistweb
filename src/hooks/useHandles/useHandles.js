@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { updateDocument } from "../../api/supabase/cloud-supabase"
 import { supabase } from "../../api/supabase/supabase"
 import { scrollToTop } from "../../templates/helpers/constants/constants"
@@ -33,6 +33,7 @@ export function useHandles(handleSubmit, setContenido, setFechaActualizacion, se
   const [selectedPlatforms, setSelectedPlatforms] = useState('') // Aquí almacenamos el texto de las plataformas del juego
 
   const navigate = useNavigate() 
+  const location = useLocation()
 
   // Handles de Guardar, editar y eliminar contenido
   const handleGuardarContenido = async (e) => {
@@ -378,10 +379,24 @@ export function useHandles(handleSubmit, setContenido, setFechaActualizacion, se
       setMenuEditPanelOpen(false)
     }
 
+    const handleScrollToSection = async (id) => {
+      if (location.pathname !== "/") {
+        // Navega a la raíz si no estás en ella
+        await navigate("/");
+      }
+  
+      // Desplaza al div con el ID correspondiente
+      const section = document.getElementById(id);
+      if (section) {
+        section.scrollIntoView();
+      }
+    };
+
     return {
       // Handlers relacionados con acciones generales
       handleChange, handleDownPosition, handleEliminar, handleGuardarContenido, handleInfoGameBD, handleNewTitulo, handleNotaJuegoChange, handleOpenEditPlatformPanel, handleOpenEditEstadoPanel, handleOpenMenuEditPanel, handleOpenRejugandoPanel, handlePlatformChangeNewGame,
-      handlePlatinoChange, handlePosition, handlePositionNewGame, handleScrollIndex, handleShowAll, handleShowInitial, handleShowLess, handleShowMore, handleTitleClick, handleUpPosition,
+      handlePlatinoChange, handlePosition, handlePositionNewGame, handleScrollIndex, handleShowAll, handleShowInitial, handleShowLess, handleShowMore, handleTitleClick, handleUpPosition, 
+      handleScrollToSection,
   
       // Handlers relacionados con cambios de propiedades específicas
       handleEditarContenido, handleEstadoChange, handleEstadoChangeNewGame, handleFechaFinalizacionChange, handleHorasDuracionChange, handleOpinionPersonalChange, handlePorcentajeCompletadoChange, handleRejugandoChange,

@@ -73,9 +73,10 @@ export function useEditar(uid, option) {
 
   // Subir archivos a Supabase y retornar sus URLs
   const uploadFiles = async (file1, file2) => {
+    const bucketName = 'gameImages'
     const fileUrls = []
     if (file1) {
-      const fileUrl = await uploadFileToSupabase(file1, `${option}/${nombreArchivo}_file1`)
+      const fileUrl = await uploadFileToSupabase(file1, `${option}/${nombreArchivo}_file1`, bucketName)
       fileUrls.push(fileUrl)
     }
     if (file2) {

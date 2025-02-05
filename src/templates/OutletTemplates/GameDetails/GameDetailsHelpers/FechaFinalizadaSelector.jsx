@@ -16,8 +16,8 @@ export const FechaFinalizadaSelector = ({
         const nuevaFechaFinalizacion = `${nuevoAnio}${nuevoMes}`;
 
         // Validación de año y mes
-        if (nuevoAnio < 1980 || nuevoAnio > 2024 || nuevoMes < '01' || nuevoMes > '12') {
-            setError('El año debe estar entre 1980 y 2024 y el mes entre 01 y 12.');
+        if (nuevoAnio < 1980 || nuevoAnio > 2025 || nuevoMes < '01' || nuevoMes > '12') {
+            setError('El año debe estar entre 1980 y 2025 y el mes entre 01 y 12.');
             return;
         }
 
@@ -59,8 +59,8 @@ export const FechaFinalizadaSelector = ({
                         value={nuevoAnio}
                         onChange={(e) => setNuevoAnio(e.target.value)}
                     >
-                        <option value="" disabled>Año (1990-2024)</option>
-                        {Array.from({ length: 2024 - 1990 + 1 }, (_, i) => (
+                        <option value="" disabled>Año (1990-2025)</option>
+                        {Array.from({ length: 2025 - 1990 + 1 }, (_, i) => (
                             <option key={1990 + i} value={1990 + i}>
                                 {1990 + i}
                             </option>

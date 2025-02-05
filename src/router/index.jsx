@@ -8,6 +8,7 @@ import { AddGameToList, AddGameToListByPlatform, GameListComplete, GameListBySta
 import { FAQ } from "../templates/OutletTemplates/FAQ/FAQ"
 import { PoliticaPrivacidad, TerminosUso } from "../templates/OutletTemplates/AdminTemplates/PrivacyPolicies"
 import { AccesoPrivado } from "../templates/helpers/AdminComponents/AccesoPrivado"
+import { CollectionDetails } from "../templates/OutletTemplates/Portada/PortadaOnline/Carruseles/CarruselesHelpers/CollectionDetails"
 
 export const router = createBrowserRouter([
     {
@@ -98,9 +99,9 @@ export const router = createBrowserRouter([
                          </AccesoPrivado>
             },
             {
-                path:'edit-game-to-list-en-lista',
+                path:'edit-game-to-list-proximos',
                 element: <AccesoPrivado>
-                            <GameListByState estadoPluralMinusculas={'en-lista'} estadoSingularMayusculas={'En lista'} nombreColeccion={'En lista'}/>
+                            <GameListByState estadoPluralMinusculas={'proximos'} estadoSingularMayusculas={'Próximos'} nombreColeccion={'Próximos'}/>
                          </AccesoPrivado>
             },
             {
@@ -145,6 +146,12 @@ export const router = createBrowserRouter([
                             <GameDetail/>
                         </AccesoPrivado>
             },
+            {
+                path:'collections/:filterType/:filterValue',
+                element: <AccesoPrivado>
+                            <CollectionDetails/>
+                        </AccesoPrivado>
+            },
             // {
             //     path:'game/:collection/:gameId',
             //     element: <AccesoPrivado>
@@ -152,5 +159,18 @@ export const router = createBrowserRouter([
             //             </AccesoPrivado>
             // },
         ]
-    }
-])
+        
+      }
+    ],
+    {
+        future: {
+            v7_skipActionErrorRevalidation: true,
+            v7_startTransition: true,
+            v7_partialHydration: true,
+            v7_normalizeFormMethod: true,
+            v7_fetcherPersist: true,
+            v7_relativeSplatPath: true,
+            v7_deferToAction: true,
+          }
+      }
+)

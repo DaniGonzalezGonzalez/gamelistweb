@@ -19,14 +19,6 @@ export const handlePlatformClick = async (
     (plataforma) => plataforma === value
   );
 
-  // Validar si la plataforma ya está seleccionada (opcional)
-  // if (value === platformActual) {
-  //   setErrorMessage("Ya tienes seleccionada esta plataforma.");
-  //   setTimeout(() => {
-  //     setErrorMessage(null);
-  //   }, 2000);
-  //   return;
-  // }
 
   if (plataformaDuplicada) {
     setErrorMessage("Este juego ya existe en la plataforma seleccionada.");

@@ -1,21 +1,21 @@
 import { Link } from "react-router-dom"
-import { AbandonadoIcon, ArrowRight, PauseIcon, StartIcon, UpdateIcon } from "../../../../assets/Icons"
+import { AbandonadoIcon, ArchiveIcon, ArrowRight, PauseIcon, StartIcon, UpdateIcon } from "../../../../assets/Icons"
 import { GET_STATE_BACKGROUND, scrollToTop } from "../../../helpers/constants/constants"
 
 export function InfoHomePageResto() {       
     return (
         <>
-            <div className="relative p-8 sm:px-12 lg:pr-14 lg:pl-16" >
-                <h2 className="relative z-20 pb-4 mt-8 mb-2 text-xl font-bold uppercase lg:pb-8 sm:mt-0 lg:mt-12 lg:text-xl sm:text-base">Otras colecciones</h2>
+            <div className="relative px-4 pb-4 pt-1 sm:px-8 sm:pl-20 lg:pt-4 lg:px-12 lg:pr-8 lg:pl-[85px]" >
+                <h2 className="relative z-20 pb-2 mt-0 mb-2 sm:mb-0 text-[15px] font-normal capitalize sm:pb-3 lg:pb-3 sm:mt-0 lg:mt-0 lg:text-xl sm:text-base">Otros</h2>
                 {/* Acceso a otras colecciones */}
-                <div className="grid gap-10 border border-gray-500 p-9 rounded-xl sm:grid-cols-2 lg:grid-cols-4 sm:justify-evenly lg:items-center">
+                <div className="grid gap-2 p-5 border border-gray-500 lg:gap-6 py-7 sm:p-2 lg:p-9 rounded-xl sm:grid-cols-2 lg:grid-cols-5 sm:justify-evenly lg:items-center">
                     <Link onClick={scrollToTop} to="/edit-game-to-list-otra-vez">
-                        <div className="flex items-center justify-between gap-5 px-1 sm:gap-1 xl:gap-5 xl:px-3">
+                        <div className="flex items-center justify-between gap-5 p-2 transition duration-300 rounded sm:gap-1 xl:gap-5 xl:px-3 hover:bg-gray-800">
                             <div className="flex items-center gap-3">
                                 <div className={`p-1 ${GET_STATE_BACKGROUND('Otra vez')} rounded`}><UpdateIcon/></div>
                                 <div>
-                                    <h3 className="uppercase">Otra Vez</h3>
-                                    <p className="pt-1 text-xs">¡Quiero repetir!</p>
+                                    <h3 className="font-semibold capitalize">Otra Vez</h3>
+                                    <p className="pt-1 text-[11px] lg:text-xs">¡Quiero repetir!</p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-2 text-xs">
@@ -25,12 +25,12 @@ export function InfoHomePageResto() {
                     </Link>
 
                     <Link onClick={scrollToTop} to="/edit-game-to-list-lista-de-deseos">
-                        <div className="flex items-center justify-between gap-5 px-1 sm:gap-1 xl:gap-5 xl:px-3">
+                        <div className="flex items-center justify-between gap-5 p-2 transition duration-300 rounded sm:gap-1 xl:gap-5 xl:px-3 hover:bg-gray-800">
                             <div className="flex items-center gap-3">
                                 <div className={`p-1 ${GET_STATE_BACKGROUND('Lista de deseos')} rounded`}><StartIcon/></div>
                                 <div>
-                                    <h3 className="uppercase">Lista de deseos</h3>
-                                    <p className="pt-1 text-xs">¡Lo quiero!</p>
+                                    <h3 className="font-semibold capitalize">Lista de deseos</h3>
+                                    <p className="pt-1 text-[11px] lg:text-xs">¡Lo quiero!</p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-2 text-xs">
@@ -40,12 +40,12 @@ export function InfoHomePageResto() {
                     </Link>
 
                     <Link onClick={scrollToTop} to="/edit-game-to-list-pausados">
-                        <div className="flex items-center justify-between gap-5 px-1 sm:gap-1 xl:gap-5 xl:px-3">
+                        <div className="flex items-center justify-between gap-5 p-2 transition duration-300 rounded sm:gap-1 xl:gap-5 xl:px-3 hover:bg-gray-800">
                             <div className="flex items-center gap-3">
                                 <div className={`p-1 ${GET_STATE_BACKGROUND('Pausado')} rounded`}><PauseIcon/></div>
                                 <div>
-                                    <h3 className="uppercase">Pausados</h3>
-                                    <p className="pt-1 text-xs">Dándole una vuelta</p>
+                                    <h3 className="font-semibold capitalize">Pausados</h3>
+                                    <p className="pt-1 text-[11px] lg:text-xs">Dándole una vuelta</p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-2 text-xs">
@@ -54,13 +54,28 @@ export function InfoHomePageResto() {
                         </div>
                     </Link>
 
-                    <Link onClick={scrollToTop}  to="/edit-game-to-list-abandonados">
-                        <div className="flex items-center justify-between gap-5 px-1 sm:gap-1 xl:gap-5 xl:px-3">
+                    <Link onClick={scrollToTop} to="/edit-game-to-list-abandonados">
+                        <div className="flex items-center justify-between gap-5 p-2 transition duration-300 rounded sm:gap-1 xl:gap-5 xl:px-3 hover:bg-gray-800">
                             <div className="flex items-center gap-3">
                                 <div className={`p-1 ${GET_STATE_BACKGROUND('Abandonado')} rounded`}><AbandonadoIcon/></div>
                                 <div>
-                                    <h3 className="uppercase">Abandonados</h3>
-                                    <p className="pt-1 text-xs">No pienso volver</p>
+                                    <h3 className="font-semibold capitalize">Abandonados</h3>
+                                    <p className="pt-1 text-[11px] lg:text-xs">No pienso volver</p>
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-2 text-xs">
+                                <div className="px-3 py-1 text-white"><ArrowRight/></div>
+                            </div>
+                        </div>
+                    </Link>
+
+                    <Link onClick={scrollToTop} to="/edit-game-to-list-completa">
+                        <div className="flex items-center justify-between gap-5 p-2 transition duration-300 rounded sm:gap-1 xl:gap-5 xl:px-3 hover:bg-gray-800">
+                            <div className="flex items-center gap-3">
+                                <div className={`p-1 bg-blue-600 rounded`}><ArchiveIcon/></div>
+                                <div>
+                                    <h3 className="font-semibold capitalize">Todos mis juegos</h3>
+                                    <p className="pt-1 text-[11px] lg:text-xs">Mi biblioteca completa</p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-2 text-xs">

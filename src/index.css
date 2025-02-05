@@ -86,7 +86,6 @@
 /* Boton de scroll para arriba del Homepage */
 .scroll-to-top {
   position: fixed;
-  bottom: 1em;
   right: 1em;
   background-color: rgba(128, 128, 128, 0.377);
   color: #fff;
@@ -101,6 +100,14 @@
   align-items: center;
   transition: background-color 0.3s ease, transform 0.3s ease;
   display: flex;
+}
+
+.bottom-large {
+  bottom: 3em;
+}
+
+.bottom-small {
+  bottom: 1em;
 }
 
 .scroll-to-top.visible {
@@ -134,6 +141,31 @@ body::-webkit-scrollbar-thumb:hover {
 .descripcion {
   font-size: xx-small;
 }
+
+
+/* Estilo de la barra de desplazamiento para el contenedor específico */
+.custom-scrollbar::-webkit-scrollbar {
+  width: .5rem;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: rgb(80, 80, 80);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgb(201, 201, 201);
+  border-radius: 1rem;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(245, 245, 245);
+}
+
+/* Estilo de la descripción (si lo necesitas para algún contenido) */
+.descripcion {
+  font-size: xx-small;
+}
+
 
 
 /* Ajusta el contenedor del panel para manejar el scroll en diferentes pantallas */
@@ -262,6 +294,59 @@ body::-webkit-scrollbar-thumb:hover {
 .button-border {
   position: relative;
 }
+
+
+
+
+
+/* Efecto brillante sobre imagen */
+/* .img-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.img-container:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%; 
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0) 100%);
+  pointer-events: none;
+  opacity: 0;
+  z-index: 2;
+  border-radius: 8px;
+  animation: shine 6s linear infinite; 
+  animation-delay: 4s; 
+}
+
+.img-container:hover:before {
+  opacity: 1; 
+  animation-play-state: running; 
+}
+
+
+@keyframes shine {
+  0% {
+    left: -100%; 
+  }
+  50% {
+    left: 100%; 
+  }
+  100% {
+    left: 100%; 
+  }
+} */
 
 
 

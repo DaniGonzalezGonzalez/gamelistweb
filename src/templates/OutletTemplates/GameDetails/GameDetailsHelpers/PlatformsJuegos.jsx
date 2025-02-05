@@ -5,9 +5,10 @@ export const PlatformsJuegos = ({ plataforma, handleOpenEditPlatformPanel }) => 
 
   return (
     <div
-      className="flex items-center justify-center mt-2 cursor-pointer"
+      className="lg:absolute lg:z-10 flex lg:gap-3 items-center justify-center mt-2 cursor-pointer lg:top-[690px] lg:left-[40px]"
       onClick={() => handleOpenEditPlatformPanel(plataforma)}
     >
+      {/* <p className='text-xs lg:block hidden'>Plataforma: </p> */}
       <img
         src={platformImage}
         alt={plataforma}

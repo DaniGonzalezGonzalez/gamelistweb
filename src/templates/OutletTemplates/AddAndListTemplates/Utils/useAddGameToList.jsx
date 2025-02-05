@@ -1,7 +1,8 @@
 import { useCallback, useContext, useEffect, useState } from "react"
 import { UserContext } from "../../../../context/UserContext"
-import { addDocument, getDocuments, uploadFileToSupabase } from "../../../../api/supabase/cloud-supabase"
+import { addDocument, uploadFileToSupabase } from "../../../../api/supabase/cloud-supabase"
 import { cleanTitle } from "../../../helpers/constants/constants"
+import { fetchGames } from "./FetchGames"
 
 export function useAddGameToList(tituloRef, tipoContenidoRef, setSearchTerm, setIsDropdownOpen, handleCloseEditEstadoPanel, setGameAdded, setEditPlatformPanelOpen, setEditEstadoPanelOpen) {
   const { user } = useContext(UserContext)
@@ -15,17 +16,7 @@ export function useAddGameToList(tituloRef, tipoContenidoRef, setSearchTerm, set
     const [isJuegosLoaded, setIsJuegosLoaded] = useState(false) // Estado para controlar la carga de juegos
     const [isSubmitting, setIsSubmitting] = useState(false) // Estado para controlar el envío del formulario
 
-    // Obtener documentos de la base de datos
-    const fetchJuegos = useCallback(async () => {
-      try {
-        const datosJuegos = await getDocuments('Juegos')
-        setJuegos(datosJuegos)
-        setIsJuegosLoaded(true)
-      } catch (error) {
-        console.error("Error al obtener juegos:", error)
-      }
-    }, []);
-  
+    const fetchJuegos = fetchGames(setJuegos, setIsJuegosLoaded, 'Juegos')
 
     // Guardar datos en la base de datos
     const guardarDatos = async (tipoContenido, data) => {
@@ -141,6 +132,7 @@ export function useAddGameToList(tituloRef, tipoContenidoRef, setSearchTerm, set
     return {
       handleSubmit,
       error,
+      setError,
       success,
       isLoading,
       handleImageFileChange,

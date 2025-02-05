@@ -42,7 +42,7 @@ export function GameListByState({ estadoPluralMinusculas, estadoSingularMayuscul
               <GameListHeader dataBD={dataBD} selectedImage={selectedImage} nombreColeccion={nombreColeccion} GET_STATE_BACKGROUND={GET_STATE_BACKGROUND} estadoSingularMayusculas={estadoSingularMayusculas} totalTiempoMainStory={totalTiempoMainStory}/>
         
               {/* Barra de búsqueda y botones de orden */}
-              <div className="container px-8 pt-8 pb-8 mx-auto">             
+              <div className="container px-4 pt-8 pb-8 mx-auto sm:px-8">             
                 <div className="flex justify-between h-6 my-14">
                   <SearchGamesInList searchTerm={searchTerm} setSearchTerm={setSearchTerm} placeholder="Buscar" width="w-40 sm:w-52"/>
           

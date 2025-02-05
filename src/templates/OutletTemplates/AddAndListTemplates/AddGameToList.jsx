@@ -1,7 +1,7 @@
-import { useContext, useRef, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import { UserContext } from "../../../context/UserContext"
 import { useGetData } from "../../../hooks/useGetData"
-import { useFilteredGames, useMessageEffect, useRandomImageEffect } from "./UseEffects"
+import { useDataChangedListener, useFilteredGames, useMessageEffect, useRandomImageEffect } from "./UseEffects"
 import { useHandleGameSelect, useHandles } from "../../../hooks/useHandles"
 import { getPlatformImage, scrollToTop, totalTiempoMainStory } from "../../helpers/constants/constants"
 import { useDebounce } from "../../helpers/constants/constantsComponents"
@@ -30,6 +30,7 @@ export function AddGameToList() {
   const { recentGames, selectedImage } = useRandomImageEffect(gamesBDComplete)
   const showMessage = useMessageEffect(success, error, setSearchTerm)
   useFilteredGames({ gameAdded, setSearchTerm, setPlatform, setGameAdded, debouncedSearchTerm, games: gamesBDComplete, selectedTitle, setFilteredGames, setIsTitleValid, getPlatformImage })
+  const selectedGame = filteredGames.find((game) => game.titulo === selectedTitle)
 
   return (
     <>
@@ -39,7 +40,7 @@ export function AddGameToList() {
                 <AddGameListHeader selectedImage={selectedImage} games={gamesBDComplete} totalTiempoMainStory={totalTiempoMainStory} tituloRef={tituloRef} scrollToTop={scrollToTop}/>
 
                   <div  className="flex flex-col items-center w-full">
-                    <div className="flex flex-col items-center justify-center w-full px-10 sm:mt-10">
+                    <div className="flex flex-col items-center justify-center w-full px-4 sm:px-10 sm:mt-10">
                       <div className="flex flex-col items-center justify-between w-full gap-3 sm:gap-3">
                         {/* Div oculto con la info del nombre de la colección destino => Importante (de momento) */}
                         <HiddenTipoContenidoSelect tipoContenidoRef={tipoContenidoRef} />
@@ -48,16 +49,16 @@ export function AddGameToList() {
                         <SearchGamesBar searchTerm={searchTerm} platform={platform} tituloRef={tituloRef} handleInputChange={handleInputChange} setSearchTerm={setSearchTerm}/>
                         
                         {/* Juegos encontrados, recientes y mensaje de éxito o error */}
-                        <FoundRecentGameMessageAndDisplay showMessage={showMessage} error={error} success={success} isLoading={isLoading} debouncedSearchTerm={debouncedSearchTerm} filteredGames={filteredGames} recentGames={recentGames} handleGameSelect={handleGameSelect}  handleOpenEditPlatformPanel={handleOpenEditPlatformPanel}/>
+                        <FoundRecentGameMessageAndDisplay showMessage={showMessage} error={error} success={success} isLoading={isLoading} debouncedSearchTerm={debouncedSearchTerm} filteredGames={filteredGames} recentGames={recentGames} handleGameSelect={handleGameSelect}  handleOpenEditPlatformPanel={handleOpenEditPlatformPanel} user={user} />
                       </div>             
                     </div>
                   </div>
                 </div>
 
                 {/* Paneles ocultos de elección de plataforma o estado para juegos a Añadir */}
-                {editPlatformPanelOpen && <EditPlatformPanel onClose={handleBack} textoBoton='Avanzar' onPlatformChange={handlePlatformChangeNewGame} onAvanzar={handleOpenEditEstadoPanel} onOmitir={true} platformActual={filteredGames[0]?.plataforma} tituloJuego={filteredGames[0]?.titulo} onAdded={false} collection={'Juegos'} juegoId={filteredGames[0]?.id} />  }   
-                
-                {editEstadoPanelOpen && <EditEstadoPanelAddGame onClose={handleCloseEditEstadoPanel}  onEstadoChange={handleEstadoChangeNewGame} onAvanzar={handleAddGame} onPosition={handlePositionNewGame} onNewTitulo={handleNewTitulo} titulo={filteredGames[0]?.titulo}  formRef={formRef} handleSubmit={handleSubmit} textoBoton='Avanzar' platform={platform} juego={filteredGames[0]}/> } 
+                {editPlatformPanelOpen && <EditPlatformPanel onClose={handleBack} textoBoton='Avanzar' onPlatformChange={handlePlatformChangeNewGame} onAvanzar={handleOpenEditEstadoPanel} onOmitir={true} platformActual={selectedGame?.plataforma} tituloJuego={selectedGame?.titulo} onAdded={false} collection={'GamesBD'} juegoId={selectedGame?.id} />  }   
+         
+                {editEstadoPanelOpen && <EditEstadoPanelAddGame onClose={handleCloseEditEstadoPanel}  onEstadoChange={handleEstadoChangeNewGame} onAvanzar={handleAddGame} onPosition={handlePositionNewGame} onNewTitulo={handleNewTitulo} titulo={selectedGame?.titulo}  formRef={formRef} handleSubmit={handleSubmit} textoBoton='Avanzar' platform={platform} juego={selectedGame??'No hay juegos añadidos'}/> } 
                 
                 <ScrollToTopButton/>
             </div>

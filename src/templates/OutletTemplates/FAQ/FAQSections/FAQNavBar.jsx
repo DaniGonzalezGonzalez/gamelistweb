@@ -11,7 +11,7 @@ export function FAQNavBar({activeTab, setActiveTab}) {
                     className={`text-white hover:font-bold ${activeTab === "categories" ? "font-bold" : ""}`}
                     onClick={() => setActiveTab("categories")}
                 >
-                    <span className="text-white">Estados o colecciones</span>
+                    <span className="text-white">Estados o listas</span>
                 </button>
             </li>
             <li>

@@ -9,7 +9,7 @@ export function GET_STATE_ICON(state, w, h) {
             return <CompleteIcon w={w} h={h} />;
         case 'Terminado':
             return <CheckIcon w={w} h={h} />;
-        case 'En lista':
+        case 'Próximos':
             return <ProximosIcon w={w} h={h} />;
         case 'Lista de deseos':
             return <StartIcon w={w} h={h} />;
@@ -45,7 +45,7 @@ export function useDebounce(value, delay) {
     'Jugando': <PlayIcon w={4} h={4} />,
     'Completando': <CompleteIcon w={4} h={4} />,
     'Terminado': <CheckIcon w={4} h={4} />,
-    'En lista': <ProximosIcon w={4} h={4} />,
+    'Próximos': <ProximosIcon w={4} h={4} />,
     'Otra vez': <UpdateIcon w={4} h={4} />,
     'Pausado': <PauseIcon w={4} h={4} />,
     'Abandonado': <AbandonadoIcon w={4} h={4} />,

@@ -56,15 +56,15 @@ export function GameDetail() {
     const { backgroundClass, chartData, graficaComparativaData, dataGraficaCircular, truncatedText, keywordStyles, estados } = prepareData(juego, horasDuracion, platino, porcentajeCompletado, estadoIconos)
 
     return (
-        <div className={`w-full min-h-screen pt-14 sm:pt-10 lg:pt-32 ${backgroundClass} flex flex-col items-center`}>
+        <div className={`w-full min-h-screen pt-14 sm:pt-10 lg:pt-0 ${backgroundClass} flex flex-col items-center`}>
             {/* Imagen superior con iconos en las esquinas inferiores */}
             <TopImageGameDetail juego={juego} estado={estado} rejugando={rejugando} handleOpenEditEstadoPanel={handleOpenEditEstadoPanel}
             handleOpenPanel={handleOpenPanel} isLoading={isLoading} estados={estados} estadoIconos={estadoIconos} GET_STATE_BACKGROUND={GET_STATE_BACKGROUND} AddButtonFichaOffline={AddButtonFichaOffline} UpdateIcon={UpdateIcon}/>
            
             <div className="w-full px-5 text-white bg-black shadow-lg py-14 lg:py-20">
                 <div className="max-w-screen-lg mx-auto text-center">
-                    <h1 className="text-2xl font-bold lg:text-4xl">{cleanTitle(juego?.titulo)}</h1>
-                    <p className="mt-2 text-xs lg:text-sm">{juego.descripcion}</p>
+                    <h1 className="lg:absolute lg:top-[600px] lg:left-[40px] text-2xl font-bold lg:text-4xl">{cleanTitle(juego?.titulo)}</h1>
+                    <p className="lg:absolute lg:top-[650px] lg:left-[40px] mt-2 text-xs lg:text-sm">{juego.descripcion}</p>
 
                     {/* Plataformas: UNA si está añadido y TODAS si no lo está */}
                     { collection==='Juegos' && 
@@ -82,11 +82,12 @@ export function GameDetail() {
                         <EditButtons estado={estado} handleOpenEditEstadoPanel={handleOpenEditEstadoPanel} handleOpenEditNotaPanel={handleOpenEditNotaPanel} handleOpenRejugandoPanel={handleOpenRejugandoPanel}/>
                     }
 
-                    {/* Mis stats = Gráfica de porcentaje de juego, número de horas y platino (hºppal solo, hª+extra, etc) */}
-                    <MyStats estado={estado} platino={platino} porcentajeCompletado={porcentajeCompletado} dataGraficaCircular={dataGraficaCircular} crearChartOptionsCircular={crearChartOptionsCircular} setEditModePorcentajeCompletado={setEditModePorcentajeCompletado} editModePorcentajeCompletado={editModePorcentajeCompletado} nuevoPorcentajeCompletado={nuevoPorcentajeCompletado} setNuevoPorcentajeCompletado={setNuevoPorcentajeCompletado} handlePorcentajeCompletadoChange={handlePorcentajeCompletadoChange} horasDuracion={horasDuracion} setEditModeHorasDuracion={setEditModeHorasDuracion} editModeHorasDuracion={editModeHorasDuracion} nuevaHorasDuracion={nuevaHorasDuracion} setNuevaHorasDuracion={setNuevaHorasDuracion} handleHorasDuracionChange={handleHorasDuracionChange} setEditModePlatino={setEditModePlatino} editModePlatino={editModePlatino} nuevoPlatino={nuevoPlatino} setNuevoPlatino={setNuevoPlatino} handlePlatinoChange={handlePlatinoChange} plataforma={plataforma} error={error} setError={setError} handlePorcentajeCompletado={handlePorcentajeCompletado} handleHorasDuracion={handleHorasDuracion} handlePlatino={handlePlatino}/>
-
-                    {/* HLTB Gráficas */}
-                    <HLTBPrompt juego={juego} estado={estado} horasDuracion={horasDuracion} platino={platino} graficaComparativaData={graficaComparativaData} graficaHLTBData={graficaHLTBData} crearChartOptions={crearChartOptions} mostrarHLTB={mostrarHLTB} setMostrarHLTB={setMostrarHLTB} notaJuego={notaJuego}/>
+                    <div className="flex flex-col">
+                        {/* Mis stats = Gráfica de porcentaje de juego, número de horas y platino (hºppal solo, hª+extra, etc) */}
+                        <MyStats estado={estado} platino={platino} porcentajeCompletado={porcentajeCompletado} dataGraficaCircular={dataGraficaCircular} crearChartOptionsCircular={crearChartOptionsCircular} setEditModePorcentajeCompletado={setEditModePorcentajeCompletado} editModePorcentajeCompletado={editModePorcentajeCompletado} nuevoPorcentajeCompletado={nuevoPorcentajeCompletado} setNuevoPorcentajeCompletado={setNuevoPorcentajeCompletado} handlePorcentajeCompletadoChange={handlePorcentajeCompletadoChange} horasDuracion={horasDuracion} setEditModeHorasDuracion={setEditModeHorasDuracion} editModeHorasDuracion={editModeHorasDuracion} nuevaHorasDuracion={nuevaHorasDuracion} setNuevaHorasDuracion={setNuevaHorasDuracion} handleHorasDuracionChange={handleHorasDuracionChange} setEditModePlatino={setEditModePlatino} editModePlatino={editModePlatino} nuevoPlatino={nuevoPlatino} setNuevoPlatino={setNuevoPlatino} handlePlatinoChange={handlePlatinoChange} plataforma={plataforma} error={error} setError={setError} handlePorcentajeCompletado={handlePorcentajeCompletado} handleHorasDuracion={handleHorasDuracion} handlePlatino={handlePlatino}/>
+                        {/* HLTB Gráficas */}
+                        <HLTBPrompt juego={juego} estado={estado} horasDuracion={horasDuracion} platino={platino} graficaComparativaData={graficaComparativaData} graficaHLTBData={graficaHLTBData} crearChartOptions={crearChartOptions} mostrarHLTB={mostrarHLTB} setMostrarHLTB={setMostrarHLTB} notaJuego={notaJuego}/>
+                    </div>
                     
                     {/* Mi experiencia personal */}
                     <MiExperienciaPersonal estado={estado} editModeOpinionPersonal={editModeOpinionPersonal} setEditModeOpinionPersonal={setEditModeOpinionPersonal} editModeFechaFinalizacion={editModeFechaFinalizacion} setEditModeFechaFinalizacion={setEditModeFechaFinalizacion} opinionPersonal={opinionPersonal} notaJuego={notaJuego} fechaFinalizacion={fechaFinalizacion} nuevoMes={nuevoMes} nuevoAnio={nuevoAnio} setNuevoMes={setNuevoMes} setNuevoAnio={setNuevoAnio} handleOpinionPersonal={handleOpinionPersonal} handleOpinionPersonalChange={handleOpinionPersonalChange} error={error} setError={setError} nuevaOpinionPersonal={nuevaOpinionPersonal} setNuevaOpinionPersonal={setNuevaOpinionPersonal} handleFechaFinalizacionChange={handleFechaFinalizacionChange} handleFechaGuardada={handleFechaGuardada}/>

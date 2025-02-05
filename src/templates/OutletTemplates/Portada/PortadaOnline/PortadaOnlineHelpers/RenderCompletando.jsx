@@ -18,8 +18,8 @@ export const RenderCompletando = (juegos, handleTitleClick) => {
                     }
                     {item.rejugando === 'SI' && item.estado === 'Completando' &&
                       <div title="Completando y rejugando" className="absolute flex items-center justify-center object-contain w-12 h-8 gap-1 py-1 text-xs left-2 bottom-2">
-                        <div className="p-1 bg-gray-700 rounded-lg shadow shadow-black"><CompleteIcon w="4" h="4"/></div>
-                        <div className="p-1 bg-green-700 rounded-lg shadow shadow-black"><UpdateIcon w="4" h="4"/></div>
+                        <div className="p-1 bg-gray-700 rounded-lg shadow shadow-black"><CompleteIcon w={4} h={4}/></div>
+                        <div className="p-1 bg-green-700 rounded-lg shadow shadow-black"><UpdateIcon w={4} h={4}/></div>
                       </div>
                     }
                 </button>

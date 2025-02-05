@@ -44,7 +44,7 @@ export function HeadHomePage() {
 
 
   return (
-    <div className="relative flex flex-col items-center bg-transparent">      
+    <div className="relative flex flex-col items-center bg-transparent sm:pl-16">      
       { !user.id && 
         <div className="lg:h-[1000px] min-h-screen">
           {localImages.map((imageUrl, index) => (
@@ -65,8 +65,6 @@ export function HeadHomePage() {
 
       {/* Panel oculto de Elección de catálogo  */}    
       {chooseAddGamesMenuOpen && <ChooseAddGamesMenuFlotante chooseAddGamesMenuOpen={chooseAddGamesMenuOpen} handleAddGameMenu={handleAddGameMenu}/>}
-
-
 
       {/* Capa de superposición negra semitransparente en portada offline */}
       { !user.id && <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50" />}   

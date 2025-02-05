@@ -19,7 +19,7 @@ export function AddGameToListByPlatform() {
   const [filteredGames, setFilteredGames] = useState([])
   const [gameAdded, setGameAdded] = useState(false)
   const [plataformaParaTitulo, setPlatform] = useState(platform)
- 
+
   const filters = [{ field: 'plataforma', value: platform }]
   
   const { gamesBDByPlatform } = useGetData(platform, filters)
@@ -31,7 +31,9 @@ export function AddGameToListByPlatform() {
   const { recentGames, selectedImage } = useRandomImageEffect(gamesBDByPlatform)
   const showMessage = useMessageEffect(success, error, setSearchTerm)
   useFilteredGames({ gameAdded, setSearchTerm, setPlatform, setGameAdded, debouncedSearchTerm, games: gamesBDByPlatform, selectedTitle, setFilteredGames, setIsTitleValid, getPlatformImage })
-   
+
+  const selectedGame = filteredGames.find((game) => game.titulo === selectedTitle)
+
   return (
     <>
         { user.id &&
@@ -40,7 +42,7 @@ export function AddGameToListByPlatform() {
                 <AddGameListHeader selectedImage={selectedImage} games={gamesBDByPlatform} totalTiempoMainStory={totalTiempoMainStory} tituloRef={tituloRef} scrollToTop={scrollToTop} platform={platform} getPlatformBackground={getPlatformBackground}/>
           
                   <div className="flex flex-col items-center w-full" >
-                    <div className="flex flex-col items-center justify-center w-full px-10 sm:mt-10">
+                    <div className="flex flex-col items-center justify-center w-full px-4 sm:px-10 sm:mt-10">
                       <div className="flex flex-col items-center justify-between w-full gap-3 sm:gap-3">
                         {/* Div oculto con la info del nombre de la colección destino => Importante (de momento) */}
                         <HiddenTipoContenidoSelect tipoContenidoRef={tipoContenidoRef} />
@@ -49,14 +51,14 @@ export function AddGameToListByPlatform() {
                         <SearchGamesBar searchTerm={searchTerm} platform={platform} tituloRef={tituloRef} handleInputChange={handleInputChange} setSearchTerm={setSearchTerm} isPlatformSearch={true}/>
         
                         {/* Juegos encontrados, recientes y mensaje de éxito o error */}
-                        <FoundRecentGameMessageAndDisplay showMessage={showMessage} error={error} success={success} isLoading={isLoading} debouncedSearchTerm={debouncedSearchTerm} filteredGames={filteredGames} recentGames={recentGames} handleGameSelect={handleGameSelect}  setEditEstadoPanelOpen={setEditEstadoPanelOpen} byPlatform="SI"/>
+                        <FoundRecentGameMessageAndDisplay showMessage={showMessage} error={error} success={success} isLoading={isLoading} debouncedSearchTerm={debouncedSearchTerm} filteredGames={filteredGames} recentGames={recentGames} handleGameSelect={handleGameSelect}  setEditEstadoPanelOpen={setEditEstadoPanelOpen} byPlatform="SI" user={user} />
                         </div>             
                       </div>
                   </div>
                 </div>    
 
                 {/* Paneles ocultos de elección de plataforma o estado para juegos a Añadir */}
-                {editEstadoPanelOpen && <EditEstadoPanelAddGame onAvanzar={handleAddGame} onEstadoChange={handleEstadoChangeNewGame} onPosition={handlePositionNewGame} textoBoton='Avanzar' onNewTitulo={handleNewTitulo} formRef={formRef} handleSubmit={handleSubmit} titulo={filteredGames[0]?.titulo} platform={platform}  juego={filteredGames[0]}/> } 
+                {editEstadoPanelOpen && <EditEstadoPanelAddGame onAvanzar={handleAddGame} onEstadoChange={handleEstadoChangeNewGame} onPosition={handlePositionNewGame} textoBoton='Avanzar' onNewTitulo={handleNewTitulo} formRef={formRef} handleSubmit={handleSubmit} titulo={selectedGame?.titulo} platform={platform}  juego={selectedGame}/> } 
 
                 <ScrollToTopButton/>
             </div>

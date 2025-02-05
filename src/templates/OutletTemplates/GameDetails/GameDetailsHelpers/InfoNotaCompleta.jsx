@@ -1,7 +1,7 @@
 import React from 'react';
 
 export const InfoNotaCompleta = ({ estado, notaJuego, juego, GET_COLOR_CLASS }) => (
-    <div className={`flex justify-center gap-10 mt-8 ${!estado && 'mb-8'} lg:mt-10`}>
+    <div className={`flex justify-center gap-10 mt-8 ${!estado && 'mb-8'} lg:mt-10 lg:absolute lg:top-[660px] lg:right-10`}>
         <div className="flex items-center justify-center gap-4 sm:gap-4">
             {estado && (
                 <div className="flex flex-col items-center justify-center gap-2">

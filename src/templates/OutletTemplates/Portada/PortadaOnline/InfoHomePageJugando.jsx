@@ -27,13 +27,15 @@ export function InfoHomePageJugando() {
   // Utilizar la función para ordenar y limitar los juegos
   const juegosJugandoLimitados = ordenarYLimitarJuegos(juegosJugando, 4)
   const juegosCompletandoLimitados = ordenarYLimitarJuegos(juegosCompletando, 4)
-
+// Antes el div padre de todo era: relative px-6 pt-20 pb-5 sm:px-16 sm:pt-14 lg:pt-20 sm:pb-10 lg:pb-20
+//       el div 
   return (
-      <div className="relative px-6 pt-20 pb-5 sm:px-16 sm:pt-14 lg:pt-20 sm:pb-10 lg:pb-20">
-        <div className="flex items-center gap-1 pb-1 mt-4 lg:pb-5">
+      <div className="relative px-2 pt-4 pb-5 sm:px-8 sm:pl-20 lg:pl-20 lg:pr-8 sm:pt-3 lg:pt-10 sm:pb-0 lg:pb-0">
+        <h1 className="w-full gap-4 px-2 mt-3 text-2xl font-semibold text-white uppercase text-start">Mis listas</h1>  
+        <div className="flex items-center gap-1 pb-1 mt-4 lg:pb-0">
           {/* Si NO hay juegos => No habilitamos el acceso a todos los juegos de la colección  */}
           { juegosJugandoLimitados.length === 0 && 
-              <h2 className="relative z-20 flex gap-4 text-xl font-semibold uppercase lg:text-xl sm:text-base">Jugando</h2>
+              <h2 className="relative z-20 flex gap-4 text-[15px] font-semibold lg:text-xl sm:text-base px-2">Jugando</h2>
           }
 
           {/* Si hay juegos => Habilitamos el acceso a todos los juegos de la colección  */}
@@ -44,9 +46,9 @@ export function InfoHomePageJugando() {
 
         {/* Mostramos los juegos de la colección */}
         { juegosJugandoLimitados.length >= 1 &&        
-            <div className={`relative z-10 grid grid-cols-1 gap-3 py-3 sm:gap-5 md:gap-8 xl:gap-10
+            <div className={`relative z-10 grid grid-cols-1 gap-0 py-0 pb-3 sm:pb-4 sm:gap-5 md:gap-8 xl:gap-10
               ${juegosJugandoLimitados.length === 1 && 'xl:grid-cols-2'}
-              ${juegosJugandoLimitados.length === 2 && 'sm:grid-cols-2'}
+              ${juegosJugandoLimitados.length === 2 && 'sm:grid-cols-2 grid-cols-2'}
               ${juegosJugandoLimitados.length === 3 && 'sm:grid-cols-3 grid-cols-2'}
               ${juegosJugandoLimitados.length === 4 && 'grid-cols-2 lg:grid-cols-4'}
               `}>
@@ -56,16 +58,16 @@ export function InfoHomePageJugando() {
 
         {/* Opción de Añadir juegos si no hay ninguno en la colección */}
         {juegosJugandoLimitados.length === 0 && 
-          <div className="mt-6">
+          <div className="px-2 mt-2">
               <NoGamesPrompt personalizedTitle="¡No tienes juegos en curso!" personalizedSubtitle="Agrega tus juegos favoritos para comenzar a jugar y llevar un registro." handleAddGameMenu={handleAddGameMenu} />
           </div>     
         }
 
         {/* Mostramos los juegos de la colección */}
         { juegosCompletandoLimitados.length >= 1 && 
-            <div>
+            <div className="py-0 sm:py-4">
               {TitleCollection('Completando', '/edit-game-to-list-completando')}
-              <div className={`relative z-10 grid grid-cols-1 gap-3 py-4 md:gap-10 sm:gap-5 md:gap-18 xl:gap-24
+              <div className={`relative z-10 grid grid-cols-1 gap-3 sm:gap-5
                     ${juegosCompletandoLimitados.length === 1 && 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4'}  
                     ${juegosCompletandoLimitados.length === 2 && 'grid-cols-2 lg:grid-cols-4'}  
                     ${juegosCompletandoLimitados.length === 3 && 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-4'} 

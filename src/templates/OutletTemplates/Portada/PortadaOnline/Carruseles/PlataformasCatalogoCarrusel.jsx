@@ -3,11 +3,11 @@ import Slider from 'react-slick'
 import { Link } from 'react-router-dom'
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
-import { platforms } from '../../../helpers/constants/constants'
-import { platformData } from '../../../helpers/Utils/platformsDataToMenuFlotante'
+import { platforms } from '../../../../helpers/constants/constants'
+import { platformData } from '../../../../helpers/Utils/platformsDataToMenuFlotante'
 
 
-export const Carrusel = () => {
+export const PlataformasCatalogoCarrusel = () => {
   const [dragging, setDragging] = useState(false); // Estado para controlar el arrastre
 
   const desiredOrder = platforms
@@ -83,7 +83,7 @@ export const Carrusel = () => {
   };
 
   return (
-    <div className="max-w-full py-6 overflow-hidden lg:py-8">
+    <div className="max-w-full overflow-hidden p0-6 lg:pb-8 lg:pt-0">
       <Slider {...settings}>
       <Link to='/add-game-to-list' className="relative p-4 ml-0 sm:ml-4 md:ml-7 lg:ml-8 group">
           <div className="relative text-center text-white bg-slate-950 rounded-lg h-[350px] sm:h-90 lg:h-[600px] overflow-hidden">

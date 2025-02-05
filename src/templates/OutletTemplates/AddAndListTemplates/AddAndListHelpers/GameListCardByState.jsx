@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { ArrowLeft, ArrowRight, Dots, EyeSlash } from '../../../../assets/Icons'
 import { cleanTitle, GET_COLOR_CLASS } from '../../../helpers/constants/constants'
@@ -17,7 +18,7 @@ export const GameListCardByState = ({
 }) => {
   return (
     sortedData.length >= 1 && 
-      <div className="grid grid-cols-2 gap-6 px-0 py-5 mx-auto lg:px-0 xs:px-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+      <div className="grid grid-cols-2 gap-4 px-0 py-5 mx-auto sm:gap-6 lg:px-0 xs:px-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
         {sortedData.map((item, index) => (
           <div key={index} className="flex justify-center rounded">
             <div className="w-full">

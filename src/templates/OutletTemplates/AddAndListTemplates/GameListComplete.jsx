@@ -25,7 +25,7 @@ export function GameListComplete() {
   const { chooseAddGamesMenuOpen, handleAddGameMenu } = useHandlePlatformMenus()
   const debouncedSearchTerm = useDebounce(searchTerm, 300)
   const { handleShowAll, handleShowInitial } = useHandles(itemsToShow, setItemsToShow)
-  const { preSortedData, sortedData, handleShowMore, handleShowLess, handleTitleClick, fetchData } = useDataGameListComplete(dataBD, setDataBD, setError, setNoGamesLoaded, sortBy, sortDirection, user, itemsToShow, setItemsToShow, searchTerm, navigate)
+  const { preSortedData, sortedData, handleShowMore, handleShowLess, handleTitleClick, fetchData } = useDataGameListComplete({dataBD, setDataBD, setError, setNoGamesLoaded, sortBy, sortDirection, user, itemsToShow, setItemsToShow, searchTerm, navigate})
   const { selectedImage } = useRandomImageEffect(preSortedData)
     
   useDataChangedListener(fetchData)

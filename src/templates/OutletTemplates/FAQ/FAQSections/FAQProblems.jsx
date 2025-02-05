@@ -23,31 +23,31 @@ export function FAQProblems() {
         </p>
         <ul className="grid grid-cols-2 gap-3 text-xs sm:grid-cols-4 lg:grid-cols-5 lg:text-sm">
           {[
-            { platform: "PS5", games: 36 },
-            { platform: "PS4", games: 101 },
-            { platform: "PS3", games: 66 },
-            { platform: "PS2", games: 13 },
-            { platform: "PS1", games: 8 },
-            { platform: "Switch", games: 78 },
-            { platform: "WiiU", games: 18 },
-            { platform: "Wii", games: 11 },
-            { platform: "GameCube", games: 16 },
-            { platform: "N64", games: 8 },
-            { platform: "Xbox Series X/S", games: 27 },
-            { platform: "Xbox One", games: 85 },
-            { platform: "Xbox 360", games: 51 },
-            { platform: "Xbox", games: 9 },
-            { platform: "PSVita", games: 24 },
-            { platform: "PSP", games: 7 },
-            { platform: "3DS", games: 15 },
-            { platform: "DS", games: 14 },
-            { platform: "GB Advance", games: 22 },
-            { platform: "GB Color", games: 4 },
-            { platform: "Game Boy", games: 4 },
-            { platform: "SNES", games: 2 },
-            { platform: "NES", games: 7 },
-            { platform: "MegaDrive", games: 1 },
-            { platform: "PC", games: 135 },
+            { platform: "PS5", games: 139 },
+            { platform: "PS4", games: 260 },
+            { platform: "PS3", games: 129 },
+            { platform: "PS2", games: 33 },
+            { platform: "PS1", games: 15 },
+            { platform: "Switch", games: 207 },
+            { platform: "WiiU", games: 41 },
+            { platform: "Wii", games: 24 },
+            { platform: "GameCube", games: 34 },
+            { platform: "N64", games: 23 },
+            { platform: "Xbox Series X/S", games: 120 },
+            { platform: "Xbox One", games: 209 },
+            { platform: "Xbox 360", games: 94 },
+            { platform: "Xbox", games: 16 },
+            { platform: "PSVita", games: 37 },
+            { platform: "PSP", games: 25 },
+            { platform: "3DS", games: 37 },
+            { platform: "DS", games: 31 },
+            { platform: "GB Advance", games: 48 },
+            { platform: "GB Color", games: 12 },
+            { platform: "Game Boy", games: 9 },
+            { platform: "SNES", games: 9 },
+            { platform: "NES", games: 8 },
+            { platform: "MegaDrive", games: 5 },
+            { platform: "PC", games: 358 },
           ].map(({ platform, games }) => (
             <li key={platform} className="p-2 text-center bg-white rounded-lg shadow">
               <span className="italic font-bold">{platform}:</span> {games}
@@ -67,7 +67,8 @@ export function FAQProblems() {
             <PlusIcon w={5} h={5} /> Añadir
           </div>
           <p className="text-sm text-gray-700 lg:text-base">
-            Para añadir juegos, puedes hacer click en el menú lateral en PC en &quot;Añadir juegos&quot;, en móvil en el botón superior izquierdo de la pantalla, en el menú desplegable, o en la imagen de portada donde indica &quot;Explora el catálogo&quot;. Selecciona el catálogo que prefieras y busca el juego por su nombre. Luego, haz clic en el botón <span className="font-bold">+Añadir</span>, completa la nota y el estado, y finalmente pulsa en el botón para añadir el juego.
+            <span className="font-bold">En PC:</span> Para añadir juegos, puedes hacer click en el menú lateral &quot;Buscar juegos&quot;, o en la imagen de portada que indica &quot;Explora el catálogo&quot;. Selecciona el catálogo que prefieras y busca el juego por su nombre. Luego, haz clic en el botón <span className="font-bold">+Añadir</span>, y completa la plataforma y el estado.
+            <div className="mt-2"><span className="font-bold">En móviles:</span> Haciendo click en el botón superior izquierdo para abrir el menú desplehable. El resto del proceso se realiza igual que en PC.</div>
           </p>
 
         </div>
@@ -85,7 +86,7 @@ export function FAQProblems() {
       <div className="mb-8">
         <h3 className="mb-5 text-lg italic font-bold text-blue-600">&quot;No encuentro el juego que quiero&quot;</h3>
         <p className="text-sm text-gray-700 lg:text-base">
-          Si no encuentras el juego que quieres, probablemente no esté registrado.
+          Si no encuentras el juego que quieres, probablemente no esté en nuestra base de datos.
         </p>
       </div>
 
@@ -93,7 +94,15 @@ export function FAQProblems() {
       <div className="mb-8">
         <h3 className="mb-5 text-lg italic font-bold text-blue-600">&quot;No sé cómo ordenar mis juegos&quot;</h3>
         <p className="text-sm text-gray-700 lg:text-base">
-          En el catálogo de cada colección, en la esquina superior derecham se encuentra una pestaña de selección de orden preferente. Con la opción &quot;Personalizado&quot;, activada por defecto al cargar la página, podrás editar el orden de tus juegos. Para ello, basta con hacer click en los puntos suspensivos (<span className="font-semibold">...</span>) del juego de interés para habilitar las flechas de desplazamiento. También podrás ordenarlos automáticamente por nota, título o plataforma.
+          En el catálogo de cada lista, en la esquina superior derecha se encuentra una pestaña de selección de orden preferente. Con la opción &quot;Personalizado&quot;, activada por defecto al cargar la página, podrás editar el orden de tus juegos. Para ello, basta con hacer click en los puntos suspensivos (<span className="font-semibold">...</span>) del juego de interés para habilitar las flechas de desplazamiento. También podrás ordenarlos automáticamente por nota, título o plataforma.
+        </p>
+      </div>
+
+      {/* FAQ Problema 5 */}
+      <div className="mb-8">
+        <h3 className="mb-5 text-lg italic font-bold text-blue-600">&quot;He registrado mi juego, pero no sale en la posición que debería&quot;</h3>
+        <p className="text-sm text-gray-700 lg:text-base">
+          Los juegos se añaden automáticamente en una posición predeterminada en cada lista. Por ejemplo, en &quot;Terminados&quot;, &quot;Juegando&quot; o &quot;Completando&quot; se añaden <span className="font-bold">al principio</span>, mientras que en &quot;En lista&quot; u &quot;Otra Vez&quot; se añaden <span className="font-bold">al final</span>. En ocasiones muy excepcionales, el juego puede no añadirse en la posición que le corresponde (al principio o al final), quedando perdido en medio de otros juegos. Si se da el caso, comprueba que esté añadido haciendo click en &quot;Mostrar todos&quot; en la lista y buscándolo. Una vez localizado, <span className="font-bold">puedes moverlo a la posición deseada</span> haciendo click en el icono inferior (<span className="font-bold">...</span>) izquierdo para habilitar las flechas de desplazamiento.
         </p>
       </div>
     </div>

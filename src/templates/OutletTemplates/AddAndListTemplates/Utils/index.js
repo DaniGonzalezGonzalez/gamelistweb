@@ -1,3 +1,5 @@
+export * from './ButtonAddOrAdded.jsx'
+export * from './ChooseGameFicha.jsx'
 export * from './FoundGames.jsx'
 export * from './RecentGames.jsx'
 export * from './useAddGameToList.jsx'

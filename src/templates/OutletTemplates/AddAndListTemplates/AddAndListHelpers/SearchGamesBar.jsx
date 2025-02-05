@@ -20,7 +20,7 @@ export const SearchGamesBar = ({
 
             <input
                 ref={tituloRef}
-                className="w-full p-3 pl-2 pr-10 text-xs text-white placeholder-transparent bg-gray-700 border-2 appearance-none rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                className="w-full p-3 pl-[26px] pr-10 text-xs text-white placeholder-transparent bg-gray-700 border-2 appearance-none rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
                 type="text"
                 name="titulo"
                 id="titulo"

@@ -156,7 +156,7 @@ export function GET_STATE_BACKGROUND(state) {
           return 'bg-gray-600'; // Un tono moderno y fresco para "Completando"
       case 'Terminado':
           return 'bg-green-600'; // Verde brillante para reflejar logro en "Terminado"
-      case 'En lista':
+      case 'Próximos':
           return 'bg-indigo-400'; // Un índigo más suave pero moderno para "En lista"
       case 'Otra vez':
           return 'bg-purple-700'; // Un púrpura vibrante para "Otra vez"
@@ -284,6 +284,7 @@ export const platforms = [
   'Xbox One',
   'PS3',
   'Xbox 360',
+  'Wii',
   'PSVita',
   'Nintendo 3DS',
   'PS2',
@@ -311,4 +312,87 @@ export const getPlatformImage = async (platform) => {
   return imageUrl; // Retornar la URL
 };
 
+export const sagas = [
+  { name: 'Zelda', bgColor: 'bg-green-800' },
+  { name: 'Final Fantasy', bgColor: 'bg-gray-200' },
+  { name: 'Super Mario', bgColor: 'bg-red-600' },
+  { name: 'Grand Theft Auto', bgColor: 'bg-black' },
+  { name: 'Yakuza', bgColor: 'bg-white' },
+  { name: 'God of War', bgColor: 'bg-slate-900' },
+  { name: 'Pokémon', bgColor: 'bg-yellow-500' },
+  { name: 's Creed', bgColor: 'bg-gray-400' },
+];
 
+export const genero = [
+  { name: 'Acción', bgColor: 'bg-red-600' },
+  { name: 'Aventura', bgColor: 'bg-blue-500' },
+  { name: 'Acción-aventura', bgColor: 'bg-purple-300' },
+  { name: 'RPG', bgColor: 'bg-purple-700' },
+  { name: 'Lucha', bgColor: 'bg-orange-500' },
+  { name: 'Carreras', bgColor: 'bg-yellow-500' },
+  { name: 'Deportes', bgColor: 'bg-green-600' },
+  { name: 'Estrategia', bgColor: 'bg-teal-400' },
+  { name: 'Simulación', bgColor: 'bg-gray-100' },
+  { name: 'Plataformas', bgColor: 'bg-blue-950' },
+  { name: 'FPS', bgColor: 'bg-indigo-700' },
+  { name: 'Third person shooter', bgColor: 'bg-purple-500' },
+  { name: 'Puzle', bgColor: 'bg-blue-300' },
+  { name: 'Terror', bgColor: 'bg-black' },
+  { name: 'Metroidvania', bgColor: 'bg-gray-600' },
+  { name: 'Action RPG', bgColor: 'bg-slate-900' },
+  { name: 'Hack and slash', bgColor: 'bg-black' },
+  { name: 'Aventura gráfica', bgColor: 'bg-purple-700' },
+  { name: 'Mundo abierto', bgColor: 'bg-green-900' },
+  { name: 'Sigilo', bgColor: 'bg-gray-800' },
+  { name: 'Survival', bgColor: 'bg-emerald-950' },
+];
+
+
+export const notaPrensa = [
+  { name: '10-9', bgColor: 'bg-green-700' },    // Excelente
+  { name: '9-8', bgColor: 'bg-green-600' },   // Muy bueno
+  { name: '8-7', bgColor: 'bg-green-500' },   // Bueno
+  { name: '7-6', bgColor: 'bg-orange-500' },  // Aceptable
+  { name: '6-5', bgColor: 'bg-yellow-500' }, // Regular
+  { name: '5-0', bgColor: 'bg-red-600' },      // Malo
+];
+
+
+export const desarrolladoras = [
+  { name: 'Naughty Dog', bgColor: 'bg-slate-800' },
+  { name: 'Insomniac Games', bgColor: 'bg-blue-300' },
+  { name: 'Santa Monica Studio', bgColor: 'bg-gray-200' },
+  { name: 'Guerrilla Games', bgColor: 'bg-purple-200' },
+  { name: 'FromSoftware', bgColor: 'bg-black' },
+  { name: 'Rockstar Games', bgColor: 'bg-gray-700' },
+  // { name: 'CD Projekt Red', bgColor: 'bg-red-500' },
+  { name: 'Ubisoft', bgColor: 'bg-teal-400' },
+  { name: 'Capcom', bgColor: 'bg-red-900' },
+  { name: 'Bethesda', bgColor: 'bg-green-800' },
+  // { name: 'Bungie', bgColor: 'bg-blue-400' },
+  // { name: 'Bioware', bgColor: 'bg-purple-600' },
+  { name: 'Square Enix', bgColor: 'bg-gray-100' },
+  { name: 'Bandai Namco', bgColor: 'bg-orange-200' },
+  // { name: 'Activision', bgColor: 'bg-gray-800' },
+  // { name: 'Epic Games', bgColor: 'bg-slate-900' },
+  // { name: 'Valve', bgColor: 'bg-green-500' },
+  // { name: 'SEGA', bgColor: 'bg-blue-500' },
+  { name: 'Nintendo', bgColor: 'bg-red-600' },
+  { name: 'EA Games', bgColor: 'bg-white' },
+  { name: 'Telltale Games', bgColor: 'bg-gray-400' },
+  // { name: 'Team Cherry', bgColor: 'bg-gray-600' },
+  { name: 'Rare', bgColor: 'bg-orange-800' },
+  { name: 'Kojima Productions', bgColor: 'bg-slate-600' },
+  // { name: 'id Software', bgColor: 'bg-red-800' },
+  // { name: 'Respawn Entertainment', bgColor: 'bg-blue-700' },
+  { name: 'Game Freak', bgColor: 'bg-blue-200' },
+  { name: 'HAL Laboratory', bgColor: 'bg-pink-300' },
+  { name: 'Intelligent Systems', bgColor: 'bg-green-600' },
+  { name: 'Konami', bgColor: 'bg-yellow-300' },
+  { name: 'Level-5', bgColor: 'bg-white' },
+  { name: 'Remedy Entertainment', bgColor: 'bg-teal-700' },
+  { name: 'Rocksteady Studios', bgColor: 'bg-gray-100' },
+  { name: 'Sucker Punch', bgColor: 'bg-orange-200' },
+  { name: 'Team Ninja', bgColor: 'bg-black' },
+  { name: 'PlatinumGames', bgColor: 'bg-purple-800' },
+];

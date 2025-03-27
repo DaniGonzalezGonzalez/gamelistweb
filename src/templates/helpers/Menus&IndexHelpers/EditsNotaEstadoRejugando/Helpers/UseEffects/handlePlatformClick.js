@@ -24,7 +24,7 @@ export const handlePlatformClick = async (
     setErrorMessage("Este juego ya existe en la plataforma seleccionada.");
     setTimeout(() => {
       setErrorMessage(null);
-    }, 2000);
+    }, 3000);
     return;
   }
 

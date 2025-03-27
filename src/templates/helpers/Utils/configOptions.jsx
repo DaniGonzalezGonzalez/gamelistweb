@@ -13,21 +13,21 @@ export const configOptions = (configOpen, user, linkToContent, toggleConfig, han
 
   return (
     <div id="config-overlay" // Este ID lo usaremos para detectar el clic fuera del menú
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-md"
       onClick={handleClickOutside} // Llamamos a la función cuando se hace clic en cualquier parte del overlay
     >
       {/* Menú centrado */}
-      <div className="relative z-50 flex flex-col justify-center gap-3 p-6 text-xs text-white rounded-lg shadow-2xl bg-slate-800 lg:text-sm font-montserrat" onClick={(e) => e.stopPropagation()}>
+      <div className="relative z-50 flex flex-col justify-center gap-3 p-6 text-xs text-white border-2 shadow-4xl rounded-2xl bg-slate-950 lg:text-sm font-montserrat" onClick={(e) => e.stopPropagation()}>
 
         {/* Links de ayuda, perfil y cerrar sesión */}
         { user.id && 
-            <div className="flex flex-col items-center justify-center gap-6 lg:gap-14 lg:p-20">
-                <div className="flex flex-col gap-3 sm:gap-5 sm:flex-row lg:gap-14">
+            <div className="flex flex-col items-center justify-center gap-6 lg:gap-14 lg:p-5 w-[70vw] sm:w-[60vw] lg:w-[50vw]">
+                <div className="flex flex-col justify-center w-full gap-3 sm:gap-5 sm:flex-row lg:gap-14">
                   <Link onClick={toggleConfig} to='/faq' className="flex justify-end gap-2 text-end">
-                    <div className="flex flex-col items-center justify-center w-32 gap-3 text-sm transition duration-500 shadow-md h-28 lg:h-60 lg:w-60 bg-slate-600 rounded-3xl hover:bg-gray-700 lg:text-xl shadow-slate-900"><HelpIcon/> <span>Ayuda</span></div>
+                    <div className="flex flex-col items-center justify-center w-full gap-3 text-sm transition duration-500 shadow h-28 sm:h-48 sm:w-48 lg:h-60 lg:w-60 bg-slate-900 rounded-3xl hover:bg-slate-800 lg:text-xl shadow-gray-800"><HelpIcon/> <span>Ayuda</span></div>
                   </Link>
                   <Link onClick={toggleConfig} to='/user-profile' className="flex justify-end gap-2 text-end">
-                  <div className="flex flex-col items-center justify-center w-32 gap-3 text-sm transition duration-500 shadow-md h-28 lg:h-60 lg:w-60 bg-slate-600 rounded-3xl hover:bg-gray-700 lg:text-xl shadow-slate-900"><ProfileIcon/><span>Perfil</span></div>
+                  <div className="flex flex-col items-center justify-center w-full gap-3 text-sm transition duration-500 shadow h-28 lg:h-60 lg:w-60 sm:h-48 sm:w-48 bg-slate-900 rounded-3xl hover:bg-slate-800 lg:text-xl shadow-gray-800"><ProfileIcon/><span>Perfil</span></div>
                   </Link>
                 </div>
             </div>        

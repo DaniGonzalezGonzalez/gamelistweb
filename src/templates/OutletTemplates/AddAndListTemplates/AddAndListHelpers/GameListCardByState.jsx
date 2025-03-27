@@ -14,8 +14,10 @@ export const GameListCardByState = ({
   toggleVisibility, 
   setSortBy, 
   estadoSingularMayusculas, 
-  user
+  user,
+  searchTerm
 }) => {
+  
   return (
     sortedData.length >= 1 && 
       <div className="grid grid-cols-2 gap-4 px-0 py-5 mx-auto sm:gap-6 lg:px-0 xs:px-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
@@ -64,7 +66,7 @@ export const GameListCardByState = ({
                             <div className={`rounded`}>{GET_STATE_ICON(item.estado, '4', '4')}</div>
                             <span className="text-[10px] lg:text-[11px] py-1 font-semibold">{item?.estado}</span>
                           </div>    
-                          {sortBy === 'position' && 
+                          {sortBy === 'position' && !searchTerm && 
                             <button className="text-white" onClick={() => toggleVisibility(item.id)}>
                               {visibleItemId === item.id ? <div className="p-1">
                                 <EyeSlash w={4} h={4}/>

@@ -44,7 +44,6 @@ export function FoundGames({ filteredGames, handleGameSelect, setEditNotaPanelOp
       onAvanzar(game.plataforma)
     }
   }
-  
   return (
     <>
       <h2 className="w-full mt-3 text-lg font-bold text-white lg:mt-4 lg:w-5/6">Juegos encontrados</h2>

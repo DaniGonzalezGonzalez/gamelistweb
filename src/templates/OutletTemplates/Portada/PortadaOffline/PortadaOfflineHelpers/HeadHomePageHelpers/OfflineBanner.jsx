@@ -10,7 +10,7 @@ export const OfflineBanner = ({ juegosPortada, user }) => {
               <div className="flex flex-col items-center justify-center">
                 <div className="flex justify-center w-full" style={{ position: 'relative' }}>
                   <img
-                    className="max-w-[90%] sm:max-w-[20%] md:max-w-[70%] lg:max-w-[30%] h-auto object-contain"
+                    className="max-w-[90%] sm:max-w-[20%] md:max-w-[30%] lg:max-w-[30%] h-auto object-contain"
                     src="/Logo-GameListWeb.png"
                     alt="Logo GameListWeb"
                   />

@@ -28,7 +28,7 @@ export function MainTemplate() {
 
   return (
     <>
-      <header className={`${(user.id && isScrolled) ? `${location.pathname === '/' ? 'bg-slate-950 bottom-0 sm:top-0 shadow-white shadow-md': 'bg-transparent top-0'} color-fondo-1  sm:h-0 opacity-95 sm:opacity-100` : `${location.pathname === '/' ? 'bg-slate-950 bottom-0': 'bg-transparent top-0'}` } fixed sm:w-0 w-full z-50 transition-all duration-300 ease-in-out font-montserrat`}>
+      <header className={`${(user.id && isScrolled) ? `${location.pathname === '/' ? 'bg-slate-950 bottom-0 sm:top-0 shadow-white shadow-md': 'bg-transparent top-0'} color-fondo-1  sm:h-0 opacity-100 sm:opacity-100` : `${location.pathname === '/' ? 'bg-slate-950 bottom-0': 'bg-transparent top-0'}` } fixed sm:w-0 w-full z-50 transition-all duration-300 ease-in-out font-montserrat`}>
         <div className={`${ location.pathname === '/' ? "text-xs " : "text-xs px-4 py-3" } sm:py-0 sm:px-0`}>
         <NavBar isScrolled={isScrolled}/>
         </div>
@@ -41,7 +41,7 @@ export function MainTemplate() {
       <footer className="flex flex-col text-xs text-white font-montserrat">
         <div className={`flex flex-col items-center justify-center gap-4 p-4 text-center text-white ${location.pathname === '/' ? 'pb-14' : 'pb-4'} sm:pb-4 bg-gray-950 color-fondo-1`}>
           <div className="flex flex-col items-center gap-3 sm:flex-row">
-            <p>&copy; 2024 Game List Web - Daniel González González</p>
+            <p>&copy; 2025 Game List Web - Daniel González González</p>
             <a target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/daniel-gonz%C3%A1lez-gonz%C3%A1lez-3322668a/">
               <LinkedinIcon/>
             </a>

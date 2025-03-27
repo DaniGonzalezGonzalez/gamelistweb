@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { AbandonadoIcon, SearchIcon } from '../../../../assets/Icons'
 
 export const SearchGamesBar = ({ 
@@ -9,7 +10,7 @@ export const SearchGamesBar = ({
     setSearchTerm, 
     isPlatformSearch = false // Nueva prop para determinar el tipo de búsqueda
 }) => (
-    <div className="flex items-center justify-start w-full mt-24 lg:w-5/6 sm:mt-6 lg:mt-16">
+    <div className="flex flex-col items-center justify-between w-full gap-4 mt-24 sm:gap-0 sm:flex-row lg:w-5/6 sm:mt-6 lg:mt-16">
         <div className="relative w-full sm:w-52">
             {!searchTerm && (
                 <div className="absolute inset-y-0 left-0 flex items-center gap-1 pl-2 text-xs text-gray-200 pointer-events-none">
@@ -40,5 +41,8 @@ export const SearchGamesBar = ({
                 </button>
             )}
         </div>
+        <button className='p-2 text-xs text-white transition duration-500 bg-red-900 rounded-xl hover:bg-red-700'>
+            <Link to={'/add-random-game-to-list'}>¿No te decides? ¡Escoge uno al azar! 🎲</Link>
+        </button>
     </div>
 );

@@ -31,7 +31,6 @@ export function GameListByStateRejugando({estadoPluralMinusculas, estadoSingular
   const toggleVisibility = (id) => {
     setVisibleItemId((prevId) => (prevId === id ? null : id))
   }
-
   return (
     <> 
       { user.id && 
@@ -43,7 +42,7 @@ export function GameListByStateRejugando({estadoPluralMinusculas, estadoSingular
               {/* Barra de búsqueda y botones de orden */}
               <div className="container px-4 pt-8 pb-8 mx-auto sm:px-8">             
                 <div className="flex justify-between h-6 my-14">
-                  <SearchGamesInList searchTerm={searchTerm} setSearchTerm={setSearchTerm} placeholder="Buscar" width="w-40 sm:w-52"/>
+                  <SearchGamesInList searchTerm={searchTerm} setSearchTerm={setSearchTerm} placeholder="Buscar por título" width="w-40 sm:w-52"/>
                 
                   { sortedData.length >= 1 &&
                       <SortControl sortType="estado" sortBy={sortBy} setSortBy={setSortBy} setSortDirection={setSortDirection}/>
@@ -66,7 +65,7 @@ export function GameListByStateRejugando({estadoPluralMinusculas, estadoSingular
                 {chooseAddGamesMenuOpen && <ChooseAddGamesMenuFlotante chooseAddGamesMenuOpen={chooseAddGamesMenuOpen} handleAddGameMenu={handleAddGameMenu}/>}
 
                 {/* Mostrar juegos encontrados */}
-                <GameListCardByState sortedData={sortedData} visibleItemId={visibleItemId} sortBy={sortBy} handleTitleClick={handleTitleClick} handleUpPosition={handleUpPosition} handleDownPosition={handleDownPosition} toggleVisibility={toggleVisibility} setSortBy={setSortBy} estadoSingularMayusculas={estadoSingularMayusculas} user={user} />
+                <GameListCardByState sortedData={sortedData} visibleItemId={visibleItemId} sortBy={sortBy} handleTitleClick={handleTitleClick} handleUpPosition={handleUpPosition} handleDownPosition={handleDownPosition} toggleVisibility={toggleVisibility} setSortBy={setSortBy} estadoSingularMayusculas={estadoSingularMayusculas} user={user} searchTerm={searchTerm} />
               
                 {/* Botones de mostrar más, menos y todo */}
                 <PaginationButtons dataBD={dataBD} sortedData={sortedData} itemsToShow={itemsToShow} handleShowMore={handleShowMore} handleShowLess={handleShowLess} handleShowInitial={handleShowInitial} handleShowAll={handleShowAll} setItemsToShow={setItemsToShow}/>

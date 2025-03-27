@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import { Link } from 'react-router-dom'
 
@@ -11,7 +12,7 @@ export default function ImagesHeadHomepage({ gamesBDByPlatform }) {
         {displayedGames.map((game, index) => (
           <div
             key={index}
-            className={`flex-1 h-60 overflow-hidden ${index === 0 ? 'rounded-l-lg' : ''} ${index === displayedGames.length - 1 ? 'rounded-r-lg' : ''} sm:h-28 lg:h-96`}
+            className={`flex-1 h-40 overflow-hidden ${index === 0 ? 'rounded-l-2xl' : ''} ${index === displayedGames.length - 1 ? 'rounded-r-2xl' : ''} sm:h-28 md:h-40 lg:h-96`}
           >
             <img
               className="object-cover object-center w-full h-full"

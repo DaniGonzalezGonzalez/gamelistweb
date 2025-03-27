@@ -21,6 +21,7 @@ export const useFunctionsNavBar = (isScrolled) => {
   const handleLogout = () => {
     setMenuOpen(false)
     setConfigOpen(false)
+    localStorage.removeItem("gamesBD")
     _signOut()
     navigate('/')
   }

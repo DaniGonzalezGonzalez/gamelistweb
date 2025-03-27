@@ -52,7 +52,7 @@ export function EditEstadoPanelAddGame({ onAvanzar, onClose, onEstadoChange, onA
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
       <div
         ref={panelEstadoRef}
-        className="scroll-container flex flex-col items-center p-6 text-gray-100 border-2 border-gray-100 rounded-lg shadow-lg bg-slate-950 max-h-[90vh] overflow-y-scroll w-5/6 sm:w-1/2 mt-14 sm:mt-0"
+        className="scroll-container flex flex-col items-center p-6 text-gray-100 border-2 border-gray-300 rounded-lg shadow-lg bg-slate-950 max-h-[90vh] overflow-y-scroll w-5/6 sm:w-1/2 mt-14 sm:mt-0 xl:h-96 xl:justify-evenly"
         onClick={(e) => e.stopPropagation()}
       >
       {onAdded && <div className="justify-center w-full gap-4 mb-4 text-lg font-semibold text-center">
@@ -72,10 +72,28 @@ export function EditEstadoPanelAddGame({ onAvanzar, onClose, onEstadoChange, onA
         <div className="flex justify-center w-full">                          
             {error && <p className="font-bold text-red-400 font-montserrat">{error}</p>}
             {success && !error && (
-            <div className="flex flex-col items-center gap-3 p-4 text-xs font-bold text-gray-100 rounded-lg shadow-lg col lg:px-10 lg:pb-3 lg:text-sm w-60">
-              <img src={juego.url[0]} alt={`Imagen de ${juego.titulo}`} className="w-full h-32 rounded-xl"/>
-              <span>{limpiarTituloJuego(juego.titulo)} registrado correctamente!</span>
+            <div className="relative flex flex-col items-center w-full max-w-sm gap-3 p-6 text-white shadow-2xl bg-gradient-to-br from-gray-800/80 to-gray-900/90 rounded-2xl backdrop-blur-md lg:max-w-md">
+            {/* Imagen con efecto hover */}
+            <div className="w-full overflow-hidden transition-transform duration-300 shadow-lg rounded-xl hover:scale-105">
+              <img 
+                src={juego.url[0]} 
+                alt={`Imagen de ${juego.titulo}`} 
+                className="object-cover w-full h-40"
+              />
             </div>
+          
+            {/* Contenido del juego */}
+            <div className="flex flex-col items-center px-4 text-center">
+              <h3 className="text-lg font-extrabold tracking-wide lg:text-xl">{limpiarTituloJuego(juego.titulo)}</h3>
+              <p className="mt-1 text-xs text-gray-300 lg:text-sm">{juego.descripcion}</p>
+              <span className="mt-2 text-sm font-semibold text-blue-400">
+                ¡Registrado correctamente!
+              </span>
+            </div>
+          
+            {/* Brillo decorativo */}
+            <div className="absolute w-24 h-1 bg-blue-500 rounded-full opacity-50 -top-1 left-1/2 blur-sm"></div>
+          </div>
           )}               
         </div>
 

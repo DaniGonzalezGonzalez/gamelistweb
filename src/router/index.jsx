@@ -9,6 +9,7 @@ import { FAQ } from "../templates/OutletTemplates/FAQ/FAQ"
 import { PoliticaPrivacidad, TerminosUso } from "../templates/OutletTemplates/AdminTemplates/PrivacyPolicies"
 import { AccesoPrivado } from "../templates/helpers/AdminComponents/AccesoPrivado"
 import { CollectionDetails } from "../templates/OutletTemplates/Portada/PortadaOnline/Carruseles/CarruselesHelpers/CollectionDetails"
+import { AddRandomGameToList } from "../templates/OutletTemplates/AddAndListTemplates/AddRandomGameToList"
 
 export const router = createBrowserRouter([
     {
@@ -84,6 +85,12 @@ export const router = createBrowserRouter([
                     path:'add-game-to-list-by-platform/:platform',
                     element: <AccesoPrivado>
                                 <AddGameToListByPlatform/>
+                            </AccesoPrivado>
+                },
+                {
+                    path:'add-random-game-to-list',
+                    element: <AccesoPrivado>
+                                <AddRandomGameToList/>
                             </AccesoPrivado>
                 },
             {

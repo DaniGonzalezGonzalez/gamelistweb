@@ -4,18 +4,21 @@ export const filterGames = (games, filterType, filterValue) => {
     if (filterType && game[filterType]) {
       const gameValue = game[filterType];
   
-      // Verificar si el filterValue puede ser un rango numérico, e.g., "8.5-9.5"
+      // Caso especial: Filtrado por rango de años (lanzamiento)
+      if (filterType === "lanzamiento" && typeof filterValue === "string" && filterValue.includes("-")) {
+        const [añoInicio, añoFin] = filterValue.split("-").map(Number);
+        
+        if (Number.isFinite(añoInicio) && Number.isFinite(añoFin)) {
+          return gameValue >= añoInicio && gameValue <= añoFin;
+        }
+      }
+
+      // Verificar si filterValue es un rango numérico (para notas y otros valores numéricos)
       if (typeof filterValue === "string" && filterValue.includes("-")) {
-        // Verificar si ambos lados del guion son números válidos
         const [left, right] = filterValue.split("-").map(Number);
+
         if (Number.isFinite(left) && Number.isFinite(right)) {
-          // Es un rango numérico, realizar comparación
-          if (typeof gameValue === "number") {
-            return gameValue <= left && gameValue >= right;
-          }
-        } else {
-          // Si no es un rango numérico, lo tratamos como texto
-          return gameValue.toLowerCase().includes(filterValue.toLowerCase());
+          return gameValue <= left && gameValue >= right; // Mantenemos esta lógica para otros valores
         }
       }
   

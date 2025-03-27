@@ -1,7 +1,6 @@
-import { useContext, useEffect, useRef, useState } from "react"
+import { useContext, useEffect, useMemo, useRef, useState } from "react"
 import { UserContext } from "../../../context/UserContext"
-import { useGetData } from "../../../hooks/useGetData"
-import { useDataChangedListener, useFilteredGames, useMessageEffect, useRandomImageEffect } from "./UseEffects"
+import { useFilteredGames, useMessageEffect, useRandomImageEffect } from "./UseEffects"
 import { useHandleGameSelect, useHandles } from "../../../hooks/useHandles"
 import { getPlatformImage, scrollToTop, totalTiempoMainStory } from "../../helpers/constants/constants"
 import { useDebounce } from "../../helpers/constants/constantsComponents"
@@ -9,6 +8,7 @@ import { EditEstadoPanelAddGame, EditPlatformPanel } from "../../helpers/Menus&I
 import { AddGameListHeader, FoundRecentGameMessageAndDisplay, HiddenTipoContenidoSelect, SearchGamesBar  } from "./AddAndListHelpers"
 import { useAddGameToList } from "./Utils/useAddGameToList"
 import { ScrollToTopButton } from "../../helpers/Utils/ScrollToTopButton"
+import { useGetData } from "../../../hooks/useGetData"
 
 export function AddGameToList() {  
   const tituloRef = useRef(null)
@@ -17,9 +17,19 @@ export function AddGameToList() {
   const [filteredGames, setFilteredGames] = useState([])
   const [gameAdded, setGameAdded] = useState(false)
 
-  const filters = [{ field: 'plataforma', value: 'PS3' }]
+  // const filters = [{ field: 'plataforma', value: 'PS3' }]
+  // const { gamesBDComplete } = useGetData('', filters)
+ // ⏳ Cargar datos desde localStorage al inicio
+ const gamesBDStored = useMemo(() => {
+  return JSON.parse(localStorage.getItem("gamesBD")) || [];
+}, []);
 
-  const { gamesBDComplete } = useGetData('', filters)
+// 🚀 Si no hay datos en localStorage, cargar desde Supabase
+const { gamesBDComplete } = useGetData("", []);
+
+// 🛠️ Usar los datos correctos
+const gamesToShow = gamesBDStored.length > 0 ? gamesBDStored : gamesBDComplete;
+  
   const { handleGameSelect, searchTerm, setSearchTerm, setIsDropdownOpen, setIsTitleValid, selectedTitle } = useHandleGameSelect()
   const { user } = useContext(UserContext)
   const { handleOpenEditEstadoPanel, handleCloseEditEstadoPanel, editEstadoPanelOpen, setEditEstadoPanelOpen, editPlatformPanelOpen, setEditPlatformPanelOpen, handleOpenEditPlatformPanel, handlePositionNewGame, handlePlatformChangeNewGame, platform, setPlatform, handleEstadoChangeNewGame, handleNewTitulo } = useHandles(setSearchTerm)
@@ -27,9 +37,9 @@ export function AddGameToList() {
   const debouncedSearchTerm = useDebounce(searchTerm, 300)
 
   // Ejecutamos los useEffect obtenidos de ficheros externos
-  const { recentGames, selectedImage } = useRandomImageEffect(gamesBDComplete)
+  const { recentGames, selectedImage } = useRandomImageEffect(gamesToShow)
   const showMessage = useMessageEffect(success, error, setSearchTerm)
-  useFilteredGames({ gameAdded, setSearchTerm, setPlatform, setGameAdded, debouncedSearchTerm, games: gamesBDComplete, selectedTitle, setFilteredGames, setIsTitleValid, getPlatformImage })
+  useFilteredGames({ gameAdded, setSearchTerm, setPlatform, setGameAdded, debouncedSearchTerm, games: gamesToShow, selectedTitle, setFilteredGames, setIsTitleValid, getPlatformImage })
   const selectedGame = filteredGames.find((game) => game.titulo === selectedTitle)
 
   return (
@@ -37,7 +47,7 @@ export function AddGameToList() {
         { user.id &&
             <div className="flex flex-col items-start justify-start min-h-screen bg-slate-950">
                 <div className="flex flex-col items-start justify-between w-full">
-                <AddGameListHeader selectedImage={selectedImage} games={gamesBDComplete} totalTiempoMainStory={totalTiempoMainStory} tituloRef={tituloRef} scrollToTop={scrollToTop}/>
+                <AddGameListHeader selectedImage={selectedImage} games={gamesToShow} totalTiempoMainStory={totalTiempoMainStory} tituloRef={tituloRef} scrollToTop={scrollToTop}/>
 
                   <div  className="flex flex-col items-center w-full">
                     <div className="flex flex-col items-center justify-center w-full px-4 sm:px-10 sm:mt-10">

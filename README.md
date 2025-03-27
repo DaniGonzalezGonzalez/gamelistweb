@@ -4,7 +4,7 @@
 
 ## Características
 
-- Crea y organiza listas de juegos: *Pendientes*, *Jugando*, *Pausados*, etc.
+- Crea y organiza listas de juegos: *Jugando*, *Terminados*, *Próximos*, *Pausados*, etc.
 - Accede a una base de datos con juegos actuales y retro.
 - La aplicación es **responsive**, lo que significa que se adapta a tu teléfono móvil o PC.
 - Busca y añade fácilmente juegos a tus listas.

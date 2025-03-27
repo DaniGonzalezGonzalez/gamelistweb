@@ -66,7 +66,7 @@ export function GameListByState({ estadoPluralMinusculas, estadoSingularMayuscul
                 {chooseAddGamesMenuOpen && <ChooseAddGamesMenuFlotante chooseAddGamesMenuOpen={chooseAddGamesMenuOpen} handleAddGameMenu={handleAddGameMenu}/>}
 
                 {/* Mostrar juegos encontrados */}
-                <GameListCardByState sortedData={sortedData} visibleItemId={visibleItemId} sortBy={sortBy} handleTitleClick={handleTitleClick} handleUpPosition={handleUpPosition} handleDownPosition={handleDownPosition} toggleVisibility={toggleVisibility} setSortBy={setSortBy} estadoSingularMayusculas={estadoSingularMayusculas} user={user} />
+                <GameListCardByState sortedData={sortedData} visibleItemId={visibleItemId} sortBy={sortBy} handleTitleClick={handleTitleClick} handleUpPosition={handleUpPosition} handleDownPosition={handleDownPosition} toggleVisibility={toggleVisibility} setSortBy={setSortBy} estadoSingularMayusculas={estadoSingularMayusculas} user={user} searchTerm={searchTerm} />
 
                 {/* Botones de mostrar más, menos y todo */}
                 <PaginationButtons dataBD={dataBD} sortedData={sortedData} itemsToShow={itemsToShow} handleShowMore={handleShowMore} handleShowLess={handleShowLess} handleShowInitial={handleShowInitial} handleShowAll={handleShowAll} setItemsToShow={setItemsToShow}/>

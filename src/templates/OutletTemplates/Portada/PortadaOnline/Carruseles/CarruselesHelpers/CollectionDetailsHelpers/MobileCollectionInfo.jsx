@@ -29,16 +29,16 @@ export const MobileCollectionInfo = ({
   };
 
   return (
-    <div className='flex flex-col items-center justify-start px-5 mx-3 mt-10 mb-6 bg-gray-800 border-2 rounded-lg border-gray-203 lg:gap-3 lg:flex-row sm:mt-10 lg:border-none lg:mx-0'>
+    <div className='flex items-center justify-between px-5 mx-3 mt-10 mb-6 bg-gray-800 border-2 rounded-lg border-gray-203 lg:gap-3 lg:flex-row sm:mt-10 lg:border-none lg:mx-0'>
       <div className='flex justify-center my-2'>
         <img
           src={src}
           alt="Colección Icon"
           onError={handleError}
-          className={`object-contain h-24 sm:h-24 ${getBackgroundClass(filterValue.replace(/\s+/g, '-').trim())}`}
+          className={`object-contain h-16 sm:h-24 ${getBackgroundClass(filterValue.replace(/\s+/g, '-').trim())}`}
         />
       </div>
-      <div className='flex items-start justify-between w-full mb-1 lg:flex-col'>
+      <div className='flex flex-col items-end justify-between w-full mb-1'>
         <h1 className="text-sm lg:text-lg lg:font-bold">
           Colección {filterValue === 's Creed' ? "Assassin's Creed" : filterValue}
         </h1>

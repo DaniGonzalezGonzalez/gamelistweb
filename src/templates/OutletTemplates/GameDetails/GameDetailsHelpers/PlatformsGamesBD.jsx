@@ -2,9 +2,11 @@
 import React from 'react';
 
 export const PlatformsGamesBD = ({ juego, cleanedPlatform }) => {
+
+
     return (
         <div className={`flex flex-wrap ${juego.plataforma.split(' - ').length > 6 ? 'flex-row' : 'flex'} items-center justify-center gap-3 mt-4 lg:absolute lg:z-10 flex lg:gap-3 lg:top-[690px] lg:left-[40px]`}>
-            <p className='text-xs lg:block hidden'>Plataforma/s: </p>
+            <p className='hidden text-xs lg:block'>Plataforma/s: </p>
             {/* Separar las plataformas por " - " */}
             {juego.plataforma.split(' - ').map((plataforma) => {
                 // Formatear el nombre de la plataforma para el nombre de la imagen

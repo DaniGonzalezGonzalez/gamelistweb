@@ -8,7 +8,7 @@ import { getPlataformas, obtenerJuegosCoincidentes } from '../../../../../helper
 import { ChooseGameFicha, useAddGameToList, useDataGameListComplete } from '../../../../AddAndListTemplates/Utils'
 import { fetchGames } from '../../../../AddAndListTemplates/Utils/FetchGames'
 import { handleGameClick } from './gameHandlers'
-import { useSwiperCollectionCarousel, useIsMobile } from '../CarruselesUseEffects'
+import { useIsMobile } from '../CarruselesUseEffects'
 import { DesktopCollectionInfo, filterGames, GameSwiper, MobileCollectionInfo, NonMobileCollectionImage } from './CollectionDetailsHelpers'
 
 export function CollectionDetails() {  
@@ -40,7 +40,7 @@ export function CollectionDetails() {
   // UseEffect aquí e importados
   useEffect(() => { fetchData() }, [])
   useEffect(() => { fetchJuegos() }, [])
-  useSwiperCollectionCarousel(filteredGames)
+  // useSwiperCollectionCarousel(filteredGames)
   const isMobile = useIsMobile()
     
   const onGameClick = (game) => {
@@ -60,14 +60,16 @@ export function CollectionDetails() {
       </div>
 
       {/* Contenido principal */}
-      <div className="relative z-10 pt-20 sm:pt-6 lg:ml-14 lg:pt-12">
+      <div className="relative z-10 pt-5 sm:pt-6 lg:ml-14 lg:pt-12">
         <MobileCollectionInfo isMobile={isMobile} src={src} handleError={handleError} filterValue={filterValue} filteredGames={filteredGames} />
-        <DesktopCollectionInfo isMobile={isMobile} filterValue={filterValue} filteredGames={filteredGames} />
+        <div className='flex items-center justify-between gap-5 px-5'>
+          <NonMobileCollectionImage isMobile={isMobile} src={src} handleError={handleError} filterValue={filterValue} />
+          <DesktopCollectionInfo isMobile={isMobile} filterValue={filterValue} filteredGames={filteredGames} />
+        </div>
 
         {/* Swiper carrusel */}
         <GameSwiper filteredGames={filteredGames} obtenerJuegosCoincidentes={obtenerJuegosCoincidentes} dataBD={dataBD} getPlataformas={getPlataformas} setChooseGameFicha={setChooseGameFicha} setShowChooseGameFicha={setShowChooseGameFicha} handleTitleClick={handleTitleClick} handleInfoGameBD={handleInfoGameBD} onGameClick={onGameClick} cleanTitle={cleanTitle} />
 
-        <NonMobileCollectionImage isMobile={isMobile} src={src} handleError={handleError} filterValue={filterValue} />
 
         { showChooseGameFicha && (
         <ChooseGameFicha game={chooseGameFicha} onSelect={(id) => { handleTitleClick(id);  setShowChooseGameFicha(false); }} onClose={() => setShowChooseGameFicha(false)} />

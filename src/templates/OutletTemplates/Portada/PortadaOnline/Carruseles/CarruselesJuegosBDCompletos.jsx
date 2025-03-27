@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { PersonalizadoJuegosDBCarrusel } from './PersonalizadoJuegosDBCarrusel';
 
@@ -14,18 +15,6 @@ export const CarruselesJuegosBDCompletos = ({ user, juegos, fetchJuegos, setIsJu
       dataBD,
       nombreCarrusel: 'Viejitos'
     },
-    // {
-    //   user,
-    //   genero: 'Carreras',
-    //   añoFiltro: 2005,
-    //   filtrarMayor: true,
-    //   juegos,
-    //   fetchJuegos,
-    //   setIsJuegosLoaded,
-    //   isJuegosLoaded,
-    //   dataBD,
-    //   nombreCarrusel: 'Carreras'
-    // },
     {
       user,
       añoFiltro: 2024,

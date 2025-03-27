@@ -14,13 +14,13 @@ export const NonMobileCollectionImage = ({ isMobile, src, handleError, filterVal
                     'bg-transparent rounded-none px-0';
 
   return (
-    <div className="flex flex-col w-full mb-10 text-center text-gray-200 mt-14 jus sm:flex-row lg:mb-0 lg:text-start">
-      <div className={`pl-10 lg:pt-32 lg:pb-20`}>
+    <div className="flex items-end justify-end mt-4 mb-10 text-center text-gray-200 sm:flex-row lg:mb-0">
+      <div>
         <img
           src={src}
           onError={handleError}
           alt="Colección Icon"
-          className={`object-contain w-80 max-h-80 ${imageClass}`}
+          className={`object-contain w-40 max-h-40 ${imageClass}`}
         />
       </div>
     </div>

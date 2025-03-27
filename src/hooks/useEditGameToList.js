@@ -115,7 +115,7 @@ export function useEditGameToList(uid, option, categoria) {
   }
 
   const handleDelete = (uid, titulo) => {
-    if (!window.confirm(`Confirma que desea eliminar el documento ${cleanTitle(titulo)}`)) return
+    if (!window.confirm(`Confirma que desea eliminar el juego ${cleanTitle(titulo)}`)) return
     eliminarDocumento(uid)
     const dataChangedEvent = new Event('data-changed')
     document.dispatchEvent(dataChangedEvent)

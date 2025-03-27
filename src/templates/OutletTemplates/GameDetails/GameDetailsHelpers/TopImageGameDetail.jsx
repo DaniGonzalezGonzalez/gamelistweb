@@ -13,8 +13,10 @@ export const TopImageGameDetail = ({
   AddButtonFichaOffline, 
   UpdateIcon 
 }) => {
+
+
   return (
-    <div className="relative z-10 lg:z-0 flex justify-center w-full top-10 lg:top-0">
+    <div className="relative z-10 flex justify-center w-full lg:z-0 top-10 lg:top-0">
       <div className="relative lg:w-full">
         {/* Imagen principal */}
         <img 
@@ -35,8 +37,8 @@ export const TopImageGameDetail = ({
         {(estado === 'Jugando' || estado === 'Completando') && (
           <div title={rejugando === 'SI' ? 'Rejugando' : 'No rejugándolo'} className="absolute rounded-lg shadow-lg bottom-2 left-2 lg:top-[650px] lg:right-10 lg:flex lg:justify-end">
             {rejugando === 'SI' 
-              ? <div className="lg:absolute p-1 text-white bg-green-600 rounded-full"><UpdateIcon w={4} h={4} /></div>
-              : <div className="lg:absolute  p-1 bg-gray-600 rounded-full opacity-55"><UpdateIcon w={4} h={4} /></div>
+              ? <div className="p-1 text-white bg-green-600 rounded-full lg:absolute"><UpdateIcon w={4} h={4} /></div>
+              : <div className="p-1 bg-gray-600 rounded-full lg:absolute opacity-55"><UpdateIcon w={4} h={4} /></div>
             }
           </div>
         )}

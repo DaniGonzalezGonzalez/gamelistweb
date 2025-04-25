@@ -9,3 +9,12 @@
 - La aplicación es **responsive**, lo que significa que se adapta a tu teléfono móvil o PC.
 - Busca y añade fácilmente juegos a tus listas.
 
+
+
+## ⚠️ Nota sobre vulnerabilidades de dependencias
+
+Este proyecto usa `netlify-cli` para desarrollo y despliegue automático. 
+Hay una advertencia de seguridad relacionada con una dependencia indirecta (`esbuild`), 
+pero **solo afecta si se expone el servidor local a Internet**, cosa que no ocurre en este caso.
+
+🔗 Más información: [Netlify Issue #6146](https://github.com/netlify/cli/issues/6146)

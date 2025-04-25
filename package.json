@@ -19,7 +19,7 @@
     "chart.js": "^4.4.6",
     "chartjs-plugin-datalabels": "^2.2.0",
     "esbuild": "^0.25.3",
-    "netlify-cli": "^16.1.0",
+    "netlify-cli": "^20.0.4",
     "node-fetch": "^2.7.0",
     "psn-api": "^2.11.0",
     "react": "^18.3.1",

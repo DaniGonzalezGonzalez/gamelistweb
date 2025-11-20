@@ -42,6 +42,7 @@ export function useGetData(platform, filters) {
     
     fetchData();
   }, [targetCollection]);
+  console.log(gamesBDByPlatform)
   
   
   return { gamesBDComplete, gamesBDByPlatform, error, isLoading };

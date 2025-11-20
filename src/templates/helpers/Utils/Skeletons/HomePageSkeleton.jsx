@@ -1,10 +1,11 @@
 export function HomePageSkeleton() {
   return (
-    <div className="flex flex-col items-start justify-center w-full h-full px-8 py-20 bg-transparent sm:pl-24">
-      <div className="flex w-full gap-4 lg:gap-8 lg:flex-row">
-        <div className="w-full h-32 bg-gray-500 lg:h-48 animate-pulse lg:w-1/2 rounded-xl"></div>
-        <div className="w-full h-32 bg-gray-500 lg:h-48 animate-pulse lg:w-1/2 rounded-xl"></div>
-      </div>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm">
+      <img
+        src="/Logo-GameListWeb.png"
+        alt="Logo Game List Web"
+        className="max-w-[70%] max-h-[70%] xl:max-w-[30%] xl:max-h-[30%] object-contain animate-fade-in"
+      />
     </div>
-  );
+  )
 }

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-export const useDataChangedListener = (fetchData) => {
+export const useDataChangedListener = (fetchData, filtroPlataforma) => {
   useEffect(() => { 
     // Ejecutar fetchData una vez al montar el componente
     fetchData();
@@ -16,5 +16,5 @@ export const useDataChangedListener = (fetchData) => {
     return () => {
       document.removeEventListener('data-changed', handleDataChanged);
     };
-  }, []);  // Dependencia en fetchData, para evitar llamadas innecesarias
+  }, [filtroPlataforma]);  // Dependencia en fetchData, para evitar llamadas innecesarias
 };

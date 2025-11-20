@@ -89,7 +89,7 @@ export const MyStats = ({
                       {horasDuracion > 0 && (
                         <div>
                           <p className="text-sm font-bold text-white lg:text-base">Horas:</p>
-                          <p className="text-sm font-extrabold text-teal-400 lg:text-base">{horasDuracion} hrs</p>
+                          <p className="text-sm font-bold text-teal-400 lg:text-base">{horasDuracion} hrs</p>
                         </div>
                       )}
                       {!horasDuracion && (

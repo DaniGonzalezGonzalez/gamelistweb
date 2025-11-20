@@ -4,7 +4,7 @@ import { UserContext } from "./UserContext";
 
 export function UserProvider({children}) {
   const data = useUser()
-
+  
   return (
     <>
       <UserContext.Provider value={data}>

@@ -15,7 +15,8 @@ export const GameListCardByState = ({
   setSortBy, 
   estadoSingularMayusculas, 
   user,
-  searchTerm
+  searchTerm,
+  filtroPlataforma
 }) => {
   
   return (
@@ -66,11 +67,19 @@ export const GameListCardByState = ({
                             <div className={`rounded`}>{GET_STATE_ICON(item.estado, '4', '4')}</div>
                             <span className="text-[10px] lg:text-[11px] py-1 font-semibold">{item?.estado}</span>
                           </div>    
-                          {sortBy === 'position' && !searchTerm && 
+                          {sortBy === 'position' && filtroPlataforma.length === 0 && !searchTerm && 
                             <button className="text-white" onClick={() => toggleVisibility(item.id)}>
                               {visibleItemId === item.id ? <div className="p-1">
                                 <EyeSlash w={4} h={4}/>
-                              </div> : <Dots w={6} h={6}/>}
+                              </div> : 
+                              // <Dots w={6} h={6}/>
+                              // <div>&lt;&gt;</div>
+                              <div className='flex items-center'>
+                                <ArrowLeft w={4} h={4}/>
+                                <div className='w-1 h-1 bg-gray-300 rounded-full '></div>
+                                <ArrowRight w={4} h={4}/>                              
+                              </div>
+                              }
                             </button> 
                           } 
                         </div>                                

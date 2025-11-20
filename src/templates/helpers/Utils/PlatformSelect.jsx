@@ -3,7 +3,7 @@
 
 export const PlatformSelect = () => {
   const platforms = [
-    'PS5', 'PS4', 'PS3', 'PS2', 'PS1', 'PSVita', 'PSP', 'Nintendo Switch', 'WiiU', 
+    'PS5', 'PS4', 'PS3', 'PS2', 'PS1', 'PSVita', 'PSP', 'Nintendo Switch 2', 'Nintendo Switch', 'WiiU', 
     'Wii', 'GameCube', 'Nintendo 64', 'Nintendo 3DS', 'Nintendo DS', 
     'Game Boy Advance', 'Game Boy Color', 'Game Boy', 'Xbox Series X-S', 'Xbox One', 
     'Xbox 360', 'Xbox', 'PC', 'SNES', 'NES', 'SEGA MegaDrive'

@@ -9,6 +9,7 @@ export default {
       animation: {
         'border-animation': 'border-animation 6s ease infinite', // Animación del borde
         'bg-animation': 'bg-animation 40s ease infinite',         // Animación del fondo
+        'pulse-logo': 'pulseLogo .1s ease-in-out infinite',
       },
       keyframes: {
         'border-animation': {
@@ -26,6 +27,10 @@ export default {
           '66%': { backgroundColor: '#6ee7b7' },    // Verde claro
           '83%': { backgroundColor: '#fca5a1' },    // Rojo suave
           '100%': { backgroundColor: '#1e3a8a' },   // Regresa al azul oscuro
+        },
+        pulseLogo: {
+          '0%, 100%': { opacity: '0.4' },
+          '50%': { opacity: '1' },
         },
       },
       scale: {

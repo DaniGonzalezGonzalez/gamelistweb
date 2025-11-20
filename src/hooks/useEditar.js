@@ -26,6 +26,8 @@ export function useEditar(uid, option) {
       if (data.tiempoCompletionist === '') delete data.tiempoCompletionist
       if (data.tiempoMainAndSides === '') delete data.tiempoMainAndSides
       if (data.tiempoMainStory === '') delete data.tiempoMainStory
+      if (data.lanzamiento === '') delete data.lanzamiento
+
       await updateDocument(option, uid, data) // Actualizado para Supabase
       navigate(`/admin-edit-content`)
     } catch (error) {

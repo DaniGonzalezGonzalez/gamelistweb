@@ -35,7 +35,8 @@ export const DeleteAccount = () => {
       
               if (response.ok) {
                 alert('Cuenta eliminada con éxito.');
-                window.location.href = '/login';
+                await supabase.auth.signOut()
+                window.location.href = '/';
               } else {
                 const errorText = await response.json();
                 console.error('Error al eliminar la cuenta:', errorText.error);

@@ -1,45 +1,47 @@
 // src/api/rawgApi.js
 
-const API_KEY = '9d000f7ff34747739d0c9c3c347e5a8f';  // Aquí va tu API Key
-
-
 // src/api/rawgApiService.js
-export const fetchGamesFromRawg = async (search = '', dates = '', platforms = '') => {
-    // Construimos la URL dinámica según los parámetros que tengamos
-    let url = `https://api.rawg.io/api/games?key=${API_KEY}`;
-  
-    if (search) {
-      url += `&search=${encodeURIComponent(search)}`;  // Añadimos el parámetro de búsqueda por nombre de juego
-    }
-  
-    if (dates) {
-      url += `&dates=${dates}`;  // Si tenemos fechas, las añadimos
-    }
-  
-    if (platforms) {
-      url += `&platforms=${platforms}`;  // Si tenemos plataformas, las añadimos
-    }
-  
-    const response = await fetch(url);
-    const data = await response.json();
+export const fetchGamesFromRawg = async (search = '', dates = '', platforms = '', exactMatch = true) => {
+  let url = `https://api.rawg.io/api/games?key=${import.meta.env.VITE_API_KEY}`;
 
-    const cleanString = (str) => {
-      return str
-        .toLowerCase()                           // Ignora mayúsculas y minúsculas
-        .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // Elimina tildes (á -> a, é -> e, etc.)
-        .replace(/[^a-z0-9]/g, "")             // Elimina cualquier carácter que no sea letra o número
-    };
-     // Filtramos los resultados para asegurarnos de que el nombre de cada juego coincida exactamente
-     if (search) {
-      const cleanedSearch = cleanString(search)
-    
-      return data.results.filter(game => 
+  if (search) {
+    url += `&search=${encodeURIComponent(search)}`;
+  }
+
+  if (dates) {
+    url += `&dates=${dates}`;
+  }
+
+  if (platforms) {
+    url += `&platforms=${platforms}`;
+  }
+
+  const response = await fetch(url);
+  const data = await response.json();
+
+  const cleanString = (str) => {
+    return str
+      .toLowerCase()
+      .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9]/g, "");
+  };
+
+  if (search) {
+    const cleanedSearch = cleanString(search);
+
+    if (exactMatch) {
+      return data.results.filter(game =>
         cleanString(game.name) === cleanedSearch
       );
+    } else {
+      return data.results.filter(game =>
+        cleanString(game.name).includes(cleanedSearch)
+      );
     }
-    
-    return data.results;  // Devolvemos los juegos encontrados
-  };
+  }
+
+  return data.results;
+};
 
 
 

@@ -8,6 +8,7 @@ import { ChooseAddGamesMenuFlotante } from "../../helpers/Utils/ChooseAddGamesMe
 import { ScrollToTopButton } from "../../helpers/Utils/ScrollToTopButton"
 import { GameListHeader, GameListCardComplete, NoGamesInListPrompt, PaginationButtons, SearchGamesInList, SortControl } from "./AddAndListHelpers"
 import { useDataChangedListener, useFetchDataOnCondition, useRandomImageEffect } from "./UseEffects"
+import { PlatformFilter } from "./Utils/PlatformFilter"
 import { useDataGameListComplete } from "./Utils/useDataGameListComplete"
 
 export function GameListComplete() {
@@ -19,18 +20,18 @@ export function GameListComplete() {
   const [sortDirection, setSortDirection] = useState('asc')
   const [searchTerm, setSearchTerm] = useState('')
   const [itemsToShow, setItemsToShow] = useState(10)
-  
+  const [filtroPlataforma, setFiltroPlataforma] = useState([])
+
   const navigate = useNavigate()
   const { user } = useContext(UserContext)
   const { chooseAddGamesMenuOpen, handleAddGameMenu } = useHandlePlatformMenus()
   const debouncedSearchTerm = useDebounce(searchTerm, 300)
   const { handleShowAll, handleShowInitial } = useHandles(itemsToShow, setItemsToShow)
-  const { preSortedData, sortedData, handleShowMore, handleShowLess, handleTitleClick, fetchData } = useDataGameListComplete({dataBD, setDataBD, setError, setNoGamesLoaded, sortBy, sortDirection, user, itemsToShow, setItemsToShow, searchTerm, navigate})
+  const { preSortedData, sortedData, handleShowMore, handleShowLess, handleTitleClick, fetchData } = useDataGameListComplete({dataBD, setDataBD, setError, setNoGamesLoaded, sortBy, sortDirection, user, itemsToShow, setItemsToShow, searchTerm, navigate, filtroPlataforma})
   const { selectedImage } = useRandomImageEffect(preSortedData)
     
-  useDataChangedListener(fetchData)
+  useDataChangedListener(fetchData, filtroPlataforma)
   useFetchDataOnCondition(shouldFetchData, fetchData, setShouldFetchData);
-
 
   return (
     <> 
@@ -44,7 +45,15 @@ export function GameListComplete() {
             <div className="container px-4 pt-8 pb-8 mx-auto">
               <div className="flex justify-between h-6 mx-3 lg:mx-6 my-14">
                 <SearchGamesInList searchTerm={searchTerm} setSearchTerm={setSearchTerm} placeholder="Buscar" width="w-40 sm:w-52"/>         
-                <SortControl sortType="default" sortBy={sortBy} setSortBy={setSortBy} setSortDirection={setSortDirection}/>             
+                {/* <SortControl sortType="default" sortBy={sortBy} setSortBy={setSortBy} setSortDirection={setSortDirection}/>  */}
+                <div className="flex">                    
+                    <div className="relative left-3 sm:left-0">
+                      <PlatformFilter filtroPlataforma={filtroPlataforma} setFiltroPlataforma={setFiltroPlataforma} />
+                    </div>
+                      { sortedData.length >= 1 &&
+                          <SortControl sortType="default" sortBy={sortBy} setSortBy={setSortBy} setSortDirection={setSortDirection} filtroPlataforma={filtroPlataforma} setFiltroPlataforma={setFiltroPlataforma}/>
+                      }
+                  </div>            
               </div>
 
               {/* Mostrar juegos encontrados */}

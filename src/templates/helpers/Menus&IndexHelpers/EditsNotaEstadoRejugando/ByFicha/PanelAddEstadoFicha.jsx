@@ -42,6 +42,17 @@ export function PanelAddEstadoFicha({ juego, onAvanzar, onClose, onEstadoChange,
   }
 
   const estados = Object.keys(estadoIconos)
+  const juegoLimpio = { ...juego }
+  delete juegoLimpio.notaMetacriticPrensa
+  delete juegoLimpio.notaMetacriticUsuarios
+  delete juegoLimpio.tiempoCompletionist
+  delete juegoLimpio.tiempoMainAndSides
+  delete juegoLimpio.tiempoMainStory
+  delete juegoLimpio.datosExtraJuego
+  delete juegoLimpio.linkMetacritic
+  delete juegoLimpio.linkHowLongToBeat
+  delete juegoLimpio.lanzamiento
+
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
@@ -72,16 +83,16 @@ export function PanelAddEstadoFicha({ juego, onAvanzar, onClose, onEstadoChange,
                   {/* Imagen con efecto hover */}
                   <div className="w-full overflow-hidden transition-transform duration-300 shadow-lg rounded-xl hover:scale-105">
                     <img 
-                      src={juego.url[0]} 
-                      alt={`Imagen de ${juego.titulo}`} 
+                      src={juegoLimpio.url[0]} 
+                      alt={`Imagen de ${juegoLimpio.titulo}`} 
                       className="object-cover w-full h-40"
                     />
                   </div>
                 
                   {/* Contenido del juego */}
                   <div className="flex flex-col items-center px-4 text-center">
-                    <h3 className="text-lg font-extrabold tracking-wide lg:text-xl">{limpiarTituloJuego(juego.titulo)}</h3>
-                    <p className="mt-1 text-xs text-gray-300 lg:text-sm">{juego.descripcion}</p>
+                    <h3 className="text-lg font-extrabold tracking-wide lg:text-xl">{limpiarTituloJuego(juegoLimpio.titulo)}</h3>
+                    <p className="mt-1 text-xs text-gray-300 lg:text-sm">{juegoLimpio.descripcion}</p>
                     <span className="mt-2 text-sm font-semibold text-blue-400">
                       ¡Registrado correctamente!
                     </span>
@@ -98,7 +109,7 @@ export function PanelAddEstadoFicha({ juego, onAvanzar, onClose, onEstadoChange,
         {onAdded && <button onClick={() => handleDeleteAndRefresh(id, titulo)} type="button" className={`p-3 text-xs transition duration-500 rounded-lg text-white hover:ring-2 hover:ring-red-500 hover:bg-red-600 flex items-center mt-2`}><div className='mr-2'><DeleteIcon w={6} h={6} /></div> <span className="flex-shrink-0">Eliminar de mis listas</span></button>}
         { !success && !error && 
           <div className='flex flex-col items-center justify-center w-full gap-3 mt-5 text-xs sm:gap-0 sm:flex-row sm:text-sm lg:mt-10'>
-            <div className='flex items-center justify-center w-full'><button className='p-2 px-5 transition duration-500 bg-purple-700 border-2 border-purple-500 rounded-xl hover:bg-purple-600' onClick={() => handleCerrarPanel(estadoSeleccionado, estadoActual, onEstadoChange, addGameFicha, juego, user, platformDefault, platform, registeredGames, newPosition, setIsLoading, setError, setSuccess, onAvanzar)}>{textoBoton}</button></div>
+            <div className='flex items-center justify-center w-full'><button className='p-2 px-5 transition duration-500 bg-purple-700 border-2 border-purple-500 rounded-xl hover:bg-purple-600' onClick={() => handleCerrarPanel(estadoSeleccionado, estadoActual, onEstadoChange, addGameFicha, juegoLimpio, user, platformDefault, platform, registeredGames, newPosition, setIsLoading, setError, setSuccess, onAvanzar)}>{textoBoton}</button></div>
           </div>}
       </div>
     </div>

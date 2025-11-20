@@ -4,7 +4,6 @@ import { useSwiperCarousel } from '../../Portada/PortadaOnline/Carruseles/Carrus
 
 export const ImagesRAWG = ({ gameFromRAWG }) => {
   const screenshots = gameFromRAWG[0]?.short_screenshots || [];
-  console.log(gameFromRAWG[0])
   useSwiperCarousel(screenshots); // Llamamos al hook para usar el swiper
 
   return (

@@ -2,7 +2,7 @@ import { useContext, useState } from "react"
 import { UserContext } from "../context/UserContext"
 import { getDocumentsWithFilter } from "../api/supabase/cloud-supabase"
 
-export function useFetchDataAndSort(estadoSingularMayusculas) {
+export function useFetchDataAndSort(estadoSingularMayusculas, filtroPlataforma = []) {
   const [dataBD, setDataBD] = useState([])
   const [error, setError] = useState(null)
   const [sortBy, setSortBy] = useState('position')
@@ -15,21 +15,45 @@ export function useFetchDataAndSort(estadoSingularMayusculas) {
 
   const fetchData = async () => {
     try {
-      const filters = [
-        { field: 'estado', value: estadoSingularMayusculas },
-        { field: 'infouser', value: user.email },
-      ]
-      const response = await getDocumentsWithFilter('Juegos', filters)
-      const datosPrefiltro = response
-      setDataBD(datosPrefiltro)
-        if (response.length === 0) {
-          setNoGamesLoaded(true)
-        } else {
-          setNoGamesLoaded(false)
+      let datosPrefiltro = [];
+  
+      if (Array.isArray(filtroPlataforma) && filtroPlataforma.length > 0) {
+        // Si hay varias plataformas seleccionadas → hacer una llamada por cada una
+        for (const plataforma of filtroPlataforma) {
+          const filters = [
+            { field: 'estado', value: estadoSingularMayusculas },
+            { field: 'infouser', value: user.email },
+            { field: 'plataforma', value: plataforma },
+          ];
+  
+          const response = await getDocumentsWithFilter('Juegos', filters);
+          datosPrefiltro = [...datosPrefiltro, ...response];
         }
+      } else {
+        // Si no hay filtro o es un string → llamada normal
+        const filters = [
+          { field: 'estado', value: estadoSingularMayusculas },
+          { field: 'infouser', value: user.email },
+        ];
+  
+        if (filtroPlataforma) {
+          filters.push({ field: 'plataforma', value: filtroPlataforma });
+        }
+  
+        const response = await getDocumentsWithFilter('Juegos', filters);
+        datosPrefiltro = response;
+      }
+  
+      setDataBD(datosPrefiltro);
+  
+      if (datosPrefiltro.length === 0) {
+        setNoGamesLoaded(true);
+      } else {
+        setNoGamesLoaded(false);
+      }
     } catch (error) {
-      console.error('Error al cargar los datos: ', error)
-      setError("Error al cargar los datos")
+      console.error('Error al cargar los datos: ', error);
+      setError("Error al cargar los datos");
     }
   }
 

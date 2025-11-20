@@ -125,6 +125,8 @@ export function getPlatformBackground(platform) {
         return 'bg-gradient-to-r from-blue-500 to-blue-800'
       case 'GameCube':
           return 'bg-gradient-to-r from-purple-500 to-purple-900'
+      case 'Nintendo Switch 2':
+          return 'bg-gradient-to-r from-red-700 to-red-900'
       case 'Nintendo Switch':
           return 'bg-gradient-to-r from-red-600 to-red-800'
       case 'Nintendo 3DS':
@@ -180,6 +182,7 @@ export const platformCollectionMap = {
   "PS1": "GamesBD",
   "PSVita": "GamesBD",
   "PSP": "GamesBD",
+  "Nintendo Switch 2": "GamesBD",
   "Nintendo Switch": "GamesBD",
   "WiiU": "GamesBD",
   "Wii": "GamesBD",
@@ -204,7 +207,7 @@ export const platformCollectionMap = {
 
   // Función para limpiar el título
   export const cleanTitle = (title) => {
-    const suffixes = ['- PS5', '- PS4', '- PS3', '- PS2', '- PS1', '- PSVita', '- PSP', '- Nintendo Switch','- WiiU', '- Wii', '- GameCube', '- Nintendo 64','- Nintendo 3DS', '- Nintendo DS','- Game Boy Advance', '- Game Boy Color', '- Game Boy', '- Xbox Series X-S', '- Xbox One', '- Xbox 360', '- Xbox 1', '- PC', '- SNES', '- NES', '- SEGA MegaDrive' ]
+    const suffixes = ['- PS5', '- PS4', '- PS3', '- PS2', '- PS1', '- PSVita', '- PSP', '- Nintendo Switch 2', '- Nintendo Switch','- WiiU', '- Wii', '- GameCube', '- Nintendo 64','- Nintendo 3DS', '- Nintendo DS','- Game Boy Advance', '- Game Boy Color', '- Game Boy', '- Xbox Series X-S', '- Xbox One', '- Xbox 360', '- Xbox 1', '- PC', '- SNES', '- NES', '- SEGA MegaDrive' ]
     for (const suffix of suffixes) {
       if (title.endsWith(suffix)) {
         return title.slice(0, -suffix.length).trim()
@@ -275,10 +278,11 @@ export const getKeywordStyles = (titulo, plataforma, genero) => ({
 
 
 export const platforms = [
+  'Nintendo Switch 2',
   'PS5',
-  'Nintendo Switch',
   'PC',
   'Xbox Series X-S',
+  'Nintendo Switch',
   'PS4',
   'WiiU',
   'Xbox One',
@@ -320,6 +324,7 @@ export const sagas = [
   { name: 'Yakuza', bgColor: 'bg-white' },
   { name: 'God of War', bgColor: 'bg-slate-900' },
   { name: 'Pokémon', bgColor: 'bg-yellow-500' },
+  { name: 'Kingdom Hearts', bgColor: 'bg-gray-100' },
   { name: 's Creed', bgColor: 'bg-gray-400' },
 ];
 
@@ -376,7 +381,7 @@ export const desarrolladoras = [
   // { name: 'Activision', bgColor: 'bg-gray-800' },
   // { name: 'Epic Games', bgColor: 'bg-slate-900' },
   // { name: 'Valve', bgColor: 'bg-green-500' },
-  // { name: 'SEGA', bgColor: 'bg-blue-500' },
+  { name: 'SEGA', bgColor: 'bg-blue-500' },
   { name: 'Nintendo', bgColor: 'bg-red-600' },
   { name: 'EA Games', bgColor: 'bg-white' },
   { name: 'Telltale Games', bgColor: 'bg-gray-400' },
@@ -396,3 +401,16 @@ export const desarrolladoras = [
   { name: 'Team Ninja', bgColor: 'bg-black' },
   { name: 'PlatinumGames', bgColor: 'bg-purple-800' },
 ];
+
+
+
+export const AVATAR_OPTIONS = ["avatar1.webp", "avatar2.webp", "avatar3.webp", 'avatar4.webp', 'avatar5.webp', 'avatar6.webp', 'avatar7.webp','avatar8.webp', 'avatar9.webp', 'avatar10.webp', 'avatar11.webp', 'avatar12.webp', 'avatar13.webp', 'avatar14.webp', 'avatar15.webp'];
+
+export function cleanCollectionUrlName(text) {
+  return text
+    .toLowerCase()
+    .normalize("NFD")                // Separa caracteres con tilde
+    .replace(/[\u0300-\u036f]/g, "") // Elimina las tildes
+    .replace(/\s+/g, "-")            // Reemplaza espacios por guiones
+    .replace(/[^\w-]/g, "")          // Elimina caracteres no alfanuméricos salvo guiones
+}

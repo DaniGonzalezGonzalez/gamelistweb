@@ -11,7 +11,6 @@ export const PlataformasCatalogoCarrusel = () => {
   const [dragging, setDragging] = useState(false); // Estado para controlar el arrastre
 
   const desiredOrder = platforms
-
   // Extraer y ordenar las plataformas
   const platformsToShow = desiredOrder.reduce((result, name) => {
     for (const category in platformData) {
@@ -23,7 +22,7 @@ export const PlataformasCatalogoCarrusel = () => {
     }
     return result;
   }, []);
-  
+
   const settings = {
     dots: false,
     infinite: true,
@@ -95,7 +94,7 @@ export const PlataformasCatalogoCarrusel = () => {
             />
             {/* Texto encima de la imagen */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <p className="px-4 py-2 text-lg font-semibold transition duration-500 ease-in-out bg-black bg-opacity-50 rounded-md lg:text-xl group-hover:bg-opacity-70">
+              <p className="px-4 py-2 text-lg font-bold transition duration-500 ease-in-out bg-black bg-opacity-50 rounded-md lg:text-xl group-hover:bg-opacity-70">
                 Catálogo<br/> completo
               </p>
             </div>

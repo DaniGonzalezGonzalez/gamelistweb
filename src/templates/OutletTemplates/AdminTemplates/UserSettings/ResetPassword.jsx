@@ -73,14 +73,14 @@ export function ResetPassword() {
             <p className="p-.05">Volver</p>
           </button>
         </div>}
-          <h1 className="mb-8 text-3xl font-bold text-center text-white uppercase">Recuperar Contraseña</h1>
+          <h1 className="mb-8 text-3xl font-extrabold text-center text-white uppercase">Recuperar Contraseña</h1>
           <form className="flex flex-col w-5/6 max-w-md gap-6 p-8 bg-gray-900 bg-opacity-75 shadow-xl sm:w-full rounded-xl" onSubmit={handleResetPassword}>
               <div className="flex flex-col gap-2">
-                  <label htmlFor="email" className="text-sm font-semibold text-gray-300">Email</label>
+                  <label htmlFor="email" className="text-sm font-bold text-gray-300">Email</label>
                   <input className="w-full p-3 text-sm text-white transition duration-300 ease-in-out transform bg-gray-700 border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:scale-105" type="email" id="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
               </div>
               <div className="flex justify-center">
-                  <button className="w-full px-4 py-2 text-sm font-medium text-white transition duration-300 ease-in-out transform bg-purple-600 rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:scale-105" type="submit">Enviar enlace de restablecimiento</button>
+                  <button className="w-full px-4 py-2 text-sm font-semibold text-white transition duration-300 ease-in-out transform bg-purple-600 rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:scale-105" type="submit">Enviar enlace de restablecimiento</button>
               </div>
           </form>
           {showError && (<p className="mt-4 text-sm text-center text-red-500">{error}</p>)}

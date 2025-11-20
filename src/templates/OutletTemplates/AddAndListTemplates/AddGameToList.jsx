@@ -36,6 +36,7 @@ const gamesToShow = gamesBDStored.length > 0 ? gamesBDStored : gamesBDComplete;
   const { handleSubmit, success, error, isLoading, handleInputChange, handleAddGame, handleBack } = useAddGameToList(tituloRef, tipoContenidoRef, setSearchTerm, setIsDropdownOpen, handleCloseEditEstadoPanel, setGameAdded, setEditPlatformPanelOpen, setEditEstadoPanelOpen)
   const debouncedSearchTerm = useDebounce(searchTerm, 300)
 
+
   // Ejecutamos los useEffect obtenidos de ficheros externos
   const { recentGames, selectedImage } = useRandomImageEffect(gamesToShow)
   const showMessage = useMessageEffect(success, error, setSearchTerm)

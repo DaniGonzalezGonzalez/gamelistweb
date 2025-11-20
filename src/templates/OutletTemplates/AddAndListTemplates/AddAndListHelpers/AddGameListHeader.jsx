@@ -20,11 +20,11 @@ export const AddGameListHeader = ({
                         <div className="flex justify-start w-full gap-2 font-thin text-white sm:w-80">
                             <div className="flex items-center justify-center gap-1 pr-2 text-xs border-r">
                                 <span className="font-bold">{games.length}</span>
-                                <div className="uppercase">JUEGOS</div>
+                                <div className="font-medium uppercase">JUEGOS</div>
                             </div>
                             <div className="flex items-center justify-center gap-1 text-xs">
                                 <span className="font-bold">{totalTiempoMainStory(games)}</span>
-                                <div className="uppercase">Horas</div>
+                                <div className="font-medium uppercase">Horas</div>
                             </div>                        
                         </div>
                         {/* Mostrar plataforma si se proporciona */}

@@ -11,7 +11,7 @@ export function PoliticaPrivacidad() {
          {!user.id && <div className="flex items-center justify-center w-10 mb-3">
              <Link to='/'><div className="p-1 transition duration-500 bg-gray-200 rounded-lg hover:bg-gray-600"><HomeIcon/></div></Link>
          </div>}
-        <div className="flex flex-col gap-8 p-4 text-xs text-justify text-gray-900 bg-gray-100 sm:text-sm rounded-2xl font-montserrat">
+        <div className="flex flex-col gap-8 p-4 text-xs text-justify text-gray-900 bg-gray-100 xl:pb-8 xl:px-8 sm:text-sm rounded-2xl font-montserrat">
             <h1 className="mt-8 text-4xl text-center text-gray-900 uppercase font-montserrat">Política de Privacidad</h1>
             <p className="mt-8">Esta Política de Privacidad describe cómo GameListWeb (web creada por Daniel González González) recopila, utiliza y protege la información personal que usted proporciona cuando utiliza nuestro sitio web.</p>
             <section>

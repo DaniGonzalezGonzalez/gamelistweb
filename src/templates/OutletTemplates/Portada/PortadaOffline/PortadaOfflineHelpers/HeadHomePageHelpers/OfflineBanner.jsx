@@ -25,11 +25,11 @@ export const OfflineBanner = ({ juegosPortada, user }) => {
               <ImagesHeadHomepage gamesBDByPlatform={juegosPortada} />
   
               <div className="w-5/6">
-                <h2 className="relative z-20 flex gap-4 pt-4 text-sm font-semibold text-white sm:pt-0 lg:pt-8 sm:text-sm lg:text-lg">
+                <h2 className="relative z-20 flex gap-4 pt-4 text-sm font-bold text-white sm:pt-0 lg:pt-8 sm:text-sm lg:text-lg">
                   Descubre nuestro catálogo
                 </h2>
                 <h3 className="relative z-20 flex gap-1 pt-2 text-xs text-white uppercase lg:pt-4 sm:pt-0 sm:text-xs lg:text-lg">
-                  754 juegos
+                  903 juegos
                 </h3>
               </div>
             </div>

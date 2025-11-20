@@ -65,18 +65,18 @@ export function UserRegister() {
                 <p className="p-.05">Volver</p>
             </button>
           </div>}
-          <h1 className="mt-20 mb-10 text-3xl font-bold text-white uppercase">Registrarse</h1>
+          <h1 className="mt-20 mb-10 text-3xl font-extrabold text-white uppercase">Registrarse</h1>
           <form className="flex flex-col w-5/6 max-w-md gap-6 p-8 bg-gray-900 bg-opacity-75 shadow-xl sm:w-full rounded-xl" onSubmit={handleRegister}>
               <div className="flex flex-col gap-2">
-                  <label htmlFor="email" className="text-sm font-semibold text-gray-300">Email</label>
+                  <label htmlFor="email" className="text-sm font-bold text-gray-300">Email</label>
                   <input className="p-3 text-sm text-white bg-gray-700 border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" type="email" id='email' placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
               </div>
               <div className="flex flex-col gap-2">
-                  <label htmlFor="password" className="text-sm font-semibold text-gray-300">Password</label>
+                  <label htmlFor="password" className="text-sm font-bold text-gray-300">Password</label>
                   <input className="p-3 text-sm text-white bg-gray-700 border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" type="password" id='password' placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
               </div>
               <div className="flex items-center justify-center">
-                  <button className="w-full px-4 py-2 mt-5 text-sm font-medium text-white transition duration-300 bg-purple-600 rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500" type="submit">Registrarse</button>
+                  <button className="w-full px-4 py-2 mt-5 text-sm font-semibold text-white transition duration-300 bg-purple-600 rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500" type="submit">Registrarse</button>
               </div>
           </form>
           {error && <p className="mt-4 text-sm text-red-500">{error}</p>}

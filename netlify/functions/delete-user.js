@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 const { createClient } = require('@supabase/supabase-js');
-require('dotenv').config(); // Asegúrate de que dotenv esté instalado y configurado
+require('dotenv').config();
 
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -36,6 +36,16 @@ exports.handler = async function(event) {
     }
 
     try {
+        // 1. Eliminar filas relacionadas
+        await supabase.from('follows')
+            .delete()
+            .or(`follower_id.eq.${userId},followed_id.eq.${userId}`);
+        
+        await supabase.from('UserProfiles')
+            .delete()
+            .eq('id', userId);
+
+        // 2. Eliminar usuario de auth
         const { error } = await supabase.auth.admin.deleteUser(userId);
         if (error) {
             return {
@@ -46,9 +56,10 @@ exports.handler = async function(event) {
 
         return {
             statusCode: 200,
-            body: JSON.stringify({ message: 'User deleted successfully' }),
+            body: JSON.stringify({ message: 'User and related data deleted successfully' }),
         };
     } catch (error) {
+        console.error('Error al eliminar datos relacionados o usuario:', error);
         return {
             statusCode: 500,
             body: JSON.stringify({ error: 'Internal Server Error' }),

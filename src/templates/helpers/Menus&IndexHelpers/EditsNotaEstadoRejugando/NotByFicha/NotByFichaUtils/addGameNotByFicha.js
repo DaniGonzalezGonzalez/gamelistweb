@@ -5,6 +5,7 @@ import { getLastId } from "../../Helpers/getLastId";
 
 
 export const addGameNotByFicha = async (juego, user, platformDefault, platform, estadoSeleccionado, registeredGames, newPosition, setIsLoading, setError, setSuccess) => {
+  const idGameBD = juego.id
   if (!estadoSeleccionado) {
     return;
   }
@@ -47,6 +48,7 @@ export const addGameNotByFicha = async (juego, user, platformDefault, platform, 
     juego.infouser = user.email
     juego.estado = estadoSeleccionado
     juego.position = newPosition
+    juego.gamebd_id = idGameBD
 
     if (platformDefault && platformDefault !== 'null'){
       juego.plataforma = platformDefault

@@ -4,7 +4,7 @@ export const SortControl = ({
   sortBy, 
   setSortBy, 
   setSortDirection, 
-  sortType = "default"  // Prop que controla qué opciones usar
+  sortType = "default",  // Prop que controla qué opciones usar
 }) => {
   // Opciones predeterminadas
   const defaultOptions = [

@@ -25,19 +25,19 @@ export const GameListHeader = ({
               alt="Cargando..." 
             />
             <div className="absolute inset-0 bg-black border-2 border-opacity-100 rounded-lg opacity-60"></div>
-            <h2 className="absolute inset-0 flex items-center justify-center p-3 text-lg font-semibold text-center text-white uppercase sm:text-3xl">
+            <h2 className="absolute inset-0 flex items-center justify-center p-3 text-lg font-bold text-center text-white uppercase sm:text-3xl">
               {nombreColeccion}
             </h2> 
             <div className="absolute inset-0 flex items-end justify-start p-3 font-semibold text-center text-white">
               <div className="flex justify-start w-full gap-2 font-thin text-white sm:w-80">
-                <div className="flex items-center justify-center gap-1 pr-2 text-xs border-r">
+                <div className="flex items-center justify-center gap-1 pr-2 text-xs">
                   <span className="font-bold">{dataBD.length}</span> 
-                  <div className="uppercase">JUEGOS</div>
+                  <div className="font-medium uppercase">JUEGOS</div>
                 </div>
-                <div className="flex items-center justify-center gap-1 text-xs">
+                {/* <div className="flex items-center justify-center gap-1 text-xs">
                   <span className="font-bold">{totalTiempoMainStory(dataBD)}</span> 
                   <div className="uppercase">Horas</div>
-                </div>                        
+                </div>                         */}
               </div>
             </div>
           </div>

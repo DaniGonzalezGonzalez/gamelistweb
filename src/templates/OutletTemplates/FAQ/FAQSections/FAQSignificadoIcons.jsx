@@ -34,19 +34,19 @@ export function FAQSignificadoIcons() {
         {/* Icono de edición */}
         <div className="flex flex-col gap-2 lg:p-6 sm:items-start sm:flex-row">
           <div className="flex items-center justify-center w-full gap-2 lg:gap-6">
-            <button className="w-20 h-20 sm:w-32 lg:w-36 px-2 sm:px-3 py-1 mt-2 text-[11px] sm:text-xs font-thin text-white transition duration-500 bg-gray-800 rounded-2xl sm:mt-8 hover:bg-blue-700 shadow shadow-black">
+            <button className="w-20 h-20 sm:w-32 lg:w-36 px-2 sm:px-3 py-1 mt-2 text-[11px] sm:text-xs text-white transition duration-500 bg-gray-800 rounded-2xl sm:mt-8 hover:bg-blue-700 shadow shadow-black">
               <div className="flex flex-col items-center justify-center p-1">
                 <EditIcon />
                 <p>Editar estado</p>
               </div>
             </button>
-            <button className="w-20 h-20 sm:w-32 lg:w-36 px-2 sm:px-3 py-1 mt-2 text-[11px] sm:text-xs font-thin text-white transition duration-500 bg-gray-800 rounded-2xl sm:mt-8 hover:bg-green-700 shadow shadow-black">
+            <button className="w-20 h-20 sm:w-32 lg:w-36 px-2 sm:px-3 py-1 mt-2 text-[11px] sm:text-xs text-white transition duration-500 bg-gray-800 rounded-2xl sm:mt-8 hover:bg-green-700 shadow shadow-black">
               <div className="flex flex-col items-center justify-center p-1">
                 <PlusIcon />
                 <p>Editar nota</p>
               </div>
             </button>
-            <button className="w-20 h-20 sm:w-32 lg:w-36 px-2 sm:px-3 py-1 mt-2 text-[11px] sm:text-xs font-thin text-white transition duration-500 bg-gray-800 rounded-2xl sm:mt-8 hover:bg-purple-700 shadow shadow-black">
+            <button className="w-20 h-20 sm:w-32 lg:w-36 px-2 sm:px-3 py-1 mt-2 text-[11px] sm:text-xs text-white transition duration-500 bg-gray-800 rounded-2xl sm:mt-8 hover:bg-purple-700 shadow shadow-black">
               <div className="flex flex-col items-center justify-center p-1">
                 <UpdateIcon />
                 <p>¿Rejugando?</p>

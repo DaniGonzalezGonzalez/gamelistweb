@@ -35,7 +35,7 @@ export function FoundGames({ filteredGames, handleGameSelect, setEditNotaPanelOp
       game.genero, 
       game.lanzamiento, 
     )
-
+      console.log(game)
     if (setEditEstadoPanelOpen) {
       setEditEstadoPanelOpen(true)
     }

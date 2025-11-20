@@ -54,18 +54,23 @@ export function CollectionDetails() {
 
   return (
     <div className="relative min-h-screen overflow-hidden text-white bg-black">
-      {/* Imagen de fondo con gradiente */}
-      <div className="absolute inset-0 bg-center bg-cover opacity-50" style={{ backgroundImage: `url(/wallpaperImages/${filterValue.replace(/\s+/g, '-').trim()}-wallpaper.webp)`, }}>
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-80"/>
+      {/* Imagen de fondo con gradiente y blur */}
+      <div className="absolute inset-0 bg-center bg-cover opacity-10 filter blur-sm" style={{ backgroundImage: `url(/wallpaperImages/${filterValue.replace(/\s+/g, '-').trim()}-wallpaper.webp)`, }}>
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent opacity-90" />
       </div>
 
+
       {/* Contenido principal */}
-      <div className="relative z-10 pt-5 sm:pt-6 lg:ml-14 lg:pt-12">
-        <MobileCollectionInfo isMobile={isMobile} src={src} handleError={handleError} filterValue={filterValue} filteredGames={filteredGames} />
-        <div className='flex items-center justify-between gap-5 px-5'>
+      <div className="relative z-10 pt-5 sm:pt-6 lg:pt-12">
+        {isMobile && <div className="fixed top-0 right-0 z-50 flex items-center gap-3 px-4 py-2 bg-gray-800 bg-opacity-75 rounded-bl-2xl sm:hidden">
+            <MobileCollectionInfo isMobile={isMobile} src={src} handleError={handleError} filterValue={filterValue} filteredGames={filteredGames}/>
+          </div>}
+        {!isMobile && <div className="fixed top-0 right-0 z-50 flex items-center justify-between gap-5 px-2 py-2 bg-gray-800 xl:px-5 xl:py-3 bg-opacity-55 rounded-bl-3xl">
           <NonMobileCollectionImage isMobile={isMobile} src={src} handleError={handleError} filterValue={filterValue} />
           <DesktopCollectionInfo isMobile={isMobile} filterValue={filterValue} filteredGames={filteredGames} />
-        </div>
+        </div>}
+
+
 
         {/* Swiper carrusel */}
         <GameSwiper filteredGames={filteredGames} obtenerJuegosCoincidentes={obtenerJuegosCoincidentes} dataBD={dataBD} getPlataformas={getPlataformas} setChooseGameFicha={setChooseGameFicha} setShowChooseGameFicha={setShowChooseGameFicha} handleTitleClick={handleTitleClick} handleInfoGameBD={handleInfoGameBD} onGameClick={onGameClick} cleanTitle={cleanTitle} />

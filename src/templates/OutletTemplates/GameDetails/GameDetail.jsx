@@ -40,7 +40,7 @@ export function GameDetail() {
     const { handleAvanzar, handleEditEstado, handleEstadoSeleccionado, handleFechaGuardada, handleHorasDuracion, handleOpenPanel, handleOpinionPersonal, handlePlatformChange, handlePlatino, handlePorcentajeCompletado, platformSelected, editPlatformPanelOpen, panelAddEstadoFichaOpen, handleOpenEditPlatformPanel, handleCloseRejugandoPanel, handleOpenRejugandoPanel, handleCloseEditEstadoPanel, handleOpenEditEstadoPanel, handleCloseEditPlatformPanel, handleOpenEditNotaPanel, editEstadoPanelOpen, editRejugandoPanelOpen, editNotaPanelOpen, handleCloseEditNotaPanel } = useHandlesGameDetail(gameId)
     // Traemos los useEffect
     const { juego, error, isLoading, gameFromRAWG } = useFetchDataGameDetail(collection, gameId, platformSelected, notaJuego, setNotaJuego, estado, setEstado, opinionPersonal, setOpinionPersonal, rejugando, setRejugando, fechaFinalizacion, setFechaFinalizacion, horasDuracion, setHorasDuracion, porcentajeCompletado, setPorcentajeCompletado, platino, setPlatino, plataforma, setPlataforma)
-    
+
     useFetchPlatformImagesGameDetail(juego, fetchPlatformImages, setPlatformImages) // Este no sé si es necesario
     
     useEffect(() => {        

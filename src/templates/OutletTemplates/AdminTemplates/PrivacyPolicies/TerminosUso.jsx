@@ -11,7 +11,7 @@ export function TerminosUso() {
           <div className="flex items-center justify-center w-10 mb-3">
             <Link to='/'><div className="p-1 transition duration-500 bg-gray-200 rounded-lg hover:bg-gray-600"><HomeIcon/></div></Link>
          </div>}
-        <div className="flex flex-col gap-8 p-4 text-xs text-justify text-gray-900 bg-gray-100 sm:text-sm rounded-2xl font-montserrat">
+        <div className="flex flex-col gap-8 p-4 text-xs text-justify text-gray-900 bg-gray-100 xl:pb-8 xl:px-8 sm:text-sm rounded-2xl font-montserrat">
             <h1 className="mt-8 text-4xl text-center text-gray-900 uppercase font-montserrat">Términos de Uso</h1>
             <p className="mt-8">Por favor, lea detenidamente estos términos antes de usar GameListWeb. Al acceder o registrarse, acepta cumplir con estos términos.</p>
             <p>Estos Términos de Uso rigen el uso de GameListWeb (web creada por Daniel González González) y establecen las reglas y condiciones para el uso de nuestro sitio web.</p>
@@ -33,7 +33,11 @@ export function TerminosUso() {
             </section>
             <section>
                 <header className="mb-2 font-bold">5. Derechos de Propiedad Intelectual:</header>
-                <p>Todas las imágenes y marcas utilizadas en GameListWeb son propiedad de sus respectivos dueños. Este sitio no está afiliado, asociado ni respaldado por las compañías dueñas de dichas marcas. El uso de estas imágenes es puramente informativo y sin fines comerciales.</p>
+                <p>Todas las imágenes, logotipos y marcas utilizadas en GameListWeb son propiedad de sus respectivos dueños. Este sitio no está afiliado, asociado ni respaldado por las compañías titulares de dichas marcas. El uso de estos elementos se realiza exclusivamente con fines informativos y divulgativos, sin ningún propósito comercial o lucrativo.</p>
+
+                <p className="mt-3">Si los titulares de los derechos consideran que el uso de alguna imagen o contenido vulnera sus derechos, pueden solicitar su retirada escribiendo a la administración de la web a través del correo electrónico gamelistwebsoporte@gmail.com. Se procederá a su eliminación inmediata, en base a la buena voluntad de la administración, cuyo único objetivo es ofrecer un servicio informativo y de divulgación sobre videojuegos.</p>
+
+                <p className="mt-3">El sitio no ha contactado individualmente con los propietarios de cada imagen debido a que no se trata de un uso comercial ni con ánimo de lucro, y a la complejidad que supondría gestionar solicitudes individuales para un proyecto sin impacto económico, de alcance limitado y con un volumen considerable de contenido visual.</p>
             </section>
             <section>
                 <header className="mb-2 font-bold">6. Limitación de Responsabilidad:</header>

@@ -8,6 +8,7 @@ export const platformData = {
       { name: 'PS5', image: '/platformImages/PS5-Logo.webp', route: '/add-game-to-list-by-platform/PS5' }
     ],
     Nintendo: [
+      { name: 'Nintendo Switch 2', image: '/platformImages/Nintendo-Switch-2-Logo.webp', route: '/add-game-to-list-by-platform/Nintendo Switch 2'  },
       { name: 'Nintendo Switch', image: '/platformImages/Nintendo-Switch-Logo.webp', route: '/add-game-to-list-by-platform/Nintendo Switch'  },
       { name: 'WiiU', image: '/platformImages/WiiU-Logo.webp', route: '/add-game-to-list-by-platform/WiiU'  },
       { name: 'Wii', image: '/platformImages/Wii-Logo.webp', route: '/add-game-to-list-by-platform/Wii'  },

@@ -20,6 +20,7 @@ export function useAdd(tituloRef, tipoContenidoRef) {
             if (data.tiempoCompletionist === '') delete data.tiempoCompletionist
             if (data.tiempoMainAndSides === '') delete data.tiempoMainAndSides
             if (data.tiempoMainStory === '') delete data.tiempoMainStory
+            if (data.lanzamiento === '') delete data.lanzamiento
 
             if (data.file1 === '') delete data.file1
             await addDocument(tipoContenido, data)

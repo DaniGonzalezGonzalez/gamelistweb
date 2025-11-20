@@ -3,12 +3,13 @@ import { useState } from "react"
 import { useEditGameToList } from "../../../hooks/useEditGameToList"
 import { useHandlePlatformMenus, useHandles } from "../../../hooks/useHandles"
 import { useFetchDataAndSort } from "../../../hooks/useFetchDataAndSort"
-import { GET_STATE_BACKGROUND, totalTiempoMainStory } from "../../helpers/constants/constants"
+import { GET_STATE_BACKGROUND, platforms, totalTiempoMainStory } from "../../helpers/constants/constants"
 import { useDebounce } from "../../helpers/constants/constantsComponents"
 import { ChooseAddGamesMenuFlotante } from "../../helpers/Utils/ChooseAddGamesMenuFlotante"
 import { useDataChangedListener, useFetchDataOnCondition, useRandomImageEffect } from "./UseEffects"
 import { GameListHeader, GameListCardByState, NoGamesInListPrompt, PaginationButtons, SearchGamesInList, SortControl } from "./AddAndListHelpers"
 import { ScrollToTopButton } from "../../helpers/Utils/ScrollToTopButton"
+import { PlatformFilter } from "./Utils/PlatformFilter"
 
 export function GameListByState({ estadoPluralMinusculas, estadoSingularMayusculas, nombreColeccion }) {
   const [contenido, setContenido] = useState({})
@@ -17,8 +18,9 @@ export function GameListByState({ estadoPluralMinusculas, estadoSingularMayuscul
   const [visibleItemId, setVisibleItemId] = useState(null)
   const [editingItem, setEditingItem] = useState(null)
   const [isDisabled, setIsDisabled] = useState(true)
+  const [filtroPlataforma, setFiltroPlataforma] = useState([])
 
-  const { fetchData, dataBD, error, user, sortedData, setItemsToShow, setSearchTerm, setSortBy, setSortDirection, itemsToShow, searchTerm, sortBy, noGamesLoaded  } = useFetchDataAndSort(estadoSingularMayusculas)
+  const { fetchData, dataBD, error, user, sortedData, setItemsToShow, setSearchTerm, setSortBy, setSortDirection, itemsToShow, searchTerm, sortBy, noGamesLoaded  } = useFetchDataAndSort(estadoSingularMayusculas, filtroPlataforma)
   const { handleSubmit } = useEditGameToList(contenido.idDoc, option, estadoPluralMinusculas)
   const { handleShowMore, handleShowAll, handleShowInitial, handleShowLess, handleTitleClick, handleUpPosition, handleDownPosition, shouldFetchData, setShouldFetchData } = useHandles(handleSubmit, setContenido, setFechaActualizacion, setEditingItem, setIsDisabled, isDisabled, setItemsToShow, itemsToShow, contenido)
   const { chooseAddGamesMenuOpen, handleAddGameMenu } = useHandlePlatformMenus()
@@ -26,13 +28,21 @@ export function GameListByState({ estadoPluralMinusculas, estadoSingularMayuscul
   
   // Ejecutamos los useEffect obtenidos de ficheros externos
   const { selectedImage } = useRandomImageEffect(dataBD)
-  useDataChangedListener(fetchData)
+  useDataChangedListener(fetchData, filtroPlataforma)
   useFetchDataOnCondition(shouldFetchData, fetchData, setShouldFetchData);
 
   const toggleVisibility = (id) => {
     setVisibleItemId((prevId) => (prevId === id ? null : id))
   }
-
+  // función toggle para plataformas
+  // const togglePlatform = (platform) => {
+  //   if (filtroPlataforma.includes(platform)) {
+  //     setFiltroPlataforma(filtroPlataforma.filter((p) => p !== platform));
+  //   } else {
+  //     setFiltroPlataforma([...filtroPlataforma, platform]);
+  //   }
+  // }
+  
   return (
     <> 
       { user.id && 
@@ -45,10 +55,12 @@ export function GameListByState({ estadoPluralMinusculas, estadoSingularMayuscul
               <div className="container px-4 pt-8 pb-8 mx-auto sm:px-8">             
                 <div className="flex justify-between h-6 my-14">
                   <SearchGamesInList searchTerm={searchTerm} setSearchTerm={setSearchTerm} placeholder="Buscar" width="w-40 sm:w-52"/>
-          
-                  { sortedData.length >= 1 &&
-                    <SortControl sortType="estado" sortBy={sortBy} setSortBy={setSortBy} setSortDirection={setSortDirection}/>
-                  }
+                  <div className="flex">
+                    <PlatformFilter filtroPlataforma={filtroPlataforma} setFiltroPlataforma={setFiltroPlataforma} />
+                    { sortedData.length >= 1 &&
+                      <SortControl sortType="estado" sortBy={sortBy} setSortBy={setSortBy} setSortDirection={setSortDirection} filtroPlataforma={filtroPlataforma} setFiltroPlataforma={setFiltroPlataforma}/>
+                    }
+                  </div>      
                 </div>
 
                 {/* Mensaje cuando no se encuentran juegos filtrados */}
@@ -66,7 +78,7 @@ export function GameListByState({ estadoPluralMinusculas, estadoSingularMayuscul
                 {chooseAddGamesMenuOpen && <ChooseAddGamesMenuFlotante chooseAddGamesMenuOpen={chooseAddGamesMenuOpen} handleAddGameMenu={handleAddGameMenu}/>}
 
                 {/* Mostrar juegos encontrados */}
-                <GameListCardByState sortedData={sortedData} visibleItemId={visibleItemId} sortBy={sortBy} handleTitleClick={handleTitleClick} handleUpPosition={handleUpPosition} handleDownPosition={handleDownPosition} toggleVisibility={toggleVisibility} setSortBy={setSortBy} estadoSingularMayusculas={estadoSingularMayusculas} user={user} searchTerm={searchTerm} />
+                <GameListCardByState sortedData={sortedData} visibleItemId={visibleItemId} sortBy={sortBy} handleTitleClick={handleTitleClick} handleUpPosition={handleUpPosition} handleDownPosition={handleDownPosition} toggleVisibility={toggleVisibility} setSortBy={setSortBy} estadoSingularMayusculas={estadoSingularMayusculas} user={user} searchTerm={searchTerm} filtroPlataforma={filtroPlataforma}/>
 
                 {/* Botones de mostrar más, menos y todo */}
                 <PaginationButtons dataBD={dataBD} sortedData={sortedData} itemsToShow={itemsToShow} handleShowMore={handleShowMore} handleShowLess={handleShowLess} handleShowInitial={handleShowInitial} handleShowAll={handleShowAll} setItemsToShow={setItemsToShow}/>

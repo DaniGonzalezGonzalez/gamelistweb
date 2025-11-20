@@ -7,12 +7,16 @@ import { RenderJuegosPortada } from "./PortadaOnlineHelpers/RenderJuegosPortada"
 import { ordenarYLimitarJuegos } from "../../../helpers/constants/constants"
 import { ChooseAddGamesMenuFlotante } from "../../../helpers/Utils/ChooseAddGamesMenuFlotante"
 import { NoGamesPrompt, TitleCollection } from "./PortadaOnlineHelpers"
+import { useVisibilityObserver } from "../../../../hooks/useVisibilityObserver"
 
 export function InfoHomePageProximos() {
     const { juegosPortada, error, isLoading } = useGetDataPortadaPorEstado('Próximos')
     const { handleTitleClick } = useHandles()
     const [platformImages, setPlatformImages] = useState({})
     const { chooseAddGamesMenuOpen, handleAddGameMenu } = useHandlePlatformMenus()
+    const threshold = window.innerWidth < 768 ? 0.2 : 0.4;
+
+    const visibleItems = useVisibilityObserver(".observed-item", threshold, ["proximos-block"]);
 
     useEffect(() => {
         fetchPlatformImagesPortada(juegosPortada, platformImages, setPlatformImages)
@@ -25,7 +29,7 @@ export function InfoHomePageProximos() {
 
     return (
         <>
-            <div className="relative px-2 pb-8 sm:py-4 sm:px-3 lg:px-8 sm:pl-20 lg:pl-20 lg:pr-8">
+            <div data-id="proximos-block" className={`observed-item relative px-2 pb-8 sm:py-4 sm:px-3 lg:px-8 sm:pl-20 lg:pl-28 lg:pr-8 transition duration-1000 ease-out ${visibleItems["proximos-block"] ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
                 <div className="flex items-center gap-1 pb-1 mt-0 mb-0 sm:pb-0 sm:mb-0 lg:pb-0 sm:mt-0">
                    {/* Si NO hay juegos => No habilitamos el acceso a todos los juegos de la colección  */}
                    { juegosLimitados.length === 0 && 

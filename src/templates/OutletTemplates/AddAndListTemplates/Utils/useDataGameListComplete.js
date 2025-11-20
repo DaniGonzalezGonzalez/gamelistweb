@@ -3,24 +3,49 @@ import { useNavigate } from 'react-router-dom';
 import { getDocumentsWithFilter } from '../../../../api/supabase/cloud-supabase';
 import { scrollToTop } from '../../../helpers/constants/constants';
 
-export const useDataGameListComplete = ({dataBD, setDataBD, setError, setNoGamesLoaded, sortBy, sortDirection, user, itemsToShow, setItemsToShow, searchTerm }) => {
+export const useDataGameListComplete = ({dataBD, setDataBD, setError, setNoGamesLoaded, sortBy, sortDirection, user, itemsToShow, setItemsToShow, searchTerm, filtroPlataforma =[] }) => {
   const navigate = useNavigate()
   const fetchData = async () => {
     try {
-      const filters = [
-        { field: 'infouser', value: user.email },
-      ];
-      const datos = await getDocumentsWithFilter('Juegos', filters)
-      setDataBD(datos)
-      if (datos.length === 0) {
-        setNoGamesLoaded(true)
+      let datosPrefiltro = [];
+  
+      if (Array.isArray(filtroPlataforma) && filtroPlataforma.length > 0) {
+        // Varias plataformas → una llamada por cada plataforma
+        for (const plataforma of filtroPlataforma) {
+          const filters = [
+            { field: 'infouser', value: user.email },
+            { field: 'plataforma', value: plataforma },
+          ];
+  
+          const response = await getDocumentsWithFilter('Juegos', filters);
+          datosPrefiltro = [...datosPrefiltro, ...response];
+        }
       } else {
-        setNoGamesLoaded(false)
+        // Ninguna plataforma o solo un string → llamada normal
+        const filters = [
+          { field: 'infouser', value: user.email },
+        ];
+  
+        if (filtroPlataforma) {
+          filters.push({ field: 'plataforma', value: filtroPlataforma });
+        }
+  
+        const response = await getDocumentsWithFilter('Juegos', filters);
+        datosPrefiltro = response;
+      }
+  
+      setDataBD(datosPrefiltro);
+  
+      if (datosPrefiltro.length === 0) {
+        setNoGamesLoaded(true);
+      } else {
+        setNoGamesLoaded(false);
       }
     } catch (error) {
-      setError("Error al cargar los datos")
+      console.error('Error al cargar los datos: ', error);
+      setError("Error al cargar los datos");
     }
-  }  
+  }; 
 
   const preSortedData = useMemo(() => {
     return dataBD

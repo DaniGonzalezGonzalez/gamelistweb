@@ -42,7 +42,7 @@ export const FoundRecentGameMessageAndDisplay = ({
 
       {/* Cargando... */}
       {isLoading && <HomePageSkeleton />}
-
+      
       {/* Mostrar mensaje cuando no se encuentren juegos filtrados */}
       {debouncedSearchTerm.trim() !== "" && filteredGames.length === 0 && (
         <div className="flex flex-col items-center justify-center w-full pt-5">

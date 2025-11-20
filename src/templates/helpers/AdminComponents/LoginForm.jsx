@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react"
+import { supabase } from "../../../api/supabase/supabase"
 import { useUser } from "../../../hooks/useUser"
 
 export function LoginForm() {
@@ -10,7 +11,7 @@ export function LoginForm() {
     const usernameRef = useRef()
     const passwordRef = useRef()
 
-    const { _signInWithEmailAndPassword, error, message, success } = useUser()
+    const { _signInWithEmailAndPassword, error, message, success, user } = useUser()
 
     useEffect(() => {
         if (error) {
@@ -34,6 +35,46 @@ export function LoginForm() {
         }
     }, [success]);
     
+    // NUEVO: Comprueba o crea perfil al detectar user logueado
+    useEffect(() => {
+        if (!user || !user.id) return;
+    
+        async function checkOrCreateProfile() {
+            const { data: sessionData } = await supabase.auth.getSession();
+            if (!sessionData.session) {
+                console.log("No hay sesión activa, no se crea perfil");
+                return;
+            }
+    
+            const { data, error } = await supabase
+                .from("UserProfiles")
+                .select("id")
+                .eq("id", user.id)
+                .maybeSingle();
+    
+            if (error) {
+                console.error("Error comprobando perfil:", error.message);
+                return;
+            }
+    
+            if (!data) {
+                const { error: insertError } = await supabase
+                    .from("UserProfiles")
+                    .insert([{ id: user.id, email: user.email }]);
+    
+                if (insertError) {
+                    if (insertError.status === 409) return;
+                    console.error("Error creando perfil:", insertError.message);
+                } else {
+                    console.log("Perfil creado para usuario")
+                }
+            }
+        }
+    
+        checkOrCreateProfile();
+    }, [user]);
+    
+
 
     const handleEmail = (e) => {
         setEmail(e.target.value)
@@ -58,7 +99,7 @@ export function LoginForm() {
 
     return (
         <>
-            <fieldset className="flex flex-col items-center justify-center w-5/6 max-w-md p-8 mx-auto mt-8 bg-gray-900 bg-opacity-75 shadow-xl sm:w-full sm:mt-20 rounded-2xl">
+            <fieldset className="flex flex-col items-center justify-center w-5/6 max-w-md p-8 mx-auto mt-8 bg-gray-900 bg-opacity-75 shadow-xl sm:w-full rounded-2xl">
                 <form className="w-full" onSubmit={handleSubmit}>
                     <div className="mb-6">
                         <label htmlFor="email" className="block mb-2 text-sm font-semibold text-gray-300">Email</label>

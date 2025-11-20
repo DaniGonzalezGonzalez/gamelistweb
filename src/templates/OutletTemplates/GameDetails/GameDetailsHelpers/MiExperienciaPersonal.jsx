@@ -37,7 +37,7 @@ export const MiExperienciaPersonal = ({
                 className="w-full mt-4 text-sm cursor-pointer lg:w-1/2"
                 onClick={() => setEditModeOpinionPersonal(true)}
               >
-                <div className="mt-4 text-xs transition duration-300 text-start lg:text-sm rounded-xl hover:font-bold">
+                <div className="mt-4 text-xs transition duration-500 text-start lg:text-sm rounded-xl hover:font-bold">
                   {opinionPersonal ? (
                     opinionPersonal
                   ) : (

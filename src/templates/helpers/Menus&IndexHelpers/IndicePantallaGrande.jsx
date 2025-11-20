@@ -6,6 +6,7 @@ import { useHandlePlatformMenus, useHandles } from "../../../hooks/useHandles"
 import { ChooseAddGamesMenuFlotante } from "../Utils/ChooseAddGamesMenuFlotante"
 import { ProfileIcon } from "../../../assets/Icons/ProfileIcon"
 import { useState } from "react"
+import { CommunityIcon } from "../../../assets/Icons/CommunityIcon"
 
 export function IndicePantallaGrande({textAlign, toggleConfig }) {
     const { handleAddGameMenu, menuAddGamesByPlatformOpen, chooseAddGamesMenuOpen, setChooseAddGamesMenuOpen } = useHandlePlatformMenus()
@@ -50,24 +51,24 @@ export function IndicePantallaGrande({textAlign, toggleConfig }) {
 
   return (
     <div className={`justify-center pl-6 sm:pl-10 lg:pl-10 pr-3 min-h-screen hidden gap-5 text-xs sm:text-[9px] lg:text-xs text-white items-center font-montserrat sm:flex sm:flex-col`}>
-      <div className="flex flex-col items-center gap-6">
-       <Link to onClick={scrollToTop}  className="p-1 text-center text-white transition duration-500 rounded font-montserrat hover:bg-slate-800"><div className="flex flex-col items-center justify-center"><HomeIcon w={iconSize} h={iconSize}/>Inicio</div></Link>
-      </div>
-      <div className="items-center justify-center hidden gap-5 text-white font-montserrat sm:flex sm:flex-col">
-        <button onClick={() => handleScrollToSection("indice-infohomepage-jugando")} className="p-1 text-center text-white transition duration-500 rounded font-montserrat hover:bg-slate-800"><div className="flex flex-col items-center justify-center"><ArchiveIcon w={iconSize} h={iconSize}/>Mis listas</div></button>
-        <div style={{ position: 'relative', zIndex: menuAddGamesByPlatformOpen ? '10' : '1' }}>
-          <button onClick={() => handleScrollToSection("explora-el-catalogo")} className={`${textAlign} text-white font-montserrat p-1 transition duration-500 rounded hover:bg-slate-800`}>
+      <div className="items-center justify-center hidden w-full gap-5 text-white font-montserrat sm:flex sm:flex-col">
+        <button onClick={() => handleScrollToSection("indice-infohomepage-jugando")} className="w-full p-1 text-center text-white transition duration-500 rounded-lg font-montserrat hover:bg-slate-800"><div className="flex flex-col items-center justify-center"><ArchiveIcon w={iconSize} h={iconSize}/>Mis listas</div></button>
+        <div className="w-full" style={{ position: 'relative', zIndex: menuAddGamesByPlatformOpen ? '10' : '1' }}>
+          <button onClick={() => handleScrollToSection("explora-el-catalogo")} className={`${textAlign} text-white font-montserrat p-1 transition duration-500 rounded-lg hover:bg-slate-800 w-full`}>
              <div className="flex flex-col items-center"><SearchIcon w={iconSize} h={iconSize} /><span>Buscar <br/> juegos </span></div>                 
           </button>
         </div>
-        <Link to={'/user-profile'}>
-            <div className="flex flex-col items-center justify-center p-1 transition duration-500 rounded hover:bg-slate-800">
+        <Link className="w-full" to={'/user-profile'}>
+            <div className="flex flex-col items-center justify-center w-full p-1 transition duration-500 rounded-lg hover:bg-slate-800">
               <ProfileIcon w={iconSize} h={iconSize} />
               <p>Perfil</p>             
             </div>
           </Link>
-        <button className="flex items-center space-x-2 text-white" onClick={toggleConfig}>
-          <div className="flex flex-col items-center p-1 transition duration-500 rounded hover:bg-slate-800">
+        <div className="flex flex-col items-center w-full gap-6">
+         <Link to={'/community'} className="p-1 text-center text-white transition duration-500 rounded-lg font-montserrat hover:bg-slate-800"><div className="flex flex-col items-center justify-center"><CommunityIcon w={iconSize} h={iconSize}/>Comunidad</div></Link>
+        </div>
+        <button className="flex items-center w-full space-x-2 text-white" onClick={toggleConfig}>
+          <div className="flex flex-col items-center w-full p-1 transition duration-500 rounded-lg hover:bg-slate-800">
             <ConfigIcon w={iconSize} h={iconSize} />
             <p>Ajustes</p>             
           </div>

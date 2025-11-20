@@ -23,31 +23,32 @@ export function FAQProblems() {
         </p>
         <ul className="grid grid-cols-2 gap-3 text-xs sm:grid-cols-4 lg:grid-cols-5 lg:text-sm">
           {[
-            { platform: "PS5", games: 139 },
-            { platform: "PS4", games: 260 },
-            { platform: "PS3", games: 129 },
-            { platform: "PS2", games: 33 },
-            { platform: "PS1", games: 15 },
-            { platform: "Switch", games: 207 },
-            { platform: "WiiU", games: 41 },
-            { platform: "Wii", games: 24 },
-            { platform: "GameCube", games: 34 },
+            { platform: "PS5", games: 168 },
+            { platform: "PS4", games: 312 },
+            { platform: "PS3", games: 167 },
+            { platform: "PS2", games: 49 },
+            { platform: "PS1", games: 21 },
+            { platform: "Switch 2", games: 6 },
+            { platform: "Switch", games: 238 },
+            { platform: "WiiU", games: 45 },
+            { platform: "Wii", games: 26 },
+            { platform: "GameCube", games: 37 },
             { platform: "N64", games: 23 },
-            { platform: "Xbox Series X/S", games: 120 },
-            { platform: "Xbox One", games: 209 },
-            { platform: "Xbox 360", games: 94 },
-            { platform: "Xbox", games: 16 },
-            { platform: "PSVita", games: 37 },
-            { platform: "PSP", games: 25 },
-            { platform: "3DS", games: 37 },
-            { platform: "DS", games: 31 },
-            { platform: "GB Advance", games: 48 },
-            { platform: "GB Color", games: 12 },
-            { platform: "Game Boy", games: 9 },
+            { platform: "Xbox Series X/S", games: 144 },
+            { platform: "Xbox One", games: 251 },
+            { platform: "Xbox 360", games: 120 },
+            { platform: "Xbox", games: 20 },
+            { platform: "PSVita", games: 43 },
+            { platform: "PSP", games: 31 },
+            { platform: "3DS", games: 40 },
+            { platform: "DS", games: 33 },
+            { platform: "GB Advance", games: 51 },
+            { platform: "GB Color", games: 13 },
+            { platform: "Game Boy", games: 10 },
             { platform: "SNES", games: 9 },
-            { platform: "NES", games: 8 },
-            { platform: "MegaDrive", games: 5 },
-            { platform: "PC", games: 358 },
+            { platform: "NES", games: 10 },
+            { platform: "MegaDrive", games: 10 },
+            { platform: "PC", games: 441 },
           ].map(({ platform, games }) => (
             <li key={platform} className="p-2 text-center bg-white rounded-lg shadow">
               <span className="italic font-bold">{platform}:</span> {games}
@@ -102,7 +103,7 @@ export function FAQProblems() {
       <div className="mb-8">
         <h3 className="mb-5 text-lg italic font-bold text-blue-600">&quot;He registrado mi juego, pero no sale en la posición que debería&quot;</h3>
         <p className="text-sm text-gray-700 lg:text-base">
-          Los juegos se añaden automáticamente en una posición predeterminada en cada lista. Por ejemplo, en &quot;Terminados&quot;, &quot;Juegando&quot; o &quot;Completando&quot; se añaden <span className="font-bold">al principio</span>, mientras que en &quot;En lista&quot; u &quot;Otra Vez&quot; se añaden <span className="font-bold">al final</span>. En ocasiones muy excepcionales, el juego puede no añadirse en la posición que le corresponde (al principio o al final), quedando perdido en medio de otros juegos. Si se da el caso, comprueba que esté añadido haciendo click en &quot;Mostrar todos&quot; en la lista y buscándolo. Una vez localizado, <span className="font-bold">puedes moverlo a la posición deseada</span> haciendo click en el icono inferior (<span className="font-bold">...</span>) izquierdo para habilitar las flechas de desplazamiento.
+          Los juegos se añaden automáticamente en una posición predeterminada en cada lista. Por ejemplo, en &quot;Terminados&quot;, &quot;Jugando&quot; o &quot;Completando&quot; se añaden <span className="font-bold">al principio</span>, mientras que en &quot;En lista&quot; u &quot;Otra Vez&quot; se añaden <span className="font-bold">al final</span>. En ocasiones muy excepcionales, el juego puede no añadirse en la posición que le corresponde (al principio o al final), quedando perdido en medio de otros juegos. Si se da el caso, comprueba que esté añadido haciendo click en &quot;Mostrar todos&quot; en la lista y buscándolo. Una vez localizado, <span className="font-bold">puedes moverlo a la posición deseada</span> haciendo click en el icono inferior (<span className="font-bold">...</span>) izquierdo para habilitar las flechas de desplazamiento.
         </p>
       </div>
     </div>

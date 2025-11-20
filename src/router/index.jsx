@@ -10,6 +10,7 @@ import { PoliticaPrivacidad, TerminosUso } from "../templates/OutletTemplates/Ad
 import { AccesoPrivado } from "../templates/helpers/AdminComponents/AccesoPrivado"
 import { CollectionDetails } from "../templates/OutletTemplates/Portada/PortadaOnline/Carruseles/CarruselesHelpers/CollectionDetails"
 import { AddRandomGameToList } from "../templates/OutletTemplates/AddAndListTemplates/AddRandomGameToList"
+import { FriendsManager } from "../templates/OutletTemplates/AdminTemplates/UserSettings/FriendsManager"
 
 export const router = createBrowserRouter([
     {
@@ -157,6 +158,12 @@ export const router = createBrowserRouter([
                 path:'collections/:filterType/:filterValue',
                 element: <AccesoPrivado>
                             <CollectionDetails/>
+                        </AccesoPrivado>
+            },
+            {
+                path:'community',
+                element: <AccesoPrivado>
+                            <FriendsManager/>
                         </AccesoPrivado>
             },
             // {

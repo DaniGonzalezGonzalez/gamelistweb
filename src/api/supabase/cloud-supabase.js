@@ -19,16 +19,23 @@ export async function getDocuments(tableName) {
  * @return {Object} El objeto insertado con la propiedad de id si la inserción es exitosa.
  */
 export const addDocument = async (table, data) => {
-  const { data: insertedData, error } = await supabase
-      .from(table)
-      .insert([data]); // Asegúrate de que esto esté bien formado
+  let cleanData = { ...data };
 
-  if (error) {
-      console.error('Error al añadir el documento:', error);
-      throw error; // Lanza el error para que pueda ser manejado en el lugar donde se llama
+  if (table === 'Juegos') {
+    delete cleanData.file1;
+    delete cleanData.file2;
   }
 
-  return insertedData; // Retorna los datos insertados si todo va bien
+  const { data: insertedData, error } = await supabase
+    .from(table)
+    .insert([cleanData]);
+
+  if (error) {
+    console.error('Error al añadir el documento:', error);
+    throw error;
+  }
+
+  return insertedData;
 };
 
 
@@ -44,11 +51,31 @@ export const getDocument = async (tableName, id) => {
       .select('*')
       .eq('id', id)  // Asume que el campo de identificador es 'id'
       .single();     // Espera un solo registro
-  
-    if (error) {
-      throw new Error("Error al obtener el documento: " + error.message);
-    }
-  
+
+      if (error) {
+        throw new Error("Error al obtener el documento: " + error.message);
+      }
+    
+      if (!data) return null;
+    
+      // Si la tabla es Juegos, entonces buscamos las columnas que nos interesan en GamesBD usando gamebd_id
+      if (tableName === 'Juegos' && data.gamebd_id) {
+
+        const { data: datosGamesBD, error: errorGBD } = await supabase
+          .from('GamesBD')
+          .select('notaMetacriticPrensa, notaMetacriticUsuarios, tiempoCompletionist, tiempoMainAndSides, tiempoMainStory, linkMetacritic, linkHowLongToBeat, datosExtraJuego, lanzamiento')
+          .eq('id', data.gamebd_id)
+          .single();
+
+        if (errorGBD) {
+          throw new Error("Error al obtener datos de GamesBD: " + errorGBD.message);
+        }
+        if (datosGamesBD) {
+          // Inyectamos directamente al objeto data
+          Object.assign(data, datosGamesBD);
+        }
+      }
+      
     return data || null; // Devuelve los datos o null si no se encuentra nada
   };
 
@@ -100,7 +127,12 @@ export const getDocument = async (tableName, id) => {
               // Caso especial para Game Boy (excluir Game Boy Color y Game Boy Advance)
               query = query.filter(filter.field, 'ilike', `%Wii%`)
                             .not('plataforma', 'ilike', `%WiiU%`)
-              break;  
+              break; 
+            case 'Nintendo Switch':
+              // Caso especial para Game Boy (excluir Game Boy Color y Game Boy Advance)
+              query = query.filter(filter.field, 'ilike', `%Nintendo Switch%`)
+                           .not('plataforma', 'ilike', `%Nintendo Switch 2%`)
+              break;   
             default:
               // Búsqueda parcial para otras plataformas
               query = query.filter(filter.field, 'ilike', `%${platform}%`);
@@ -173,6 +205,11 @@ export const getDocument = async (tableName, id) => {
           query = query.ilike('plataforma', `%Game Boy%`)
                        .not('plataforma', 'ilike', `%Game Boy Color%`)
                        .not('plataforma', 'ilike', `%Game Boy Advance%`);
+          break;
+        case 'Nintendo Switch':
+          // Caso especial para Game Boy (excluir Game Boy Color y Game Boy Advance)
+          query = query.ilike('plataforma', `%Nintendo Switch%`)
+                       .not('plataforma', 'ilike', `%Nintendo Switch 2%`)
           break;
         case 'Wii':
           // Caso especial para Game Boy (excluir Game Boy Color y Game Boy Advance)

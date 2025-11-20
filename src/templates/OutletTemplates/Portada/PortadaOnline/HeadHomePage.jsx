@@ -43,6 +43,8 @@ export function HeadHomePage() {
   }, [localImages])
 
 
+
+
   return (
     <div className="relative flex flex-col items-center bg-transparent sm:pl-16">      
       { !user.id && 

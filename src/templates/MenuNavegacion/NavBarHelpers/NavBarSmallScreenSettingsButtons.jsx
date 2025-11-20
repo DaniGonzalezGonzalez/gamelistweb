@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ArchiveIcon, ArrowLeft, ConfigIcon, HomeIcon, SearchIcon, SettingsIcon, SettingsIconOpenMenu } from '../../../assets/Icons';
+import { CommunityIcon } from '../../../assets/Icons/CommunityIcon';
 import { ProfileIcon } from '../../../assets/Icons/ProfileIcon';
 import { useHandles } from '../../../hooks/useHandles';
 import { scrollToTop } from '../../helpers/constants/constants';
@@ -32,13 +33,7 @@ export function NavBarSmallScreenSettingsButtons ({ user, location, menuOpen, to
         <div className="grid items-center justify-between w-full grid-cols-5 sm:w-0">
           {/* <button className="flex items-center p-1 space-x-2 text-white rounded hover:bg-slate-800 sm:hidden" onClick={toggleMenu}>
             {!menuOpen ? <SettingsIcon/> : <SettingsIconOpenMenu/>}
-          </button> */}
-          <button className="sm:hidden" onClick={scrollToTop}>
-            <div className="flex flex-col items-center justify-center p-1 transition duration-500 rounded hover:bg-slate-800">
-              <HomeIcon w={5} h={5} />
-              <p className='text-[9px]'>Inicio</p>
-            </div>
-          </button>
+          </button> */}          
           <button className="sm:hidden" onClick={() => handleScrollToSection("indice-infohomepage-jugando")}>
             <div className="flex flex-col items-center justify-center p-1 transition duration-500 rounded hover:bg-slate-800">
               <ArchiveIcon w={5} h={5}/>
@@ -55,6 +50,12 @@ export function NavBarSmallScreenSettingsButtons ({ user, location, menuOpen, to
             <div className="flex flex-col items-center justify-center p-1 transition duration-500 rounded hover:bg-slate-800">
               <ProfileIcon w={5} h={5} />
               <p className='text-[9px]'>Perfil</p>
+            </div>
+          </Link>
+          <Link className="sm:hidden" to='/community'>
+            <div className="flex flex-col items-center justify-center p-1 transition duration-500 rounded hover:bg-slate-800">
+              <CommunityIcon w={5} h={5} />
+              <p className='text-[9px]'>Comunidad</p>
             </div>
           </Link>
           {/* <button className="sm:hidden" onClick={toggleConfig}>
